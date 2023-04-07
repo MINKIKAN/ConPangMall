@@ -35,4 +35,10 @@ public class MemberService {
     public void deleteMember(Long id) {
         memberRepository.deleteById(id);
     }
+
+    public Long getId(String loginId) {
+        Long id = memberRepository.findById(loginId);
+        return id;
+    }
+
 }

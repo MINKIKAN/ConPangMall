@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 
@@ -32,5 +33,12 @@ public class MemberRepository {
     }
 
     public void deleteById(Long id) {
+    }
+
+    public Long findById(String loginId) {
+        TypedQuery<Long> query = em.createQuery("SELECT m.id FROM Member m WHERE m.login_id = :login_id", Long.class);
+        query.setParameter("login_id", loginId);
+        Long id = query.getSingleResult();
+      return id;
     }
 }

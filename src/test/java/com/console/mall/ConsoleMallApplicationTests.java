@@ -3,6 +3,7 @@ package com.console.mall;
 import com.console.mall.entitiy.Category;
 import com.console.mall.entitiy.Item;
 import com.console.mall.entitiy.Member;
+import com.console.mall.entitiy.Review;
 import com.console.mall.respository.CategoryRepository;
 import com.console.mall.respository.ItemRepository;
 import com.console.mall.respository.MemberRepository;
@@ -39,7 +40,6 @@ class ConsoleMallApplicationTests {
 	}
 	@Test
 	void 회원추가() {
-		// 회원 추가
 		Member member1 = new Member();
 		member1.setName("홍길동");
 		member1.setLogin_id("qwer");
@@ -59,6 +59,7 @@ class ConsoleMallApplicationTests {
 		memberRepository.save(member1);
 		memberRepository.save(member2);
 		memberRepository.save(member3);
+		// 회원 추가
 	}
 	@Test
 	void 카테고리AND아이템추가() {
@@ -74,6 +75,42 @@ class ConsoleMallApplicationTests {
 		item1.setStockQuantity(100);
 		item1.setCategory(ps);
 		item1.setImage("/img/ps4 slim jetblack.jpg");
+		item1.setItemInfo("PS4 Slim Jet Black은 소니가 제조한 게임 콘솔로, 흑색의 광택있는 디자인으로 유명합니다. 이 제품은 PS4 Pro보다 크기가 작고 가볍습니다. 그러나 그래픽 성능이나 게임 실행 속도는 더 높은 스펙을 가진 PS4 Pro에 비해 다소 낮을 수 있습니다.\n" +
+				"\n" +
+				"PS4 Slim Jet Black은 Wi-Fi 및 블루투스 기능을 탑재하고 있으며, 무선 인터넷 연결을 통해 온라인 게임을 즐길 수 있습니다. 또한 USB 포트를 통해 게임 컨트롤러를 연결하거나 외부 저장 장치를 사용할 수도 있습니다.\n" +
+				"\n" +
+				"이 제품에는 다양한 게임 제목이 미리 설치되어 있지 않으며, 게임을 즐기기 위해서는 별도의 게임 디스크나 다운로드를 해야 합니다. PS4 Slim Jet Black은 대부분의 게임을 실행할 수 있으며, PlayStation Store에서 다양한 게임을 다운로드할 수 있습니다.\n" +
+				"\n" +
+				"이 게임 콘솔은 가정용으로 설계되어 있으며, 여러 사람이 함께 즐길 수 있는 멀티플레이 기능을 제공합니다. 또한 PlayStation Plus 구독 서비스를 통해 월별 무료 게임을 다운로드할 수 있으며, 온라인 멀티플레이에 참여할 수 있습니다.\n" +
+				"\n" +
+				"PS4 Slim Jet Black은 적절한 가격대에 제공되며, 게임 콘솔을 즐기는데 필요한 기능을 충분히 갖추고 있습니다. 게임을 즐기는 새로운 방식을 경험하고 싶은 분들에게 추천드립니다.");
+		item1.setItemVideo("https://www.youtube.com/embed/PsOcep7PGjs");
+		List<Review> rList = new ArrayList<>();
+		Review review1 = new Review();
+		review1.setImage("/review_img/PS4 Slim Jet Black_review1.jpg");
+		review1.setTitle("Test1");
+		review1.setContent("응테스트야");
+		review1.setWriter("qwer");
+		review1.setItem(item1);
+
+		Review review2 = new Review();
+		review2.setImage("/review_img/PS4 Slim Jet Black_review2.jpg");
+		review2.setTitle("test2");
+		review2.setContent("응 이것도테스트야");
+		review2.setWriter("asdf");
+		review2.setItem(item1);
+
+		Review review3 = new Review();
+		review3.setImage("/review_img/PS4 Slim Jet Black_review3.jpg");
+		review3.setTitle("test3");
+		review3.setContent("이것도 테스튼데?");
+		review3.setWriter("zxcv");
+		review3.setItem(item1);
+
+		rList.add(review1);
+		rList.add(review2);
+		rList.add(review3);
+		item1.setList(rList);
 
 		Item item2 = new Item();
 		item2.setName("ps5 vt2 호라이즌");
@@ -123,6 +160,7 @@ class ConsoleMallApplicationTests {
 		item8.setStockQuantity(50);
 		item8.setCategory(nintendo);
 		item8.setImage("/img/닌텐도스위치블루레드.jpg");
+
 
 		Item item9 = new Item();
 		item9.setName("플스4프로7218b 1tb");

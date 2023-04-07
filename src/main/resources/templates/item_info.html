@@ -46,6 +46,9 @@
     <link type="text/css" rel="stylesheet" href="//static.msscdn.net/skin/musinsa/css/image_search.css?1680141600000">
 
     <link rel="stylesheet" type="text/css" href="//static.msscdn.net/ui/build/pc/css/category.css">
+
+    <link rel="stylesheet" href="/css/item_info.css">
+
 </head>
 
 <body id="page-top">
@@ -406,148 +409,106 @@
             </nav>
             <!-- End of Topbar -->
 
-            <!-- Begin Page Content -->
+            <!-- 바디부분 시작 -->
             <div class="container-fluid">
-                <div class="right_contents hover_box" id="goods_list">
 
-                    <div class="boxed-list-wrapper">
-                        <!-- 정렬 기준 -->
-                        <div class="sorter-box box">
-                            <a href="#" onclick="goodsFilterManage.sortGoods('pop_category'); return false;"><span
-                                    class="division active">추천순</span></a>
-                            <a href="#" onclick="goodsFilterManage.sortGoods('new'); return false;"><span
-                                    class="division">신상품(재입고)순</span></a>
-                            <a href="#" onclick="goodsFilterManage.sortGoods('price_low'); return false;"><span
-                                    class="division">낮은 가격순</span></a>
-                            <a href="#" onclick="goodsFilterManage.sortGoods('price_high'); return false;"><span
-                                    class="division">높은 가격순</span></a>
-                            <a href="#" onclick="goodsFilterManage.sortGoods('discount_rate'); return false;"><span
-                                    class="division">할인율순</span></a>
-                            <a href="#" onclick="goodsFilterManage.sortGoods('emt_high'); return false;"><span
-                                    class="division">후기순</span></a>
-                            <a class="ui-layer-btn sorting" data-type="toggle" href="#layerSorting_sale"><span
-                                    class="division last">판매순<i class="ic-14-line-arrow-bottom"></i></span>
-                                <div class="ui-layer layer-toggle fade-in sorting_view" id="layerSorting_sale">
-                                    <div class="layer-option sorting">
-                                        <input id="prdSort1" name="prdSort" type="radio">
-                                        <label for="prdSort1"
-                                               onclick="goodsFilterManage.sortGoods('sale_high','1d');return false;">1일</label>
-                                        <input id="prdSort2" name="prdSort" type="radio">
-                                        <label for="prdSort2"
-                                               onclick="goodsFilterManage.sortGoods('sale_high','1w');return false;">1주일</label>
-                                        <input id="prdSort3" name="prdSort" type="radio">
-                                        <label for="prdSort3"
-                                               onclick="goodsFilterManage.sortGoods('sale_high','1m');return false;">1개월</label>
-                                        <input id="prdSort4" name="prdSort" type="radio">
-                                        <label for="prdSort4"
-                                               onclick="goodsFilterManage.sortGoods('sale_high','3m');return false;">3개월</label>
-                                        <input id="prdSort5" name="prdSort" type="radio">
-                                        <label for="prdSort5"
-                                               onclick="goodsFilterManage.sortGoods('sale_high','1y');return false;">1년</label>
+                <div class="con">
+
+                    <!-- 상품 구매에 관한 콘테이너 시작-->
+                    <div class="first-con">
+                        <div class="first-left-con">
+                            <div class="product-img-box"><img class="product-img" th:src="${item.image}" alt=""></div>
+                            <div class="product-img-slide-box">
+                                <!-- 아래 작은 이미지 누르면 바뀌면서 보이게 -->
+                            </div>
+                        </div>
+                        <div class="first-right-con">
+                            <div class="product-title">
+                                <h1 th:text="${item.name}"></h1>
+                            </div>
+                            <div class="product-price-info-box">
+                                <div class="product-price-name">가격</div>
+                                <div class="product-price" th:text="${item.price}"></div>
+                            </div>
+                            <div class="product-member-ship-box">
+                                <div class="product-member-ship-title"></div>
+                                <div class="product-member-ship-info-box">
+                                </div>
+                            </div>
+                            <div class="product-buy-info-box">
+                                <form class="product-form" action="">
+                                    <div class="content-line">
+                                        <p>옵션1 </p>
+                                        <select class="product-select">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
                                     </div>
-                                </div>
-                            </a>
-                            <!-- 상단 페이지네이션 -->
-                            <div class="pagination" data-page-number="1" data-total-page="46">
-                                <div class="wrapper">
-                                    <a class="fa fa-angle-double-left paging-btn btn first" href="#"
-                                       onclick="return false;">
-                                        <label style="display:none">첫 페이지</label>
-                                    </a>
-                                    <a class="fa fa-angle-left paging-btn btn prev" href="#"
-                                       onclick="return false;">
-                                        <label style="display:none">이전</label>
-                                    </a>
-                                    <a href="#" class="paging-btn btn active" onclick="return false;">1</a><a
-                                        href="#" class="paging-btn btn"
-                                        onclick="switchPage(document.f1,2); return false;">2</a><a href="#"
-                                                                                                   class="paging-btn btn"
-                                                                                                   onclick="switchPage(document.f1,3); return false;">3</a><a
-                                        href="#"
-                                        class="paging-btn btn"
-                                        onclick="switchPage(document.f1,4); return false;">4</a><a href="#"
-                                                                                                   class="paging-btn btn"
-                                                                                                   onclick="switchPage(document.f1,5); return false;">5</a><a
-                                        href="#"
-                                        class="paging-btn btn"
-                                        onclick="switchPage(document.f1,6); return false;">6</a><a href="#"
-                                                                                                   class="paging-btn btn"
-                                                                                                   onclick="switchPage(document.f1,7); return false;">7</a><a
-                                        href="#"
-                                        class="paging-btn btn"
-                                        onclick="switchPage(document.f1,8); return false;">8</a><a href="#"
-                                                                                                   class="paging-btn btn"
-                                                                                                   onclick="switchPage(document.f1,9); return false;">9</a><a
-                                        href="#"
-                                        class="paging-btn btn"
-                                        onclick="switchPage(document.f1,10); return false;">10</a>
-                                    <a class="fa fa-angle-right paging-btn btn next" href="#"
-                                       onclick="switchPage(document.f1,11);">
-                                        <label style="display:none">다음</label>
-                                    </a>
-                                </div>
+                                    <div class="content-line">
+                                        <p>옵션2 </p>
+                                        <select class="product-select">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                    <div class="content-line">
+                                        <p>옵션3 </p>
+                                        <select class="product-select">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                    <div class="product-buy-button">구매하기</div>
+                                    <div class="product-cart-button">장바구니 담기</div>
+                                </form>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <!-- 상품 구매에 관한 콘테이너 끝-->
+
+                    <!-- 상품 정보에 관한 콘테이너 시작-->
+                    <div class="second-con">
+                        <div class="product-explanation-con">
+                            <div class="youtube-link-box">
+                                <iframe th:src="${item.itemVideo}"></iframe>
+                            </div>
+                            <div class="product-info-content">
+                                <p th:text="${item.itemInfo}"></p>
                             </div>
                         </div>
 
-                        <!-- 상품 리스트 시작 부분-->
-                        <div class="list-box box">
-                            <ul id="searchList"
-                                class="snap-article-list boxed-article-list article-list center list goods_small_media8">
-                                <li class="li_box" th:each="item : ${itemList}">
-                                    <div class="li_inner">
-                                        <div class="list_img">
-                                            <a class="img-block" th:href="@{/item/info/{id}(id=${item.id})}">
-                                                <img class="lazyload lazy"  th:src="${item.image}" style="display: block;">
-                                            </a>
-                                        </div>
-                                        <div class="article_info">
-                                            <p class="item_title"><a th:href="@{/item/info/{id}(id=${item.id})}" th:text="${item.name}"></a></p>
-                                            <p class="list_info">
-                                                <a th:text="${item.name}"></a>
-                                            </p>
+                    </div>
+                    <!-- 상품 정보에 관한 콘테이너 시작-->
 
-                                            <p class="price" th:text="${item.price}">원</p>
-
-
-                                            <p class="membership" onclick="viewMemberPrice('sPrice_2440039', '2440039', '0');">MEMBERSHIP PRICE<span class="fr">▼</span></p>
-                                            <div class="member_price" style="display:none; z-index: 9999;" id="sPrice_2440039">
-                                                <p>무신사 회원가<span class="fr"><a href="#" onclick="viewMemberPrice('sPrice_2440039', '2440039', '0');return false;">X</a></span></p>
-                                                <ul>
-                                                    <li style="border-bottom:1px solid #ddd;" class="pertinent">
-                                                        <span>&gt; </span>
-                                                        비회원
-                                                        <span class="txt_price_member">19,900원</span></li>
-                                                </ul>
-                                            </div>
-
-
-
-                                            <p class="point">
-                                                <span class="img-score"><span class="bar" style="width:96%"></span></span>
-                                                <span class="count">3,839</span>
-                                            </p>
-
-                                            <p class="txt_cnt_like" data-goodsno="2440039"><img src="//image.msscdn.net/skin/musinsa/images/icon_like_small_on.png" alt="좋아요"> 9,100</p>
-                                        </div>
-                                    </div>
-                                    <div class="option">
-                                        <p class="option_btn">
-                                            <a data-goods-no="2440039" href="#pol2440039" onclick="viewOptionBox(2440039, 0); return false;">OPTION ▼</a>
-                                        </p>
-                                        <div style="display:none;" class="list_pol_goods" id="pol2440039"></div>
-                                    </div>
-                                </li>
-                            </ul>
+                    <!-- 리뷰에 관한 콘테이너 시작-->
+                    <div class="third-con">
+                        <div class="review-con">
+                            <div class="review-info" th:each="review : ${reviewList}">
+                                <div class="review-img">
+                                    <img th:src="${review.image}" alt="">
+                                </div>
+                                <div class="review-board">
+                                    <div class="review-title" th:text="${review.title}"></div>
+                                    <div class="review-writer" th:text="${review.writer}"></div>
+                                    <div class="review-content" th:text="${review.content}"></div>
+                                </div>
+                            </div>
 
                         </div>
-                        <!--상품 리스트 끝 부분 -->
-
-
                     </div>
-                </div>
+                    <!-- 리뷰에 관한 콘테이너 끝-->
 
+                </div>
             </div>
-            <!-- /.container-fluid -->
+            <!-- 바디부분 끝 -->
 
         </div>
         <!-- End of Main Content -->
