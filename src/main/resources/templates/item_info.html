@@ -49,6 +49,29 @@
 
     <link rel="stylesheet" href="/css/item_info.css">
 
+
+    <style>
+        .con { width:100%; max-width:1400px; }
+        .review_area { width:100%; max-width:1120px; }
+        p.review_notice { font-size:24px; border-bottom:1px solid rgba(22,22,22,0.3); margin:20px auto; }
+        li.review_title { display:flex; align-items:center; margin:20px 0; }
+        li.review_title div { width:25%; text-align:center; }
+
+        .review_items { display:flex; align-items:center; flex-wrap:wrap; }
+        .card-header { width:100%; padding:0; }
+        .collapse { width:100%; }
+        .accordion>.card>.card-header button.btn-link { display:flex; width:100%; align-items:center; }
+        .accordion>.card>.card-header button.btn-link div { width:25%; text-align:center; }
+        .accordion>.card>.card-header button.btn-link div img { max-width:100%; object-fit:contain; }
+
+        .card-body { flex:none; display: flex; flex-wrap: wrap; }
+        .card-body .detail_img { width:50%; }
+        .card-body .detail_img img { max-width:100%; object-fit:contain; }
+        .card-body .detail_box { width:50%; padding:15px; box-sizing: border-box; }
+        .card-body .detail_box .detail_title { font-size: 33px; display: block; }
+        .card-body .detail_box .detail_writer { text-align: right; }
+
+    </style>
 </head>
 
 <body id="page-top">
@@ -490,18 +513,46 @@
 
                     <!-- 리뷰에 관한 콘테이너 시작-->
                     <div class="third-con">
-                        <div class="review-con">
-                            <div class="review-info" th:each="review : ${reviewList}">
-                                <div class="review-img">
-                                    <img th:src="${review.image}" alt="">
-                                </div>
-                                <div class="review-board">
-                                    <div class="review-title" th:text="${review.title}"></div>
-                                    <div class="review-writer" th:text="${review.writer}"></div>
-                                    <div class="review-content" th:text="${review.content}"></div>
+                        <div class="review_area">
+                            <ul class="review_list">
+                                <p class="review_notice">리뷰</p>
+                                <li class="review_title">
+                                    <div class="review_img">이미지</div>
+                                    <div class="review_title">제목</div>
+                                    <div class="review_writer">작성자</div>
+                                    <div class="review_date">날짜</div>
+                                </li>
+                            </ul>
+
+                            <div class="accordion" id="accordionExample">
+                                <div class="card review_items" th:each="review : ${reviewList}">
+                                    <div class="card-header" id="headingOne">
+                                        <h2 class="mb-0">
+                                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                <div class="review_img">
+                                                    <img th:src="${review.image}" alt="">
+                                                </div>
+                                                <div class="review_title" th:text="${review.title}"></div>
+                                                <div class="review_writer" th:text="${review.writer}"></div>
+                                                <div class="review_date"></div>
+                                            </button>
+                                        </h2>
+                                    </div>
+
+                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="detail_img">
+                                                <img th:src="${review.image}" alt="">
+                                            </div>
+                                            <div class="detail_box">
+                                                <div class="detail_title" th:text="${review.title}"></div>
+                                                <div class="detail_writer" th:text="${review.writer}"></div>
+                                                <div class="detail-content" th:text="${review.content}"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <!-- 리뷰에 관한 콘테이너 끝-->

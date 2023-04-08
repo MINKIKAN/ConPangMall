@@ -46,6 +46,71 @@
     <link type="text/css" rel="stylesheet" href="//static.msscdn.net/skin/musinsa/css/image_search.css?1680141600000">
 
     <link rel="stylesheet" type="text/css" href="//static.msscdn.net/ui/build/pc/css/category.css">
+
+    <style>
+        /* list_관련 css */
+        ul.items_list {
+            display: flex;
+            width: 100%;
+            height: auto;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 30px;
+            flex-wrap: wrap;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        ul.items_list .items_box {
+            display: flex;
+            width: calc((100% - 60px)/3);
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 15px;
+            box-sizing: border-box;
+            aspect-ratio: 1/1;
+            border: 1px solid rgba(22,22,22,0.1);
+            border-radius: 15px;
+        }
+
+        ul.items_list .items_box .img_box,
+        ul.items_list .items_box .item_name {
+            width: 50%;
+        }
+        ul.items_list .items_box .img_box a {
+            display: block;
+        }
+        ul.items_list .items_box .img_box a img {
+            max-width: 100%;
+            object-fit: contain;
+        }
+        ul.items_list .items_box .item_name {
+            text-align: center;
+        }
+        ul.items_list .items_box .item_name .item_txt01 {
+            font-size: 20px;
+            word-break: keep-all;
+        }
+        ul.items_list .items_box .item_name .item_txt02 {
+            font-size: 14px;
+        }
+        ul.items_list .items_box .item_price {
+            width: 100%;
+            margin-top: 15px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap:0 5px;
+        }
+        ul.items_list .items_box .item_price p.price {
+            font-size: 16px;
+            font-weight: bold;
+            letter-spacing: -0.05em;
+            color:#222;
+        }
+
+    </style>
 </head>
 
 <body id="page-top">
@@ -411,137 +476,24 @@
                 <div class="right_contents hover_box" id="goods_list">
 
                     <div class="boxed-list-wrapper">
-                        <!-- 정렬 기준 -->
-                        <div class="sorter-box box">
-                            <a href="#" onclick="goodsFilterManage.sortGoods('pop_category'); return false;"><span
-                                    class="division active">추천순</span></a>
-                            <a href="#" onclick="goodsFilterManage.sortGoods('new'); return false;"><span
-                                    class="division">신상품(재입고)순</span></a>
-                            <a href="#" onclick="goodsFilterManage.sortGoods('price_low'); return false;"><span
-                                    class="division">낮은 가격순</span></a>
-                            <a href="#" onclick="goodsFilterManage.sortGoods('price_high'); return false;"><span
-                                    class="division">높은 가격순</span></a>
-                            <a href="#" onclick="goodsFilterManage.sortGoods('discount_rate'); return false;"><span
-                                    class="division">할인율순</span></a>
-                            <a href="#" onclick="goodsFilterManage.sortGoods('emt_high'); return false;"><span
-                                    class="division">후기순</span></a>
-                            <a class="ui-layer-btn sorting" data-type="toggle" href="#layerSorting_sale"><span
-                                    class="division last">판매순<i class="ic-14-line-arrow-bottom"></i></span>
-                                <div class="ui-layer layer-toggle fade-in sorting_view" id="layerSorting_sale">
-                                    <div class="layer-option sorting">
-                                        <input id="prdSort1" name="prdSort" type="radio">
-                                        <label for="prdSort1"
-                                               onclick="goodsFilterManage.sortGoods('sale_high','1d');return false;">1일</label>
-                                        <input id="prdSort2" name="prdSort" type="radio">
-                                        <label for="prdSort2"
-                                               onclick="goodsFilterManage.sortGoods('sale_high','1w');return false;">1주일</label>
-                                        <input id="prdSort3" name="prdSort" type="radio">
-                                        <label for="prdSort3"
-                                               onclick="goodsFilterManage.sortGoods('sale_high','1m');return false;">1개월</label>
-                                        <input id="prdSort4" name="prdSort" type="radio">
-                                        <label for="prdSort4"
-                                               onclick="goodsFilterManage.sortGoods('sale_high','3m');return false;">3개월</label>
-                                        <input id="prdSort5" name="prdSort" type="radio">
-                                        <label for="prdSort5"
-                                               onclick="goodsFilterManage.sortGoods('sale_high','1y');return false;">1년</label>
-                                    </div>
-                                </div>
-                            </a>
-                            <!-- 상단 페이지네이션 -->
-                            <div class="pagination" data-page-number="1" data-total-page="46">
-                                <div class="wrapper">
-                                    <a class="fa fa-angle-double-left paging-btn btn first" href="#"
-                                       onclick="return false;">
-                                        <label style="display:none">첫 페이지</label>
-                                    </a>
-                                    <a class="fa fa-angle-left paging-btn btn prev" href="#"
-                                       onclick="return false;">
-                                        <label style="display:none">이전</label>
-                                    </a>
-                                    <a href="#" class="paging-btn btn active" onclick="return false;">1</a><a
-                                        href="#" class="paging-btn btn"
-                                        onclick="switchPage(document.f1,2); return false;">2</a><a href="#"
-                                                                                                   class="paging-btn btn"
-                                                                                                   onclick="switchPage(document.f1,3); return false;">3</a><a
-                                        href="#"
-                                        class="paging-btn btn"
-                                        onclick="switchPage(document.f1,4); return false;">4</a><a href="#"
-                                                                                                   class="paging-btn btn"
-                                                                                                   onclick="switchPage(document.f1,5); return false;">5</a><a
-                                        href="#"
-                                        class="paging-btn btn"
-                                        onclick="switchPage(document.f1,6); return false;">6</a><a href="#"
-                                                                                                   class="paging-btn btn"
-                                                                                                   onclick="switchPage(document.f1,7); return false;">7</a><a
-                                        href="#"
-                                        class="paging-btn btn"
-                                        onclick="switchPage(document.f1,8); return false;">8</a><a href="#"
-                                                                                                   class="paging-btn btn"
-                                                                                                   onclick="switchPage(document.f1,9); return false;">9</a><a
-                                        href="#"
-                                        class="paging-btn btn"
-                                        onclick="switchPage(document.f1,10); return false;">10</a>
-                                    <a class="fa fa-angle-right paging-btn btn next" href="#"
-                                       onclick="switchPage(document.f1,11);">
-                                        <label style="display:none">다음</label>
+
+                        <ul class="items_list">
+                            <li class="items_box" th:each="item : ${itemList}">
+                                <div class="img_box">
+                                    <a class="img-block" th:href="@{/item/info/{id}(id=${item.id})}">
+                                        <img class="lazyload lazy"  th:src="${item.image}" style="display: block;">
                                     </a>
                                 </div>
-                            </div>
-                        </div>
-
-                        <!-- 상품 리스트 시작 부분-->
-                        <div class="list-box box">
-                            <ul id="searchList"
-                                class="snap-article-list boxed-article-list article-list center list goods_small_media8">
-                                <li class="li_box" th:each="item : ${itemList}">
-                                    <div class="li_inner">
-                                        <div class="list_img">
-                                            <a class="img-block" th:href="@{/item/info/{id}(id=${item.id})}">
-                                                <img class="lazyload lazy"  th:src="${item.image}" style="display: block;">
-                                            </a>
-                                        </div>
-                                        <div class="article_info">
-                                            <p class="item_title"><a th:href="@{/item/info/{id}(id=${item.id})}" th:text="${item.name}"></a></p>
-                                            <p class="list_info">
-                                                <a th:text="${item.name}"></a>
-                                            </p>
-
-                                            <p class="price" th:text="${item.price}">원</p>
-
-
-                                            <p class="membership" onclick="viewMemberPrice('sPrice_2440039', '2440039', '0');">MEMBERSHIP PRICE<span class="fr">▼</span></p>
-                                            <div class="member_price" style="display:none; z-index: 9999;" id="sPrice_2440039">
-                                                <p>무신사 회원가<span class="fr"><a href="#" onclick="viewMemberPrice('sPrice_2440039', '2440039', '0');return false;">X</a></span></p>
-                                                <ul>
-                                                    <li style="border-bottom:1px solid #ddd;" class="pertinent">
-                                                        <span>&gt; </span>
-                                                        비회원
-                                                        <span class="txt_price_member">19,900원</span></li>
-                                                </ul>
-                                            </div>
-
-
-
-                                            <p class="point">
-                                                <span class="img-score"><span class="bar" style="width:96%"></span></span>
-                                                <span class="count">3,839</span>
-                                            </p>
-
-                                            <p class="txt_cnt_like" data-goodsno="2440039"><img src="//image.msscdn.net/skin/musinsa/images/icon_like_small_on.png" alt="좋아요"> 9,100</p>
-                                        </div>
-                                    </div>
-                                    <div class="option">
-                                        <p class="option_btn">
-                                            <a data-goods-no="2440039" href="#pol2440039" onclick="viewOptionBox(2440039, 0); return false;">OPTION ▼</a>
-                                        </p>
-                                        <div style="display:none;" class="list_pol_goods" id="pol2440039"></div>
-                                    </div>
-                                </li>
-                            </ul>
-
-                        </div>
-                        <!--상품 리스트 끝 부분 -->
-
+                                <div class="item_name">
+                                    <p class="item_txt01"><a th:href="@{/item/info/{id}(id=${item.id})}" th:text="${item.name}"></a></p>
+                                    <p class="item_txt02">부가설명</p>
+                                </div>
+                                <div class="item_price">
+                                    <p class="price" th:text="${item.price}"></p>
+                                    원
+                                </div>
+                            </li>
+                        </ul>
 
                     </div>
                 </div>
