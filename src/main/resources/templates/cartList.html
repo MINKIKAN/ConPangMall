@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <div th:replace="/fragments/header :: header" />
+    <link rel="stylesheet" href="/css/cartList.css">
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- 왼쪽 사이드 바 시작 -->
+    <!-- th:replace로 templates안에 fragments 폴더안에 side_bar.html 받아오게 함 -->
+    <!-- 수정할 내용은 side_bar.html 에서 해주시면 다 적용됩니다 -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <div th:replace="/fragments/side_bar :: side_bar" />
+    </ul>
+    <!-- 왼쪽 사이드 바 끝 -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- 상단의 nav 바 시작 -->
+            <!-- 이것도 수정하실거 있으시면 fragments 폭더에 nav_bar 수정해주시면 됩니다 -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <div th:replace="/fragments/nav_bar :: nav_bar" />
+            </nav>
+            <!-- 상단의 nav 바 끝 -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <div class="cart_area">
+                    <p class="cart_title">장바구니</p>
+
+                    <div class="btn_area">
+                        <button class="select_all">전체선택</button>
+                        <button class="select_del">선택삭제</button>
+                    </div>
+                    <ul class="cart_list">
+                        <li class="cart_index">
+                            <div class="cart_cheek"><input type="checkbox" name="cart_cheek" id=""></div>
+                            <div class="cart_img">이미지</div>
+                            <div class="cart_title">상품이름</div>
+                            <div class="cart_price">가격</div>
+                            <div class="cart_del">삭제</div>
+                        </li>
+                        <li class="cart_items">
+                            <a href="경로들어갈곳">
+                                <div class="cart_cheek"><input type="checkbox" name="cart_cheek" id=""></div>
+                                <div class="cart_img">대충 X박스 이미지</div>
+                                <div class="cart_title">XBOX - ONE</div>
+                                <div class="cart_price">50,000원</div>
+                                <div class="cart_del"><button>삭제</button></div>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <div class="total_area">
+                        <p class="total_price">총 금액 : <span>123,456</span> 원</p>
+                        <button class="buy_btn">구매하기</button>
+                    </div>
+
+
+                    <div class="address_cheek">
+                        <p class="address_title">배송지 확인</p>
+                        <div class="address_area">
+                            <div class="address_txt01">주소 : <span>주소 불러오기</span> </div>
+                            <div class="address_txt02">상세주소 : <span>상세주소 불러오기</span> </div>
+                            <button class="change_btn">배송지 변경</button>
+                        </div>
+                    </div>
+
+                    <div class="address_popup">
+                        <div class="add_pop_txt01"><label for="">수령인</label><input type="text" name="" id=""></div>
+                        <div class="add_pop_txt02"><label for="">연락처</label><input type="text" name="" id=""></div>
+                        <div class="add_pop_txt03"><label for="">주소</label><input type="text" name="" id=""></div>
+                        <div class="add_pop_txt04"><label for="">상세주소</label><input type="text" name="" id=""></div>
+                        <div class="add_pop_txt05"><label for="">메모</label><input type="text" name="" id=""></div>
+
+                        <div class="pop_btn_area">
+                            <button class="edit_btn">수정</button>
+                            <button class="cancel_btn">취소</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2020</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="#">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

@@ -3311,3 +3311,65 @@ a:hover .num {
     color: #aaa;
     text-align: center;
 }
+
+ul.items_list {
+    display: flex;
+    width: 100%;
+    height: auto;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 30px;
+    flex-wrap: wrap;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+ul.items_list .items_box {
+    display: flex;
+    width: calc((100% - 60px)/3);
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 15px;
+    box-sizing: border-box;
+    aspect-ratio: 1/1;
+    border: 1px solid rgba(22,22,22,0.1);
+    border-radius: 15px;
+}
+
+ul.items_list .items_box .img_box,
+ul.items_list .items_box .item_name {
+    width: 50%;
+}
+ul.items_list .items_box .img_box a {
+    display: block;
+}
+ul.items_list .items_box .img_box a img {
+    max-width: 100%;
+    object-fit: contain;
+}
+ul.items_list .items_box .item_name {
+    text-align: center;
+}
+ul.items_list .items_box .item_name .item_txt01 {
+    font-size: 20px;
+    word-break: keep-all;
+}
+ul.items_list .items_box .item_name .item_txt02 {
+    font-size: 14px;
+}
+ul.items_list .items_box .item_price {
+    width: 100%;
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap:0 5px;
+}
+ul.items_list .items_box .item_price p.price {
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: -0.05em;
+    color:#222;
+}
+

@@ -254,3 +254,23 @@
     justify-content: center;
     align-items:center;
 }
+
+.con { width:100%; max-width:1400px; }
+.review_area { width:100%; max-width:1120px; }
+p.review_notice { font-size:24px; border-bottom:1px solid rgba(22,22,22,0.3); margin:20px auto; }
+li.review_title { display:flex; align-items:center; margin:20px 0; }
+li.review_title div { width:25%; text-align:center; }
+
+.review_items { display:flex; align-items:center; flex-wrap:wrap; }
+.card-header { width:100%; padding:0; }
+.collapse { width:100%; }
+.accordion>.card>.card-header button.btn-link { display:flex; width:100%; align-items:center; }
+.accordion>.card>.card-header button.btn-link div { width:25%; text-align:center; }
+.accordion>.card>.card-header button.btn-link div img { max-width:100%; object-fit:contain; }
+
+.card-body { flex:none; display: flex; flex-wrap: wrap; }
+.card-body .detail_img { width:50%; }
+.card-body .detail_img img { max-width:100%; object-fit:contain; }
+.card-body .detail_box { width:50%; padding:15px; box-sizing: border-box; }
+.card-body .detail_box .detail_title { font-size: 33px; display: block; }
+.card-body .detail_box .detail_writer { text-align: right; }
