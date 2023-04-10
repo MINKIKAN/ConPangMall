@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <script type="text/javascript" src="/js/main.js" defer></script>
 
     <title>콘솔게임</title>
     <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -18,7 +19,6 @@
     <!-- Custom styles for this template-->
     <link href="/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/item_show.css">
-    <link rel="shortcut icon" href="//image.msscdn.net/favicon.ico?20200213" type="image/x-icon">
     <link rel="stylesheet" href="//image.msscdn.net/ui/musinsa/resources/common/css/icon.min.css?1680141600000">
     <link rel="stylesheet" href="//static.msscdn.net/ui/build/pc/css/common.css">
     <link rel="stylesheet" href="//static.msscdn.net/ui/build/pc/css/review.css">
@@ -112,9 +112,9 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">category</h6>
-                    <a class="collapse-item" href="/item">패드</a>
-                    <a class="collapse-item" href="/item">헤드셋</a>
-                    <a class="collapse-item" href="/item">파우치</a>
+                    <a class="collapse-item" href="/item/id=5">패드</a>
+                    <a class="collapse-item" href="/item/id=6">헤드셋</a>
+                    <a class="collapse-item" href="/item/id=7">파우치</a>
                 </div>
             </div>
         </li>
@@ -375,7 +375,7 @@
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">로그인</span>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">회원가입</span>
                             <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                         </a>
                         <!-- Dropdown - User Information -->
@@ -412,10 +412,12 @@
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">MAIN</h1>
+
                     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                             class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                 </div>
-
+                <h1 class="h3 mb-0 text-gray-800"><a href="/members/new">회원가입</a></h1>
+                <h1 class="h3 mb-0 text-gray-800"><a href="/members">회원목록</a></h1>
                 <!-- Content Row -->
                 <div class="top" style="margin-bottom: 50px;">
                     <img class="slide" src="/img/ps4 slim jetblack.jpg" width="800" height="500"

@@ -45,6 +45,7 @@ class ConsoleMallApplicationTests {
 		member1.setLogin_id("qwer");
 		member1.setPw("qwer");
 
+
 		Member member2 = new Member();
 		member2.setName("김철수");
 		member2.setLogin_id("asdf");

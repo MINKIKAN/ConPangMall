@@ -36,22 +36,26 @@ public class MemberController {
         Member member = new Member();
         member.setName(form.getName());
         member.setAddress(address);
+        member.setEmail(form.getEmail());
+        member.setLogin_id(form.getLogin_id());
+        member.setPw(form.getPw());
+        member.setPhone(form.getPhone());
         memberService.join(member);
         return "redirect:/";
     }
 
-    @GetMapping("members")
+    @GetMapping("/members")
     public String list(Model model){
         List<Member> members = memberService.findMembers();
         model.addAttribute("members", members);
         return "members/memberList";
     }
 
-    @PostMapping("members/{id}/delete")
-    public String delete(@PathVariable Long id){
-        memberService.deleteMember(id);
-        return "redirect:/members";
-    }
+//    @PostMapping("members/{id}/delete")
+//    public String delete(@PathVariable Long id){
+//        memberService.deleteMember(id);
+//        return "redirect:/members";
+//    }
 
 
 }

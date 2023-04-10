@@ -12,10 +12,12 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
     private String name;
+    private String email;
     private String login_id;
     private String pw;
+    private String phone;
     @Embedded
     private Address address;
-    private String email;
-    private String phone;
+
+
 }
