@@ -42,5 +42,8 @@ public class ItemController {
         model.addAttribute("reviewList", reviewList);
         return "item_info";
     }
-
+    @GetMapping("/item/admin")
+    public String itemAdd() {
+        return "item_admin";
+    }
 }
