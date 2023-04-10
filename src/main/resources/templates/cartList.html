@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <div th:replace="/fragments/header :: header" />
+    <div th:replace="fragments/header :: header" />
     <link rel="stylesheet" href="/css/cartList.css">
 </head>
 
@@ -16,7 +16,7 @@
     <!-- 수정할 내용은 side_bar.html 에서 해주시면 다 적용됩니다 -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <div th:replace="/fragments/side_bar :: side_bar" />
+        <div th:replace="fragments/side_bar :: side_bar" />
     </ul>
     <!-- 왼쪽 사이드 바 끝 -->
 
@@ -29,7 +29,7 @@
             <!-- 상단의 nav 바 시작 -->
             <!-- 이것도 수정하실거 있으시면 fragments 폭더에 nav_bar 수정해주시면 됩니다 -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <div th:replace="/fragments/nav_bar :: nav_bar" />
+                <div th:replace="fragments/nav_bar :: nav_bar" />
             </nav>
             <!-- 상단의 nav 바 끝 -->
 
