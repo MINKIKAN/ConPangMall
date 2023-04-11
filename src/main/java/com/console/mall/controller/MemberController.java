@@ -1,16 +1,19 @@
 package com.console.mall.controller;
 
+import com.console.mall.dto.MemberDTO;
 import com.console.mall.entitiy.Address;
 import com.console.mall.entitiy.Member;
+import com.console.mall.respository.MemberRepository;
+//import com.console.mall.service.LoginService;
 import com.console.mall.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -56,6 +59,24 @@ public class MemberController {
 //        memberService.deleteMember(id);
 //        return "redirect:/members";
 //    }
+    @GetMapping("/members/login")
+    //public String loginForm(Model model){
+    //    model.addAttribute("loginForm", new loginForm());
+    //    return "members/loginForm";
+    //}
+        public String loginForm(){
+            return "login";
+    }
+    @PostMapping("/members/login")
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session){
+        MemberDTO loginResult = memberService.login(memberDTO);
+        if(loginResult!=null){
+            session.setAttribute("login_id",loginResult.getLogin_id());
+            return "/home";
+        }else{
+            return "login";
+        }
+    }
 
 
 }

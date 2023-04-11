@@ -3,6 +3,7 @@ package com.console.mall.respository;
 import com.console.mall.entitiy.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -41,4 +42,12 @@ public class MemberRepository {
         Long id = query.getSingleResult();
       return id;
     }
+//    public Member findByLoginid(String login_id){
+//        return em.find(Member.class,login_id);
+//
+//    }
+    public List<Member> findByloginid(String loginid){
+        return em.createQuery("select  m from Member m where m.login_id = :loginid", Member.class).setParameter( "loginid", loginid).getResultList();
+    }
+
 }
