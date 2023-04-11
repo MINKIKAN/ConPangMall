@@ -5,52 +5,48 @@ import lombok.*;
 import javax.persistence.*;
 
 
-
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
 @Entity
+@Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED) // 생성자 protected
 public class OrderItem {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
+    @Column(name = "order_item_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="order_id")
+    @JoinColumn(name = "item_id")
+    private Item item;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
     private Order order;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member; // 구매자
+    private int orderPrice; // 주문 가격
+    private int count; // 주문 수량
 
-    //@ManyToOne(fetch = FetchType.EAGER)
-    //@JoinColumn(name="item_id")
-    //private Item item;
-
-//    private int item_id; // 주문 상품 번호
-//    private String itemName; // 주문 상품 이름
-//    private int itemPrice; // 주문 상품 가격
-//    private int itemCount; // 주문 상품 수량
-//    private int itemTotalPrice; // 가격*수량
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="item_id")
-    private Item item; // 주문상품에 매핑되는 판매상품
-
-    private int isCancel; // 주문 취소 여부 (0:주문완료 / 1:주문취소)
-
-    // 장바구니 전체 주문
-    public static OrderItem createOrderItem(int itemId, Member member, CartItem cartItem, Item item) {
+    //== 생성 메서드 ==//
+    public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
         OrderItem orderItem = new OrderItem();
-        orderItem.item = item;
+        orderItem.setItem(item);
+        orderItem.setOrderPrice(orderPrice);
+        orderItem.setCount(count);
 
+        item.removeStock(count); // 주문 했으니 제고 수량 감소
         return orderItem;
     }
 
-    // 상품 개별 주문
+    //== 비즈니스 로직 ==//
+    public void cancel() { // 주문 취소
+        getItem().addStock(count); // 제고를 다시 주문 수량만큼 들려준다.
+    }
+
+    //== 조회 로직 ==//
+    // 주문상품 전체 가격 조회
+    public int getTotalPrice() {
+        return getOrderPrice() * getCount();
+    }
 
 
 }

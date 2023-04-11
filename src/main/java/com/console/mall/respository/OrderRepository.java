@@ -2,19 +2,47 @@ package com.console.mall.respository;
 
 import com.console.mall.entitiy.Order;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import java.util.List;
+import java.util.Optional;
 
 @Repository
-@RequiredArgsConstructor
+
 public class OrderRepository {
+
     private final EntityManager em;
 
-    public void save(Order order){
-        em.persist(order);
+
+    public OrderRepository(EntityManager em) {
+        this.em = em;
     }
-    public  Order findOne(long id){
-        return em.find(Order.class, id);
+
+    public List<Order> findAll() {
+        return em.createQuery("SELECT o FROM Order o", Order.class)
+                .getResultList();
+    }
+
+    public List<Order> findByUserId(Long userId) {
+        return em.createQuery("SELECT o FROM Order o WHERE o.userId = :userId", Order.class)
+                .setParameter("userId", userId)
+                .getResultList();
+    }
+
+    public Optional<Order> findById(Long orderId) {
+        Order order = em.find(Order.class, orderId);
+        return Optional.ofNullable(order);
+    }
+
+    public Order save(Order order) {
+        em.persist(order);
+        return order;
+    }
+
+    public void deleteById(Long orderId) {
+        Order order = em.find(Order.class, orderId);
+        em.remove(order);
     }
 }

@@ -21,7 +21,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member; // 구매자
 
@@ -31,6 +31,8 @@ public class Order {
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate createDate; // 구매 날짜
 
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status; // 주문상태 [ORDER, CANCEL]
     @PrePersist
     public void createDate() {
         this.createDate = LocalDate.now();
@@ -51,11 +53,10 @@ public class Order {
         return order;
     }
 
-    public static Order createOrder(Member member) {
-        Order order = new Order();
-        order.setMember(member);
-        order.setCreateDate(order.createDate);
-        return order;
+    public void setQuantity(int quantity) {
+        this.orderItems.forEach(orderItem -> orderItem.setCount(quantity));
     }
+
+
 
 }
