@@ -78,12 +78,29 @@ public class MemberController {
         Member loginResult = memberService.login(memberDTO);
         System.out.println("loginResult = " + loginResult);
         if(loginResult != null){
-            session.setAttribute("login_id",loginResult.getLogin_id());
+            session.setAttribute("id",loginResult.getLogin_id());
             return "yes";
         }
             return "no";
 
     }
-
-
+    @GetMapping("/members/updateForm")
+    public String updateForm(Model model){
+        model.addAttribute("memberForm", new MemberForm());
+        return "members/updateForm";
+    }
+    @PostMapping("/members/updateForm")
+    public String update(@Valid MemberForm form, BindingResult result) {
+        if(result.hasErrors()){
+            return "members/updateForm";
+        }
+        Member member = new Member();
+        member.setName(form.getName());
+        member.setEmail(form.getEmail());
+//        member.setLogin_id(form.getLogin_id());
+        member.setPw(form.getPw());
+        member.setPhone(form.getPhone());
+        memberService.update(member);
+        return "/home";
+    }
 }

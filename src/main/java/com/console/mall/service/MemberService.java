@@ -1,5 +1,6 @@
 package com.console.mall.service;
 
+import com.console.mall.controller.MemberForm;
 import com.console.mall.dto.MemberDTO;
 import com.console.mall.entitiy.Member;
 import com.console.mall.respository.MemberRepository;
@@ -7,6 +8,8 @@ import com.console.mall.respository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
 
@@ -49,14 +52,12 @@ public class MemberService {
         return id;
     }
 
-    @Transactional
-    public void update(Long id, String name, String email, String login_id, String pw, String phone) {
-        Member member = memberRepository.findOne(id); // 영속성 컨텍스트가 저장
-        member.setName(name); // 이름값 자동 수정 -> jpa updqte 쿼리문을 실행
-        member.setEmail(email);
-        member.setLogin_id(login_id);
-        member.setPw(pw);
-        member.setPhone(phone);
+@Transactional
+    public Long update(Member member) {
+        validateDuplicateMember(member); // 중복 회원 검증
+
+        return member.getId();
+
     }
     public Member login(MemberDTO memberDTO){
         Member member = new Member();
