@@ -184,10 +184,11 @@
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
              aria-labelledby="userDropdown" th:if="${#session == null or #session.getAttribute('id') == null}">
             <a class="dropdown-item" href="/members/new">
+
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 회원가입
             </a>
-            <a class="dropdown-item" href="/members/login">
+            <a class="dropdown-item" href="/members/login" >
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 로그인
             </a>
@@ -201,16 +202,18 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
              aria-labelledby="userDropdown2" th:if="${#session != null and #session.getAttribute('id') != null}">
-            <a class="dropdown-item" href="#" >
+
+            <a class="dropdown-item" href="/members/updateForm" >
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 회원 정보
             </a>
-            <a class="dropdown-item" href="#">
+            <a class="dropdown-item" href="#" >
                 <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                 1:1 문의
             </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal" th:if="${#session != null and #session.getAttribute('id') != null}">
+
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                 로그아웃
             </a>

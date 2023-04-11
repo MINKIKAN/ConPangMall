@@ -122,16 +122,16 @@ public class MemberApiController {
 
 
     // 부분 수정
-    @PatchMapping("/v2/members/{id}")
-    public UpdateMemberResponse updateMember(
-            @PathVariable Long id,
-            @RequestBody UpdateMemberRequest request ){
-
-        // 수정할때는 변경감지사용하자
-        memberService.update( id, request.getName(), request.getEmail(), request.getLogin_id(), request.getPw(), request.getPhone());  // 커멘드 -> 수정
-        // 쿼리문 따로 부르기
-        Member member = memberService.findOne(id);
-        return new UpdateMemberResponse
-                (member.getId(), member.getName(),member.getEmail(),member.getLogin_id(),member.getPw(),member.getPhone());
-    }
+//    @PatchMapping("/v2/members/{id}")
+//    public UpdateMemberResponse updateMember(
+//            @PathVariable Long id,
+//            @RequestBody UpdateMemberRequest request ){
+//
+//        // 수정할때는 변경감지사용하자
+//        memberService.update(id,request.getName(), request.getEmail(), request.getLogin_id(), request.getPw(), request.getPhone());  // 커멘드 -> 수정
+//        // 쿼리문 따로 부르기
+//        Member member = memberService.findOne(id);
+//        return new UpdateMemberResponse
+//                (member.getId(), member.getName(),member.getEmail(),member.getLogin_id(),member.getPw(),member.getPhone());
+//    }
 }
