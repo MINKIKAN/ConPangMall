@@ -7,6 +7,7 @@ import com.console.mall.respository.MemberRepository;
 //import com.console.mall.service.LoginService;
 import com.console.mall.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class MemberController {
     private final MemberService memberService;
 
@@ -59,23 +62,27 @@ public class MemberController {
 //        memberService.deleteMember(id);
 //        return "redirect:/members";
 //    }
-    @GetMapping("/members/login")
     //public String loginForm(Model model){
     //    model.addAttribute("loginForm", new loginForm());
     //    return "members/loginForm";
     //}
+    @GetMapping("/members/login")
         public String loginForm(){
-            return "login";
+            return "members/loginForm";
     }
-    @PostMapping("/members/login")
+
+    @ResponseBody
+    @PostMapping("/members/login-check")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session){
-        MemberDTO loginResult = memberService.login(memberDTO);
-        if(loginResult!=null){
+
+        Member loginResult = memberService.login(memberDTO);
+        System.out.println("loginResult = " + loginResult);
+        if(loginResult != null){
             session.setAttribute("login_id",loginResult.getLogin_id());
-            return "/home";
-        }else{
-            return "login";
+            return "yes";
         }
+            return "no";
+
     }
 
 

@@ -1,5 +1,6 @@
 package com.console.mall.respository;
 
+import com.console.mall.dto.MemberDTO;
 import com.console.mall.entitiy.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -46,8 +47,11 @@ public class MemberRepository {
 //        return em.find(Member.class,login_id);
 //
 //    }
-    public List<Member> findByloginid(String loginid){
-        return em.createQuery("select  m from Member m where m.login_id = :loginid", Member.class).setParameter( "loginid", loginid).getResultList();
+    public List<Member> findByloginid(Member member){
+       return em.createQuery("select  m from Member m where m.login_id = :login_id and m.pw = :pw", Member.class)
+               .setParameter("login_id", member.getLogin_id())
+               .setParameter("pw", member.getPw())
+               .getResultList();
     }
 
 }

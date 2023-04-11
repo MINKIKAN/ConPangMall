@@ -17,9 +17,6 @@ public class Homecontroller {
     @RequestMapping("/")
     public String home(HttpServletRequest request) {
         log.info("home controller");
-        HttpSession session = request.getSession();
-        session.setAttribute("id", "admin");
-        session.setAttribute("id", "qwer");
         return "home";
     }
 }

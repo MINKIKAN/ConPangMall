@@ -58,10 +58,16 @@ public class MemberService {
         member.setPw(pw);
         member.setPhone(phone);
     }
-    public MemberDTO login(MemberDTO memberDTO){
-
-        List<Member> member = memberRepository.findByloginid(memberDTO.getLogin_id());
-        return null;
+    public Member login(MemberDTO memberDTO){
+        Member member = new Member();
+        member.setLogin_id(memberDTO.getLogin_id());
+        member.setPw(memberDTO.getPw());
+        List<Member> list = memberRepository.findByloginid(member);
+        if(list.size() == 0) {
+            return null;
+        }
+        Member m = memberRepository.findByloginid(member).get(0);
+        return m;
 
     }
 

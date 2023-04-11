@@ -19,15 +19,5 @@ public class MemberDTO {
     private String phone;
     @Embedded
     private Address address;
-    public static MemberDTO toMemberDTO(Member member){
-        MemberDTO memberDTO = new MemberDTO();
-        memberDTO.setId(member.getId());
-        memberDTO.setName(member.getName());
-        memberDTO.setEmail(member.getEmail());
-        memberDTO.setLogin_id(member.getLogin_id());
-        memberDTO.setPw(member.getPw());
-        memberDTO.setPhone(member.getPhone());
-        memberDTO.setAddress(member.getAddress());
-        return memberDTO;
-    }
+
 }
