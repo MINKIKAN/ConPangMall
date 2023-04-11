@@ -1,5 +1,6 @@
 package com.console.mall.service;
 
+import com.console.mall.dto.MemberDTO;
 import com.console.mall.entitiy.Member;
 import com.console.mall.respository.MemberRepository;
 
@@ -57,5 +58,12 @@ public class MemberService {
         member.setPw(pw);
         member.setPhone(phone);
     }
+    public MemberDTO login(MemberDTO memberDTO){
+
+        List<Member> member = memberRepository.findByloginid(memberDTO.getLogin_id());
+        return null;
+
+    }
+
 
 }
