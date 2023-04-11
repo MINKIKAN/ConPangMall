@@ -24,6 +24,7 @@ public class ItemController {
     private final CategoryService categoryService;
     private final ItemService itemService;
     private final ReviewService reviewService;
+
     @GetMapping("/item/id={id}")
     public String itemShow(@PathVariable("id") Long id, Model model) {
 
@@ -46,4 +47,5 @@ public class ItemController {
     public String itemAdd() {
         return "item_admin";
     }
+
 }
