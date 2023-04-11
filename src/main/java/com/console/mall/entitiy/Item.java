@@ -34,11 +34,11 @@ public class Item {
     private List<Review> list = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-    public void setCart(Cart cart) {
-        this.cart = cart;
+    public void setCart(Order order) {
+        this.order = order;
     }
     public List<OrderItem> getOrderItemList() {
         List<OrderItem> orderItemList = new ArrayList<>();

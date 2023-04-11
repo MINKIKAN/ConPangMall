@@ -1,4 +1,5 @@
-package com.console.mall.controller;
+package com.console.mall.api;
+
 
 import com.console.mall.entitiy.Order;
 import com.console.mall.service.OrderService;
@@ -9,9 +10,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/orders")
-public class OrderController {
+public class OrderApiController {
 
-    @Autowired
+
     private OrderService orderService;
 
     @GetMapping("/{userId}")
@@ -35,4 +36,5 @@ public class OrderController {
     }
 
 }
+
 
