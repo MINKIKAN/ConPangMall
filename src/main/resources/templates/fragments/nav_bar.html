@@ -182,7 +182,7 @@
             <span class="mr-2 d-none d-lg-inline text-gray-600 small">로그인을 해주세요</span>
         </a>
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-             aria-labelledby="userDropdown">
+             aria-labelledby="userDropdown" th:if="${#session == null or #session.getAttribute('id') == null}">
             <a class="dropdown-item" href="/members/new">
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 회원가입
@@ -200,8 +200,8 @@
             <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#session.getAttribute('id')}">님</span>
         </a>
         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-             aria-labelledby="userDropdown2">
-            <a class="dropdown-item" href="#">
+             aria-labelledby="userDropdown2" th:if="${#session != null and #session.getAttribute('id') != null}">
+            <a class="dropdown-item" href="#" >
                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                 회원 정보
             </a>
@@ -210,7 +210,7 @@
                 1:1 문의
             </a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal" th:if="${#session != null and #session.getAttribute('id') != null}">
                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                 로그아웃
             </a>

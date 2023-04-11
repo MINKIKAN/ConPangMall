@@ -78,7 +78,7 @@ public class MemberController {
         Member loginResult = memberService.login(memberDTO);
         System.out.println("loginResult = " + loginResult);
         if(loginResult != null){
-            session.setAttribute("login_id",loginResult.getLogin_id());
+            session.setAttribute("id",loginResult.getLogin_id());
             return "yes";
         }
             return "no";

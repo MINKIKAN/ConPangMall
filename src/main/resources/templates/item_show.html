@@ -4,7 +4,8 @@
 <head>
     <div th:replace="fragments/header :: header"/>
     <link rel="stylesheet" href="/css/item_show.css">
-    <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.js"
+            integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 </head>
 
 <body id="page-top">
@@ -36,11 +37,61 @@
             <!-- 상단의 nav 바 끝 -->
 
             <!-- 바디 부분 시작 -->
+
+
             <div class="container-fluid">
                 <div class="right_contents hover_box" id="goods_list">
 
                     <div class="boxed-list-wrapper">
 
+                        <!-- 현재 페이지 번호 -->
+                        <!--<div th:with="currentPage=${page}, pageSize=4, totalItems=${itemList.size()}, totalPages=${(totalItems + pageSize - 1) / pageSize}">
+                            <div th:with="startIndex=${(currentPage - 1) * pageSize}, endIndex=${startIndex + pageSize > totalItems ? totalItems :
+                                            startIndex + pageSize}">
+                                <ul class="items_list">
+                                    &lt;!&ndash; 선택한 아이템들 페이지에 맞게 보여주기 &ndash;&gt;
+                                    <li class="items_box"
+                                        th:each="item : ${itemList.subList(startIndex, endIndex)}">
+                                        <div class="img_box" id="dataTable">
+                                            <a class="img-block"
+                                               th:href="@{/item/info/{id}(id=${item.id})}">
+                                                <img class="lazyload lazy" th:src="${item.image}"
+                                                     style="display: block;">
+                                            </a>
+                                        </div>
+                                        <div class="item_name">
+                                            <p class="item_txt01"><a
+                                                    th:href="@{/item/info/{id}(id=${item.id})}"
+                                                    th:text="${item.name}"></a></p>
+                                            <p class="item_txt02">부가설명</p>
+                                        </div>
+                                        <div class="item_price">
+                                            <p class="price" th:text="${item.price}"></p>
+                                            원
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            &lt;!&ndash; 페이지 번호 링크 &ndash;&gt;
+                            <div class="pagination">
+                                <ul>
+                                    &lt;!&ndash; 이전 페이지 링크 &ndash;&gt;
+                                    <li th:if="${currentPage > 1}">
+                                        <a th:href="@{/item(page=${currentPage - 1})}">이전</a>
+                                    </li>
+                                    &lt;!&ndash; 페이지 번호 링크 &ndash;&gt;
+                                    <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
+                                        th:class="${pageNumber == currentPage} ? 'active' : ''">
+                                        <a th:href="@{/item/(page=${pageNumber})}"
+                                           th:text="${pageNumber}"></a>
+                                    </li>
+                                    &lt;!&ndash; 다음 페이지 링크 &ndash;&gt;
+                                    <li th:if="${currentPage < totalPages}">
+                                        <a th:href="@{/item/pagination/(page=${currentPage + 1})}">다음</a>
+                                    </li>
+                                </ul>
+                            </div>-->
                         <ul class="items_list">
                             <li class="items_box" th:each="item : ${itemList}">
                                 <div class="img_box" id="dataTable">
@@ -59,152 +110,36 @@
                                 </div>
                             </li>
                         </ul>
-                        <script>
-                            // 페이지당 아이템 수를 정의합니다
-                            const ITEMS_PER_PAGE = 2;
-
-                            // 아이템 목록 요소를 가져옵니다
-                            const itemList = document.querySelector('.items_box');
-
-                            // 페이징 요소를 가져옵니다
-                            const pagination = document.querySelector('.pagination');
-
-                            // 총 아이템 수를 가져옵니다
-                            const itemsList = document.querySelector(".items_list");
-                            const totalItems = itemsList.children.length;
-
-                            // 전체 페이지 수를 계산합니다
-                            const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-
-                            // 현재 페이지를 첫 페이지로 초기화합니다
-                            let currentPage = 1;
-
-                            // 현재 페이지의 아이템을 표시합니다
-                            displayItems(currentPage);
-
-                            // 페이징 링크를 생성합니다
-                            createPaginationLinks(totalPages);
-
-                            function displayItems(page) {
-                                // 표시할 아이템의 시작 및 끝 인덱스를 계산합니다
-                                const startIndex = (page - 1) * ITEMS_PER_PAGE;
-                                const endIndex = startIndex + ITEMS_PER_PAGE;
-
-                                // 모든 아이템을 숨깁니다
-                                const items = itemList.children;
-                                for (let i = 0; i < items.length; i++) {
-                                    items[i].style.display = 'none';
-                                }
-
-                                // 현재 페이지의 아이템을 표시합니다
-                                for (let i = startIndex; i < endIndex && i < totalItems; i++) {
-                                    items[i].style.display = 'block';
-                                }
-                            }
-
-                            function createPaginationLinks(totalPages) {
-                                // 이전 링크를 생성합니다
-                                const prevLink = document.createElement('a');
-                                prevLink.classList.add('prev');
-                                prevLink.innerHTML = '이전';
-
-                                // 이전 링크를 클릭하면 이전 페이지를 표시합니다
-                                prevLink.addEventListener('click', () => {
-                                    if (currentPage > 1) {
-                                        currentPage--;
-                                        displayItems(currentPage);
-                                    }
-                                });
-
-                                // 다음 링크를 생성합니다
-                                const nextLink = document.createElement('a');
-                                nextLink.classList.add('next');
-                                nextLink.innerHTML = '다음';
-
-                                // 다음 링크를 클릭하면 다음 페이지를 표시합니다
-                                nextLink.addEventListener('click', () => {
-                                    if (currentPage < totalPages) {
-                                        currentPage++;
-                                        displayItems(currentPage);
-                                    }
-                                });
-
-                                // 페이지 링크를 생성합니다
-                                const pageLinks = document.createElement('div');
-                                pageLinks.classList.add('page-links');
-
-                                for (let i = 1; i <= totalPages; i++) {
-                                    const pageLink = document.createElement('a');
-                                    pageLink.innerHTML = i;
-
-                                    // 현재 페이지를 나타내는 링크에는 active 클래스를 추가합니다
-                                    if (i === currentPage) {
-                                        pageLink.classList.add('active');
-                                    }
-                                    ;
-
-                                    // 페이지 링크를 클릭하면 해당 페이지를 표시
-                                };
-
-                            };
-                            let currentPage = 1;
-
-                            function getTotalPages() {
-                                return Math.ceil(totalItems / itemsPerPage);
-                            }
-                            function renderPageNumbers() {
-                                const totalPages = getTotalPages();
-                                let pageNumbersHTML = '';
-
-                                for (let i = 1; i <= totalPages; i++) {
-                                    const activeClass = i === currentPage ? 'active' : '';
-                                    pageNumbersHTML += `<span class="page-number ${activeClass}">${i}</span>`;
-                                }
-
-                                document.querySelector('#pageNumbers').innerHTML = pageNumbersHTML;
-                            }
-
-                        </script>
-                        <div class="pagination">
-                            <button id="prevPage"><i class="fas fa-arrow-left"></i></button>
-                            <div class="pagination">
-                                <a href="#">&laquo;</a>
-                                <a href="#">1</a>
-                                <a href="#">2</a>
-                                <a href="#">3</a>
-                                <a href="#">4</a>
-                                <a href="#">5</a>
-                                <a href="#">&raquo;</a>
-                            </div>
-                            <button id="nextPage"><i class="fas fa-arrow-right"></i></button>
-                        </div>
 
                     </div>
                 </div>
-
             </div>
-            <!-- 바디 부분 끝 -->
-
         </div>
-        <div class="admin-add-btn">
-            <button th:if="${#session != null and #session.getAttribute('id') == 'admin'}" onclick="location.href='/admin/item_add'">추가</button>
-        </div>
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2021</span>
-                </div>
-            </div>
-        </footer>
-        <!-- End of Footer -->
 
     </div>
-    <!-- End of Content Wrapper -->
+    <!-- 바디 부분 끝 -->
 
-    </ul>
 </div>
+<div class="admin-add-btn">
+    <button th:if="${#session != null and #session.getAttribute('id') == 'admin'}"
+            onclick="location.href='/admin/item-add'">추가
+    </button>
+</div>
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2021</span>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
 
+</div>
+<!-- End of Content Wrapper -->
+
+</ul>
+</div>
 
 
 <!-- End of Page Wrapper -->

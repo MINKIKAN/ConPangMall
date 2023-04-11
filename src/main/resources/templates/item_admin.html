@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <!--공통되는 cdn, 타이틀 등 fragments폴더안에 header 안에 넣고 replace 했습니다 -->
 <head>
@@ -36,17 +36,31 @@
             <!-- 바디 부분 시작 -->
             <script>
                 function itemAdd(form) {
+                    let formData = new FormData();
+                    formData.append("file", $("input[type='file']")[0].files[0]);
+                    formData.append("name", form.name.value);
+                    formData.append("price", form.price.value);
+                    formData.append("stockQuantity", form.stockQuantity.value);
+                    formData.append("itemInfo", form.itemInfo.value);
+                    formData.append("itemVideo", form.itemVideo.value);
+                    formData.append("category_id", form.category.value);
+
+                    startAjax(formData);
+                }
+
+                function startAjax(formData) {
                     $.ajax({
-                        url: "/item/add",
+                        url: "/admin/item-save",
                         type: "POST",
-                        data: {
-                            name: form.name.value,
-                            price: form.price.value,
-                            stockQuantity: form.stockQuantity.value,
-                            image: form.image.value,
-                            itemInfo: form.itemInfo.value,
-                            itemVideo: form.itemVideo.value,
-                            category: form.category.value
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (data) {
+                            alert('등록 완료');
+                            location.reload();
+                        },
+                        error: function () {
+                            alert("ajax error");
                         }
                     })
                 }
@@ -57,22 +71,25 @@
                         상품 추가
                     </div>
                     <form action="">
-                        <div class="label mb-5">><label for="name"이름</label></div>
+                        <div class="label mb-5">><label for="name">이름</label></div>
                         <input type="text" id="name" name="name" placeholder="">
                         <div class="label mb-5"><label for="price">가격</label></div>
                         <input type="text" id="price" name="price" placeholder="">
                         <div class="label mb-5"><label for="stockQuantity">수량</label></div>
                         <input type="text" id="stockQuantity" name="stockQuantity" placeholder="">
-                        <div class="label mb-5"><label for="stockQuantity">업로드</label></div>
+                        <div class="label mb-5"><label for="file">업로드</label></div>
                         <input type="file" id="file" name="file" placeholder="">
-                        <div class="label mb-5"><label for="stockQuantity">정보</label></div>
+                        <div class="label mb-5"><label for="itemInfo">정보</label></div>
                         <input type="text" id="itemInfo" name="itemInfo" placeholder="">
-                        <div class="label mb-5"><label for="stockQuantity">유튜브</label></div>
+                        <div class="label mb-5"><label for="itemVideo">유튜브</label></div>
                         <input type="text" id="itemVideo" name="itemVideo" placeholder="">
+                        <div class="label mb-5"><label for="category">카테고리</label></div>
+                        <select name="category" id="category">
+                            <option th:each="category : ${categoryList}" th:value="${category.id}"
+                                    th:text="${category.name}"></option>
+                        </select>
+                        <input type="button" onclick="itemAdd(form)" value="등록"/>
                     </form>
-                    <div class="button-box">
-                        <button onclick="itemAdd(form)">등록</button>
-                    </div>
                 </div>
 
 
