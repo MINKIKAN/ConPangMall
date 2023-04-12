@@ -24,4 +24,8 @@ public class CartRepository  {
     List<Cart> findCartItemByItemId(int id) {
         return null;
     }
+
+    public void save(Cart cart) {
+        em.persist(cart);
+    }
 }

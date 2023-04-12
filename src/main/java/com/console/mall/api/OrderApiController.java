@@ -26,8 +26,7 @@ public class OrderApiController {
     @PostMapping("/")
     public Order createOrder(@RequestBody Long id) {
         Item item = itemService.findOneItem(id);
-
-        return orderService.createOrder(order);
+        return null;
     }
 
     @PutMapping("/{orderId}")

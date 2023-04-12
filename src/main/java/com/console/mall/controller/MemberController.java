@@ -5,6 +5,7 @@ import com.console.mall.entitiy.Address;
 import com.console.mall.entitiy.Member;
 import com.console.mall.respository.MemberRepository;
 //import com.console.mall.service.LoginService;
+import com.console.mall.service.CartService;
 import com.console.mall.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ import java.util.List;
 @Slf4j
 public class MemberController {
     private final MemberService memberService;
+    private final CartService cartService;
 
     @GetMapping("/members/new")
     public String createForm(Model model){
@@ -79,6 +81,8 @@ public class MemberController {
         System.out.println("loginResult = " + loginResult);
         if(loginResult != null){
             session.setAttribute("id",loginResult.getLogin_id());
+            Member member = memberService.findOne(memberService.getId(loginResult.getLogin_id()));
+            cartService.createCart(member);
             return "yes";
         }
             return "no";

@@ -11,7 +11,7 @@ public class CartController {
 
     private final CartService cartService;
 
-    @GetMapping("/cart")
+    @GetMapping("/carts")
     public String cartList() {
         
         return "cartList";
