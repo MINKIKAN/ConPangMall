@@ -3970,4 +3970,18 @@ ul.items_list .items_box .item_price p.price {
 .admin-add-btn > button:active {
     background-color: #144c55;
 }
-
+.pagination {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+.pagination-box {
+    width: 50%;
+    height: 200px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.pagination-box > .active {
+    color: blue;
+}

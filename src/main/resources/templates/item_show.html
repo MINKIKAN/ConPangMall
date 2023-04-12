@@ -45,63 +45,20 @@
                     <div class="boxed-list-wrapper">
 
                         <!-- 현재 페이지 번호 -->
-                        <!--<div th:with="currentPage=${page}, pageSize=4, totalItems=${itemList.size()}, totalPages=${(totalItems + pageSize - 1) / pageSize}">
-                            <div th:with="startIndex=${(currentPage - 1) * pageSize}, endIndex=${startIndex + pageSize > totalItems ? totalItems :
-                                            startIndex + pageSize}">
-                                <ul class="items_list">
-                                    &lt;!&ndash; 선택한 아이템들 페이지에 맞게 보여주기 &ndash;&gt;
-                                    <li class="items_box"
-                                        th:each="item : ${itemList.subList(startIndex, endIndex)}">
-                                        <div class="img_box" id="dataTable">
-                                            <a class="img-block"
-                                               th:href="@{/item/info/{id}(id=${item.id})}">
-                                                <img class="lazyload lazy" th:src="${item.image}"
-                                                     style="display: block;">
-                                            </a>
-                                        </div>
-                                        <div class="item_name">
-                                            <p class="item_txt01"><a
-                                                    th:href="@{/item/info/{id}(id=${item.id})}"
-                                                    th:text="${item.name}"></a></p>
-                                            <p class="item_txt02">부가설명</p>
-                                        </div>
-                                        <div class="item_price">
-                                            <p class="price" th:text="${item.price}"></p>
-                                            원
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            &lt;!&ndash; 페이지 번호 링크 &ndash;&gt;
-                            <div class="pagination">
-                                <ul>
-                                    &lt;!&ndash; 이전 페이지 링크 &ndash;&gt;
-                                    <li th:if="${currentPage > 1}">
-                                        <a th:href="@{/item(page=${currentPage - 1})}">이전</a>
-                                    </li>
-                                    &lt;!&ndash; 페이지 번호 링크 &ndash;&gt;
-                                    <li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}"
-                                        th:class="${pageNumber == currentPage} ? 'active' : ''">
-                                        <a th:href="@{/item/(page=${pageNumber})}"
-                                           th:text="${pageNumber}"></a>
-                                    </li>
-                                    &lt;!&ndash; 다음 페이지 링크 &ndash;&gt;
-                                    <li th:if="${currentPage < totalPages}">
-                                        <a th:href="@{/item/pagination/(page=${currentPage + 1})}">다음</a>
-                                    </li>
-                                </ul>
-                            </div>-->
                         <ul class="items_list">
-                            <li class="items_box" th:each="item : ${itemList}">
+                            <li class="items_box"
+                                th:each="item : ${itemList}">
                                 <div class="img_box" id="dataTable">
-                                    <a class="img-block" th:href="@{/item/info/{id}(id=${item.id})}">
-                                        <img class="lazyload lazy" th:src="${item.image}" style="display: block;">
+                                    <a class="img-block"
+                                       th:href="@{/item/info/{id}(id=${item.id})}">
+                                        <img class="lazyload lazy" th:src="${item.image}"
+                                             style="display: block;">
                                     </a>
                                 </div>
                                 <div class="item_name">
-                                    <p class="item_txt01"><a th:href="@{/item/info/{id}(id=${item.id})}"
-                                                             th:text="${item.name}"></a></p>
+                                    <p class="item_txt01"><a
+                                            th:href="@{/item/info/{id}(id=${item.id})}"
+                                            th:text="${item.name}"></a></p>
                                     <p class="item_txt02">부가설명</p>
                                 </div>
                                 <div class="item_price">
@@ -110,14 +67,43 @@
                                 </div>
                             </li>
                         </ul>
-
                     </div>
+
+                    <!-- 페이지 번호 링크 -->
+
+
                 </div>
             </div>
         </div>
-
     </div>
-    <!-- 바디 부분 끝 -->
+
+</div>
+<div class="pagination">
+
+    <ul class="pagination-box">
+        <!-- 이전 페이지 링크 -->
+        <li th:if="${pagination.page > pagination.pageSize}">
+            <a th:href="@{/item/prev(page=${pagination.startPage - 1}, totalPages=${pagination.totalPages}, id=${id})}"><</a>
+        </li>
+        <li th:if="${pagination.page > 1}">
+            <a th:href="@{/item/prev(page=${pagination.page - 1}, totalPages=${pagination.totalPages}, id=${id})}">이전</a>
+        </li>
+        <!-- 페이지 번호 링크 -->
+        <li th:each="pageNumber : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"
+            th:class="${pageNumber == pagination.page} ? 'active' : ''">
+            <a th:href="@{/item(page=${pageNumber}, totalPages=${pagination.totalPages}, id=${id})}"
+               th:text="${pageNumber}"></a>
+        </li>
+        <!-- 다음 페이지 링크 -->
+        <li th:if="${pagination.page < pagination.totalRecord}">
+            <a th:href="@{/item(page=${pagination.page + 1}, totalPages=${pagination.totalPages}, id=${id})}">다음</a>
+        </li>
+        <li th:if="${pagination.page < pagination.totalRecord}">
+            <a th:href="@{/item(page=${pagination.endPage + 1}, totalPages=${pagination.totalPages}, id=${id})}">></a>
+        </li>
+    </ul>
+</div>
+<!-- 바디 부분 끝 -->
 
 </div>
 <div class="admin-add-btn">

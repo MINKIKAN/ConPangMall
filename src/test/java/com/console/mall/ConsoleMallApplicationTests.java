@@ -219,4 +219,20 @@ class ConsoleMallApplicationTests {
 		categoryRepository.save(vr);
 	}
 
+	@Test
+	public void 더미데이터추가() {
+		Category ps = categoryRepository.findOne(1L);
+
+		for(int i = 0; i < 200; i++) {
+			Item item = new Item();
+			item.setName("product" + i);
+			item.setPrice(i + 2000);
+			item.setStockQuantity(5);
+			item.setItemInfo("test" + i);
+			item.setImage("/img/favicon.ico");
+			item.setCategory(ps);
+			itemRepository.save(item);
+		}
+
+	}
 }

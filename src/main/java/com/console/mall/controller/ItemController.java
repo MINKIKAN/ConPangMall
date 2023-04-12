@@ -1,5 +1,6 @@
 package com.console.mall.controller;
 
+import com.console.mall.dto.PaginationDTO;
 import com.console.mall.entitiy.Category;
 import com.console.mall.entitiy.Item;
 import com.console.mall.entitiy.Review;
@@ -34,13 +35,20 @@ public class ItemController {
     private final ItemService itemService;
     private final ReviewService reviewService;
 
-    @GetMapping("/item/id={id}")
-    public String itemShow(@PathVariable("id") Long id, Model model) {
+    @GetMapping("/item")
+    public String itemShow(@RequestParam(value = "id") Long id,
+                           @RequestParam(value = "page", defaultValue = "0") int page,
+                           @RequestParam(value = "total", defaultValue = "0") Long totalPages,
+                           Model model) {
+        if (totalPages == 0) {
+            totalPages = (itemService.allCount(id));
+        }
+        PaginationDTO paginationDTO = new PaginationDTO(page, totalPages);
+        List<Item> itemList = itemService.findAllItem(id, paginationDTO);
 
-        Category category = categoryService.findOneCategory(id);
-        List<Item> itemList = category.getItemList();
         model.addAttribute("itemList", itemList);
-        model.addAttribute("page", 1);
+        model.addAttribute("pagination", paginationDTO);
+        model.addAttribute("id", id);
         return "item_show";
     }
 
@@ -53,6 +61,7 @@ public class ItemController {
         model.addAttribute("reviewList", reviewList);
         return "item_info";
     }
+
     @GetMapping("/admin/item-add")
     public String itemAdd(Model model) {
         List<Category> categoryList = categoryService.findAllCategory();
@@ -74,17 +83,17 @@ public class ItemController {
                                @RequestParam("category_id") Long id) throws IOException {
 
         byte[] bytes = file.getBytes();
-        String fileName =  UriUtils.encode(file.getOriginalFilename(), StandardCharsets.UTF_8);
+        String fileName = UriUtils.encode(file.getOriginalFilename(), StandardCharsets.UTF_8);
         String root = System.getProperty("user.dir");
         System.out.println("root = " + root);
-        Path path = Paths.get(root + "/src/main/resources/static/img/"  + fileName.replace("\\", "/"));
+        Path path = Paths.get(root + "/src/main/resources/static/img/" + fileName.replace("\\", "/"));
         Files.write(path, bytes);
 
         Item item = new Item();
         item.setName(name);
         item.setPrice(price);
         item.setStockQuantity(stockQuantity);
-        item.setImage("/img/"+ fileName);
+        item.setImage("/img/" + fileName);
         item.setItemInfo(itemInfo);
         item.setItemVideo(itemVideo);
         Category category = categoryService.findOneCategory(id);
@@ -94,11 +103,30 @@ public class ItemController {
         return null;
     }
 
-    @GetMapping("/item/pagination/{page}")
-    public String pagination(@PathVariable("page") String currentPage, Model model) {
-        int page = Integer.parseInt(currentPage);
-        model.addAttribute("page", page);
+
+    @GetMapping("/item/prev")
+    public String itemPrev(@RequestParam(value = "id") Long id,
+                           @RequestParam(value = "page", defaultValue = "0") int page,
+                           @RequestParam(value = "total", defaultValue = "0") Long totalPages,
+                           Model model) {
+
+        PaginationDTO paginationDTO = new PaginationDTO(page, totalPages);
+        List<Item> itemList = itemService.findAllItem(id, paginationDTO);
+        int pageSize = paginationDTO.getPageSize();
+        int startPage = 0;
+        if (page / pageSize == 0 || page == pageSize) {
+            page--;
+        }
+        startPage = page / pageSize * pageSize + 1;
+
+        int endPage = startPage + pageSize - 1;
+        paginationDTO.setPage(page);
+        paginationDTO.setStartPage(startPage);
+        paginationDTO.setEndPage(endPage);
+
+        model.addAttribute("itemList", itemList);
+        model.addAttribute("pagination", paginationDTO);
+        model.addAttribute("id", id);
         return "item_show";
     }
-
 }

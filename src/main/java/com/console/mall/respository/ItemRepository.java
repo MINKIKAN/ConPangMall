@@ -1,6 +1,5 @@
 package com.console.mall.respository;
 
-import com.console.mall.dto.ItemDTO;
 import com.console.mall.entitiy.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -15,17 +14,24 @@ public class ItemRepository {
 
 
     public void save(Item item) {
-        if (item.getId() == null) {
-            em.persist(item);
-        } else {
-            em.merge(item);
-        }
+        em.persist(item);
     }
     public Item findOne(Long id) {
-        return em.find(Item.class, id);
+        return em.find(Item.class,id);
     }
 
-    public List<Item> findAll() {
-        return em.createQuery("select i from Item i", Item.class).getResultList();
+    public List<Item> getList(Long id, int start, int recordSize) {
+        List<Item> itemList = em.createQuery("select i from Item i Join i.category c where c.id = :id")
+                .setParameter("id", id)
+                .setFirstResult(start)
+                .setMaxResults(recordSize)
+                .getResultList();
+        return itemList;
+    }
+
+    public Long allCount(Long id) {
+        return em.createQuery("SELECT COUNT(i) FROM Item i Join i.category c where c.id =:id", Long.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 }

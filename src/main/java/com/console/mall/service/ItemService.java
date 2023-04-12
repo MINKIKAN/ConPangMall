@@ -1,6 +1,6 @@
 package com.console.mall.service;
 
-import com.console.mall.dto.ItemDTO;
+import com.console.mall.dto.PaginationDTO;
 import com.console.mall.entitiy.Item;
 import com.console.mall.respository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +21,18 @@ public class ItemService {
     }
 
     public Item findOneItem(Long id) {
-        return itemRepository.findOne(id);
+        Item item = itemRepository.findOne(id);
+        return item;
     }
 
-    public List<Item> findAllItem() {
-        return itemRepository.findAll();
+    public List<Item> findAllItem(Long id, PaginationDTO paginationDTO) {
+        int start = paginationDTO.getOffset();
+        int recordSize = paginationDTO.getRecordSize();
+        return itemRepository.getList(id, start , recordSize);
     }
 
 
+    public Long allCount(Long id) {
+        return itemRepository.allCount(id);
+    }
 }

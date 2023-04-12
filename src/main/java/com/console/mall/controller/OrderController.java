@@ -2,17 +2,18 @@ package com.console.mall.controller;
 
 import com.console.mall.entitiy.Order;
 import com.console.mall.service.OrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/orders")
 public class OrderController {
 
-    @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
 
     @GetMapping("/{userId}")
     public List<Order> getOrdersByUserId(@PathVariable("userId") Long userId) {
