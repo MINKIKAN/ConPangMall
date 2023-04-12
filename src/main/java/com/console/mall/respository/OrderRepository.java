@@ -26,8 +26,8 @@ public class OrderRepository {
     }
 
     public List<Order> findByUserId(Long userId) {
-        return em.createQuery("SELECT o FROM Order o WHERE o.userId = :userId", Order.class)
-                .setParameter("userId", userId)
+        return em.createQuery("SELECT o FROM Order o WHERE o.member = :member", Order.class)
+                .setParameter("member", userId)
                 .getResultList();
     }
 
