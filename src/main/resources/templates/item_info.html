@@ -1,11 +1,36 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head>
+    <script >
+        function addOrder(id){
+
+
+            // JSON 으로 데이터 보냄
+            $.ajax({
+                url      : "/orders/",
+                type     : "POST",
+                data     : {"id" : id },
+                success  : function(result, status){
+                    alert("주문이 완료 되었습니다.");
+                    location.href='/item/info'; // 주문 로직 호출이 성공하면은 위의 메세지가 출력되고, 메인 페이지로 이동
+                },
+                error : function(jqXHR, status, error){
+
+                    if(jqXHR.status == '401'){
+                        alert('로그인 후 이용해주세요');
+                        location.href='/members/login'; // 401이면(로그인 상태가 아니면) 로그인 페이지로 이동함
+                    } else{
+                        alert(jqXHR.responseText); // 주문 시 에러가 발생하면 메세지 출력됨
+                    }
+
+                }
+            });
+        }</script>
     <div th:replace="fragments/header :: header" />
     <link rel="stylesheet" href="/css/item_info.css">
 </head>
-
+<link rel="">
 <body id="page-top">
 
 <!-- Page Wrapper -->
@@ -88,8 +113,7 @@
                                             <option value="3">Three</option>
                                         </select>
                                     </div>
-                                    <div class="product-buy-button">구매하기</div>
-                                    <div class="product-cart-button">장바구니 담기</div>
+                                    <input type="button" class="product-cart-button" th:onclick="|addOrder(${item.getId()})|"/>
                                 </form>
                             </div>
 
