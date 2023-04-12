@@ -24,11 +24,10 @@ public class OrderApiController {
     }
 
     @PostMapping("/")
-    public Order createOrder(@RequestBody Long id) {
-        Item item = itemService.findOneItem(id);
-
-        return orderService.createOrder(order);
+    public Order createOrder(@RequestBody Item item) {
+        return orderService.createOrder(new Order());
     }
+
 
     @PutMapping("/{orderId}")
     public Order updateOrder(@PathVariable("orderId") Long orderId, @RequestBody Order order) {

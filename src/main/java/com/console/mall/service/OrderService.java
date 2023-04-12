@@ -5,10 +5,12 @@ import com.console.mall.entitiy.OrderItem;
 import com.console.mall.exception.OrderNotFoundException;
 import com.console.mall.respository.OrderRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class OrderService {
 
     private final OrderRepository orderRepository;
@@ -32,10 +34,7 @@ public class OrderService {
     }
 
     public Order createOrder(Order order) {
-        // perform some validation
-        // e.g. check if the product is available in stock
 
-        // create the order
         return orderRepository.save(order);
     }
 
