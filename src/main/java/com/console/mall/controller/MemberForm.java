@@ -20,6 +20,7 @@ public class MemberForm {
     @NotEmpty(message = "우편번호 필수 입니다")
     private String zipcode;
     @NotEmpty(message = "이메일은 필수 입니다")
+    //@Pattern(regexp="/^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$/",message = "올바른 이메일주소를 입력해주세요.")
     private String email;
     @NotEmpty(message = "로그인아이디는 필수 입니다")
     @Size(min=2,max=5,message = "아이디는 2자이상 5자이하로 입력해주세요")

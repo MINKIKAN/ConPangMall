@@ -20,8 +20,8 @@ public class Member {
     private String login_id;
     private String pw;
     private String phone;
+
+
     @Embedded
     private Address address;
-
-
 }

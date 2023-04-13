@@ -1,15 +1,18 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header" />
+<!--<head th:replace="fragments/header :: header" />-->
+<head>
+<link rel="stylesheet" href="/css/login.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
 <style>
     .fieldError {
         border-color: #bd2130;
     }
 </style>
-<body>
-<h1>로그인</h1>
-<div class="container">
-    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+<body class="">
+
+    <!--    <div th:replace="fragments/bodyHeader :: bodyHeader"/>-->
 
         <script>
             function loginCheck(form) {
@@ -35,6 +38,9 @@
 
 
         </script>
+    <div class="container">
+        <div class="con">
+        <div class="login-title">로그인</div>
 
     <form>
 
@@ -47,11 +53,12 @@
             <label th:for="pw">비밀번호</label>
             <input type="password"  id = "pw" name="pw" class="form-control" placeholder="비밀번호를 입력하세요">
         </div>
-        <input type="button" onclick="loginCheck(form)" class="btn btn-primary" value="Submit" />
+        <input type="button" onclick="loginCheck(form)" class="btn btn-primary" value="로그인" />
     </form>
     <br/>
-    <div th:replace="fragments/footer :: footer" />
-</div> <!-- /container -->
+        </div>
+<!--    <div th:replace="fragments/footer :: footer" />-->
+    </div> <!-- /container -->
 
 </body>
 </html>

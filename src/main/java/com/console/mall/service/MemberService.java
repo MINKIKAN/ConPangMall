@@ -32,11 +32,14 @@ public class MemberService {
         return member.getId();
     }
 
-    private void validateDuplicateMember(Member member) {
+    private String validateDuplicateMember(Member member) {
         List<Member> findMembers = memberRepository.isId(member.getLogin_id());
-        if (!findMembers.isEmpty()) {
-            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        try{
+            if (!findMembers.isEmpty()){};
+        }catch(IllegalStateException e){
+            return "members/new";
         }
+        return null;
     }
 
     // 회원 전체 조회
