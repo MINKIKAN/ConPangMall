@@ -5,13 +5,14 @@
 p.notice_title {
     font-size: 32px;
     text-align: center;
+    text-decoration: none;
 }
 
 .notice_list {
     width: 100%;
     padding: 15px;
     box-sizing: border-box;
-    border: 1px solid rgba(22, 22, 22, 0.1);
+    border: 0.5px solid rgba(22, 22, 22, 0.1);
     border-radius: 15px;
     list-style: none;
 }
@@ -44,6 +45,10 @@ p.notice_title {
     text-decoration: none;
 }
 
+a:hover{
+    text-decoration: none;
+}
+
 .notice_items a div:nth-child(2) {
     flex-grow: 3;
 }
@@ -51,4 +56,132 @@ p.notice_title {
 .notice_items a div {
     min-width: 100px;
     text-align: center;
+}
+
+.con { width: 100%; max-width: 1400px; }
+.notice_area { width: 100%; max-width: 1120px; }
+p.notice_title { font-size: 36px; margin: 20px auto; }
+.notice_index { display: flex; align-items: center; margin: 20px 0; }
+.notice_num, .notice_title, .notice_writer, .notice_date { width: 25%; text-align: center; }
+
+.accordion-item { display: flex; align-items: center; flex-wrap: wrap; }
+.accordion-header { width: 100%; padding: 0; }
+.accordion-collapse { width: 100%; }
+.accordion .accordion-header button.accordion-button { display: flex; width: 100%; align-items: center; }
+.accordion .accordion-header button.accordion-button div { width: 25%; text-align: center; }
+
+.accordion-body { flex: none; display: flex; flex-wrap: wrap; }
+.accordion-body .notice_content { width: 100%; padding: 15px; box-sizing: border-box; }
+
+
+.add_notice {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+.add_notice h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+.add_notice label {
+    display: block;
+    margin-bottom: 5px;
+}
+.add_notice input, .add_notice textarea {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.add_notice button {
+    background-color: #337ab7;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.add_notice button:hover {
+    background-color: #286090;
+}
+.add_notice a {
+    display: inline-block;
+    margin-bottom: 10px;
+    color: #337ab7;
+    text-decoration: none;
+}
+.add_notice a:hover {
+    text-decoration: underline;
+}
+
+.container-fluid {
+    font-family: Arial, sans-serif;
+}
+
+.notice_area {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+.notice_title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.notice_index,
+.accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.notice_index > div,
+.accordion-header > button > div {
+    flex-basis: 25%;
+    text-align: center;
+    font-weight: 500;
+}
+
+.notice_writer,
+.notice_date {
+    font-size: 14px;
+}
+
+.accordion-button {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-weight: 500;
+    transition: background-color 0.3s;
+}
+
+.accordion-button.collapsed {
+    background-color: #f8f9fa;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #e9ecef;
+}
+
+.accordion-collapse {
+    padding: 15px;
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height: 1.5;
 }
