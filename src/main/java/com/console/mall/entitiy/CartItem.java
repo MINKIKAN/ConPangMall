@@ -16,9 +16,7 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="cart_id")
-    private Cart cart;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="item_id")
@@ -26,13 +24,7 @@ public class CartItem {
 
     private int count; // 상품 개수
 
-    public static CartItem createCartItem(Cart cart, Item item, int amount) {
-        CartItem cartItem = new CartItem();
-        cartItem.setCart(cart);
-        cartItem.setItem(item);
-        cartItem.setCount(amount);
-        return cartItem;
-    }
+ 
 
     // 이미 담겨있는 물건 또 담을 경우 수량 증가
     public void addCount(int count) {

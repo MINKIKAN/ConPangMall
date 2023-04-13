@@ -50,19 +50,18 @@
                             <div class="cart_price">가격</div>
                             <div class="cart_del">삭제</div>
                         </li>
-                        <li class="cart_items" th:each="item : ${cart.getItemList()}">
+                        <li class="cart_items" th:each="item : ${itemList}">
                             <a href="경로들어갈곳">
                                 <div class="cart_cheek"><input type="checkbox" name="cart_cheek" id=""></div>
-                                <div class="cart_img"><img th:src="${item.img}"></img></div>
+                                <div class="cart_img"><img th:src="${item.image}"></img></div>
                                 <div class="cart_title" th:text="${item.name}"></div>
                                 <div class="cart_price" th:text="${item.price}"></div>
                                 <div class="cart_del"><button>삭제</button></div>
                             </a>
                         </li>
                     </ul>
-
                     <div class="total_area">
-                        <p class="total_price">총 금액 : <span>123,456</span> 원</p>
+                        <p class="total_price">총 금액 : <span th:text="${totalPrice}"></span> 원</p>
                         <button class="buy_btn">구매하기</button>
                     </div>
 
@@ -70,15 +69,15 @@
                     <div class="address_cheek">
                         <p class="address_title">배송지 확인</p>
                         <div class="address_area">
-                            <div class="address_txt01">주소 : <span>주소 불러오기</span> </div>
-                            <div class="address_txt02">상세주소 : <span>상세주소 불러오기</span> </div>
+                            <div class="address_txt01">주소 : <span th:text="${member.getAddress().getCity() + member.getAddress().getStreet()}"></span> </div>
+                            <div class="address_txt02">상세주소 : <span th:text="${member.getAddress().getZipcode()}"></span> </div>
                             <button class="change_btn">배송지 변경</button>
                         </div>
                     </div>
 
                     <div class="address_popup">
-                        <div class="add_pop_txt01"><label for="">수령인</label><input type="text" name="" id=""></div>
-                        <div class="add_pop_txt02"><label for="">연락처</label><input type="text" name="" id=""></div>
+                        <div class="add_pop_txt01"><label for="">수령인</label><input type="text" name="" id="" th:value="${member.getName()}"></div>
+                        <div class="add_pop_txt02"><label for="">연락처</label><input type="text" name="" id="" th:value="${member.getPhone()}"></div>
                         <div class="add_pop_txt03"><label for="">주소</label><input type="text" name="" id=""></div>
                         <div class="add_pop_txt04"><label for="">상세주소</label><input type="text" name="" id=""></div>
                         <div class="add_pop_txt05"><label for="">메모</label><input type="text" name="" id=""></div>

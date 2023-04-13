@@ -1,14 +1,18 @@
 package com.console.mall.respository;
 
 import com.console.mall.dto.MemberDTO;
+import com.console.mall.entitiy.Cart;
 import com.console.mall.entitiy.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.persistence.metamodel.SingularAttribute;
+import java.io.Serializable;
 import java.util.List;
 
 

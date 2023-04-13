@@ -56,10 +56,16 @@ class ConsoleMallApplicationTests {
 		member3.setLogin_id("zxcv");
 		member3.setPw("zxcv");
 
+		Member member4 = new Member();
+		member4.setName("관리자");
+		member4.setLogin_id("admin");
+		member4.setPw("admin");
+
 		// 저장
 		memberRepository.save(member1);
 		memberRepository.save(member2);
 		memberRepository.save(member3);
+		memberRepository.save(member4);
 		// 회원 추가
 	}
 	@Test

@@ -23,5 +23,7 @@ public class Member {
     @Embedded
     private Address address;
 
-
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="member_id")
+    private Member member; // 구매자
 }

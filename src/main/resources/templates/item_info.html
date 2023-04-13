@@ -9,22 +9,11 @@
 
              // JSON 으로 데이터 보냄
             $.ajax({
-                url      : "/cart/item",
+                url      : "/carts/item",
                 type     : "POST",
                 data     : {"id" : id },
                 success  : function(result, status){
                     alert("장바구니에 담겼습니다.");
-                    location.href='/item/info'; // 주문 로직 호출이 성공하면은 위의 메세지가 출력되고, 메인 페이지로 이동
-                },
-                error : function(jqXHR, status, error){
-
-                    if(jqXHR.status == '401'){
-                        alert('로그인 후 이용해주세요');
-                        location.href='/members/login'; // 401이면(로그인 상태가 아니면) 로그인 페이지로 이동함
-                    } else{
-                        alert(jqXHR.responseText); // 주문 시 에러가 발생하면 메세지 출력됨
-                    }
-
                 }
             });
         }</script>

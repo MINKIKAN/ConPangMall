@@ -3,6 +3,7 @@ package com.console.mall.service;
 import com.console.mall.controller.MemberForm;
 import com.console.mall.dto.MemberDTO;
 import com.console.mall.entitiy.Address;
+import com.console.mall.entitiy.Cart;
 import com.console.mall.entitiy.Member;
 import com.console.mall.respository.MemberRepository;
 
@@ -13,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 @Transactional(readOnly = true)
