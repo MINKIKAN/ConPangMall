@@ -53,7 +53,7 @@ public class PaginationDTO {
     }
 
     public int getOffset() {
-        int offset = page * recordSize - (recordSize - 1);
+        int offset = page * recordSize - recordSize ;
         return offset;
     }
 }

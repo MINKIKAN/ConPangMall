@@ -2,32 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head>
-    <script >
-        function addOrder(id){
-            alert("id = " +  id);
-            console.log("들어옴");
 
-             // JSON 으로 데이터 보냄
-            $.ajax({
-                url      : "/cart/item",
-                type     : "POST",
-                data     : {"id" : id },
-                success  : function(result, status){
-                    alert("장바구니에 담겼습니다.");
-                    location.href='/item/info'; // 주문 로직 호출이 성공하면은 위의 메세지가 출력되고, 메인 페이지로 이동
-                },
-                error : function(jqXHR, status, error){
-
-                    if(jqXHR.status == '401'){
-                        alert('로그인 후 이용해주세요');
-                        location.href='/members/login'; // 401이면(로그인 상태가 아니면) 로그인 페이지로 이동함
-                    } else{
-                        alert(jqXHR.responseText); // 주문 시 에러가 발생하면 메세지 출력됨
-                    }
-
-                }
-            });
-        }</script>
     <div th:replace="fragments/header :: header" />
     <link rel="stylesheet" href="/css/item_info.css">
 </head>
@@ -150,11 +125,11 @@
                                 </li>
                             </ul>
 
-                            <div class="accordion" id="accordionExample">
-                                <div class="card review_items" th:each="review : ${reviewList}">
-                                    <div class="card-header" id="headingOne">
+                            <div class="accordion" id="accordionExample" th:each="review, index : ${reviewList}">
+                                <div class="card review_items">
+                                    <div class="card-header" th:id="'heading' + ${index}" th:data-target="'#collapse' + ${index}">
                                         <h2 class="mb-0">
-                                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" aria-expanded="false">
                                                 <div class="review_img">
                                                     <img th:src="${review.image}" alt="">
                                                 </div>
@@ -165,7 +140,7 @@
                                         </h2>
                                     </div>
 
-                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div th:id="'collapse' + ${index}" class="collapse" aria-labelledby="'heading' + ${index}" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="detail_img">
                                                 <img th:src="${review.image}" alt="">
@@ -181,6 +156,7 @@
                             </div>
                         </div>
                     </div>
+
                     <!-- 리뷰에 관한 콘테이너 끝-->
 
                 </div>
@@ -198,7 +174,50 @@
             </div>
         </footer>
         <!-- End of Footer -->
+        <script >
 
+            const accordions = document.querySelectorAll('.accordion');
+
+            accordions.forEach((accordion) => {
+                console.log("clicked");
+                const collapse = accordion.querySelector('.collapse');
+
+                accordion.addEventListener('click', () => {
+                    collapse.classList.toggle('show');
+                    accordions.forEach((otherAccordion) => {
+                        const otherCollapse = otherAccordion.querySelector('.collapse');
+                        if (otherAccordion !== accordion && otherCollapse.classList.contains('show')) {
+                            otherCollapse.classList.remove('show');
+                        }
+                    });
+                });
+            });
+
+            function addOrder(id){
+                alert("id = " +  id);
+                console.log("들어옴");
+
+                // JSON 으로 데이터 보냄
+                $.ajax({
+                    url      : "/cart/item",
+                    type     : "POST",
+                    data     : {"id" : id },
+                    success  : function(result, status){
+                        alert("장바구니에 담겼습니다.");
+                        location.href='/item/info'; // 주문 로직 호출이 성공하면은 위의 메세지가 출력되고, 메인 페이지로 이동
+                    },
+                    error : function(jqXHR, status, error){
+
+                        if(jqXHR.status == '401'){
+                            alert('로그인 후 이용해주세요');
+                            location.href='/members/login'; // 401이면(로그인 상태가 아니면) 로그인 페이지로 이동함
+                        } else{
+                            alert(jqXHR.responseText); // 주문 시 에러가 발생하면 메세지 출력됨
+                        }
+
+                    }
+                });
+            }</script>
     </div>
 
 </div>
