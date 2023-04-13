@@ -20,4 +20,10 @@ public class ReviewRepository {
 
     }
 
+    public void deleteReview(Long writer){
+        Review review = em.find(Review.class, writer);
+        em.remove(review);
+
+    }
+
 }
