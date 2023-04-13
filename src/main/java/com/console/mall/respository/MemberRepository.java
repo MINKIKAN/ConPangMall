@@ -19,10 +19,17 @@ public class MemberRepository {
 
     public void save(Member member) {
         em.persist(member);
+
     }
 
     public Member findOne(Long id) {
         return em.find(Member.class, id);
+    }
+
+    public Member findId(String id) {
+        return em.createQuery("select m from Member m where m.login_id=:login_id", Member.class)
+                .setParameter("login_id", id)
+                .getSingleResult();
     }
 
     public List<Member> findAll() {
@@ -31,6 +38,9 @@ public class MemberRepository {
 
     public List<Member> findByName(String name) {
         return em.createQuery("select  m from Member m where m.name = :name", Member.class).setParameter("name", name).getResultList();
+    }    
+    public List<Member> isId(String loginid) {
+        return em.createQuery("select  m from Member m where m.login_id = :loginId", Member.class).setParameter("loginId", loginid).getResultList();
     }
 
     public void deleteById(Long id) {
@@ -47,6 +57,7 @@ public class MemberRepository {
 //        return em.find(Member.class,login_id);
 //
 //    }
+
     public List<Member> findByloginid(Member member) {
         return em.createQuery("select  m from Member m where m.login_id = :login_id and m.pw = :pw", Member.class)
                 .setParameter("login_id", member.getLogin_id())
