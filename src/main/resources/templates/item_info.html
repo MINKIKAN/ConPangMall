@@ -3,26 +3,17 @@
 
 <head>
     <script >
-        function addOrder(form){
-
-            var url = "/orders/";
+        function addOrder(id){
+            alert("id = " +  id);
             console.log("들어옴");
-            var paramData = { // 주문상품 id, 주문할 상품 개수 저장
-                itemId : $("item.item_name").val(),
-                count : $("item.item_price").val()
-            };
 
-            var param = JSON.stringify(paramData); // JSON 으로 데이터 보냄
-            // JSON 으로 데이터 보냄
+             // JSON 으로 데이터 보냄
             $.ajax({
-                url      : url,
+                url      : "/cart/item",
                 type     : "POST",
-                contentType : "application/json",
-                data     : param,
-                dataType : "json",
-                cache   : false,
+                data     : {"id" : id },
                 success  : function(result, status){
-                    alert("주문이 완료 되었습니다.");
+                    alert("장바구니에 담겼습니다.");
                     location.href='/item/info'; // 주문 로직 호출이 성공하면은 위의 메세지가 출력되고, 메인 페이지로 이동
                 },
                 error : function(jqXHR, status, error){

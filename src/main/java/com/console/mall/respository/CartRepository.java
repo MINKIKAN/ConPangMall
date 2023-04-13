@@ -28,4 +28,11 @@ public class CartRepository  {
     public void save(Cart cart) {
         em.persist(cart);
     }
+
+    public Cart findById(String id) {
+        return em.createQuery("select c from Cart c join c.member m where m.login_id = :id", Cart.class)
+                .setParameter("id", id)
+                .getResultList()
+                .get(0);
+    }
 }

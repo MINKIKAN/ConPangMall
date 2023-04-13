@@ -50,12 +50,12 @@
                             <div class="cart_price">가격</div>
                             <div class="cart_del">삭제</div>
                         </li>
-                        <li class="cart_items">
+                        <li class="cart_items" th:each="item : ${cart.getItemList()}">
                             <a href="경로들어갈곳">
                                 <div class="cart_cheek"><input type="checkbox" name="cart_cheek" id=""></div>
-                                <div class="cart_img">대충 X박스 이미지</div>
-                                <div class="cart_title">XBOX - ONE</div>
-                                <div class="cart_price">50,000원</div>
+                                <div class="cart_img"><img th:src="${item.img}"></img></div>
+                                <div class="cart_title" th:text="${item.name}"></div>
+                                <div class="cart_price" th:text="${item.price}"></div>
                                 <div class="cart_del"><button>삭제</button></div>
                             </a>
                         </li>
