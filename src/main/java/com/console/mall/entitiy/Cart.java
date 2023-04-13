@@ -1,6 +1,7 @@
 package com.console.mall.entitiy;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -12,18 +13,20 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@NoArgsConstructor
 public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "cart_id")
+    private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id")
+    @JoinColumn(name = "member_id")
     private Member member; // 구매자
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-    private List<Item> itemList = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Item item;
 
 }
 

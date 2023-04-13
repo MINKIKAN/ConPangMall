@@ -1,8 +1,7 @@
 package com.console.mall.respository;
 import com.console.mall.entitiy.Cart;
-import com.console.mall.entitiy.CartItem;
+import com.console.mall.entitiy.Item;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -29,10 +28,9 @@ public class CartRepository  {
         em.persist(cart);
     }
 
-    public Cart findById(String id) {
-        return em.createQuery("select c from Cart c join c.member m where m.login_id = :id", Cart.class)
+    public List<Item> findById(Long id) {
+        return em.createQuery("select c.item from Cart c where c.member.id =:id")
                 .setParameter("id", id)
-                .getResultList()
-                .get(0);
+                .getResultList();
     }
 }

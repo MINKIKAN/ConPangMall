@@ -84,7 +84,6 @@ public class MemberController {
         if(loginResult != null){
             session.setAttribute("id",loginResult.getLogin_id());
             Member member = memberService.findOne(memberService.getId(loginResult.getLogin_id()));
-            cartService.createCart(member);
             return "yes";
         }
             return "no";

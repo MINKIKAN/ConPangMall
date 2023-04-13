@@ -1,6 +1,7 @@
 package com.console.mall.entitiy;
 
 import com.console.mall.dto.MemberDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -23,7 +24,7 @@ public class Member {
     @Embedded
     private Address address;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id")
-    private Member member; // 구매자
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    private Cart cart; // 구매자
+
 }

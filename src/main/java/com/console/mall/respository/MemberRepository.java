@@ -70,4 +70,10 @@ public class MemberRepository {
     }
 
 
+    public Cart findByIdCart(String id) {
+        return (Cart) em.createQuery("select m.cart from Member m where m.login_id =:id")
+                .setParameter("id", id)
+                .getSingleResult();
+
+    }
 }

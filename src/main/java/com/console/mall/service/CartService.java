@@ -20,16 +20,17 @@ public class CartService {
 
     private final CartRepository cartRepository;
 
-    public void createCart(Member member) {
+
+
+
+    public void saveCart(Member member, Item item) {
         Cart cart = new Cart();
         cart.setMember(member);
+        cart.setItem(item);
         cartRepository.save(cart);
-    }
-    public Cart findByIdCart(String id) {
-        return cartRepository.findById(id);
     }
 
-    public void saveCart(Cart cart) {
-        cartRepository.save(cart);
+    public List<Item> findByCart(Long id) {
+        return cartRepository.findById(id);
     }
 }

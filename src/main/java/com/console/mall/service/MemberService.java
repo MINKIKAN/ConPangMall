@@ -86,4 +86,7 @@ public class MemberService {
     }
 
 
+    public Cart findByCart(String id) {
+        return memberRepository.findByIdCart(id);
+    }
 }

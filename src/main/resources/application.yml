@@ -6,7 +6,7 @@ spring:
     prefix: classpath:/templates/
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://database-basic.cohrr9gdkixc.ap-southeast-2.rds.amazonaws.com:3306/testdb2?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://database-basic.cohrr9gdkixc.ap-southeast-2.rds.amazonaws.com:3306/testdb?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: admin
     password: hellsong
 
@@ -16,9 +16,10 @@ spring:
     database: mysql
     hibernate:
       ddl-auto: update
+
       #show_sql: true
       #format_sql: true
-
+    generate-ddl: true
     # JDBC TimeZone Setting
     properties:
       hibernate:
