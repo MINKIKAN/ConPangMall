@@ -55,6 +55,7 @@ public class PaginationDTO {
     public int getOffset() {
 
         int offset = page * recordSize - recordSize ;
+
         return offset;
     }
 }

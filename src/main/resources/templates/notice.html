@@ -4,6 +4,7 @@
 <head>
     <div th:replace="fragments/header :: header" />
     <link rel="stylesheet" href="/css/notice.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s2R1s1e+c1od3y+u" crossorigin="anonymous">
 </head>
 
 <body id="page-top">
@@ -36,20 +37,58 @@
             <!-- 바디 보여주는 부분 시작 -->
             <div class="container-fluid">
                 <div class="notice_area">
-                    <p class="notice_title">공지사항</p>
-                    <ul class="notice_list">
-                        <li class="notice_index">
+                    <p class="notice_title"><a href="/notice/new">공지사항</a></p>
+                    <div class="accordion" id="noticeAccordion">
+                        <div class="notice_index">
                             <div class="notice_num">번호</div>
                             <div class="notice_title">제목</div>
                             <div class="notice_writer">작성자</div>
                             <div class="notice_date">날짜</div>
                         </li>
                     </ul>
+                        </div>
+                        <div th:each="board : ${list}" class="accordion-item">
+                            <div class="accordion-header">
+                                <button class="accordion-button collapsed d-flex align-items-center" type="button" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse'+${board.getId()}" aria-expanded="false">
+                                    <div class="notice_num" th:text="${board.getId()}"></div>
+                                    <div class="notice_title" th:text="${board.getTitle()}"></div>
+                                    <div class="notice_writer" th:text="${board.getWriter()}"></div>
+                                    <div class="notice_date" th:text="${#temporals.format(board.getDate(), 'yyyy-MM-dd HH:mm:ss')}"></div>
+                                    <button th:if="${session.id == 'admin'}" type="button" class="btn btn-danger" th:attr="onclick='deleteNotice('+${board.getId()}+')'">삭제</button>
+                                    <script>
+                                        function deleteNotice(boardId) {
+                                            location.href = '/notice/delete?boardId=' + boardId;
+                                        }
+                                    </script>
+                                </button>
+                            </div>
+                            <div th:id="'collapse' + ${board.getId()}" class="accordion-collapse collapse" data-bs-parent="#noticeAccordion">
+                                <div class="accordion-body">
+                                    <div class="notice_content" th:text="${board.getContent()}"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-            <!-- 바디 보여주는 부분 끝 -->
 
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMxmnOQLrjhlzD2rs8U+//E1e9zg5z83P5iZb23z6E5gqXw0yJH/em6jc5" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+            <!--            <script>-->
+<!--                document.querySelectorAll('.accordion .card-header').forEach((header, index) => {-->
+<!--                    header.addEventListener('click', () => {-->
+<!--                        const collapse = header.nextElementSibling;-->
+<!--                        collapse.classList.toggle('show');-->
+<!--                        document.querySelectorAll('.accordion .collapse').forEach((otherCollapse, otherIndex) => {-->
+<!--                            if (otherIndex !== index && otherCollapse.classList.contains('show')) {-->
+<!--                                otherCollapse.classList.remove('show');-->
+<!--                            }-->
+<!--                        });-->
+<!--                    });-->
+<!--                });-->
+<!--            </script>-->
+            <!-- 바디 보여주는 부분 끝 -->
         </div>
 
 
