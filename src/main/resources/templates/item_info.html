@@ -2,220 +2,269 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head>
-    <script >
-        function addOrder(id){
-            alert("id = " +  id);
-            console.log("들어옴");
+    <script>
+        function addOrder(id) {
 
-             // JSON 으로 데이터 보냄
+
+            // JSON 으로 데이터 보냄
             $.ajax({
-                url      : "/carts/item",
-                type     : "POST",
-                data     : {"id" : id },
-                success  : function(result, status){
+                url: "/carts/item",
+                type: "POST",
+                data: { "id": id },
+                success: function (result, status) {
                     alert("장바구니에 담겼습니다.");
                 }
             });
-        }</script>
+        }
+    </script>
     <div th:replace="fragments/header :: header" />
     <link rel="stylesheet" href="/css/item_info.css">
 </head>
 <link rel="">
+
 <body id="page-top">
 
-<!-- Page Wrapper -->
-<div id="wrapper">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-    <!-- 왼쪽 사이드 바 시작 -->
-    <!-- th:replace로 templates안에 fragments 폴더안에 side_bar.html 받아오게 함 -->
-    <!-- 수정할 내용은 side_bar.html 에서 해주시면 다 적용됩니다 -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <!-- 왼쪽 사이드 바 시작 -->
+        <!-- th:replace로 templates안에 fragments 폴더안에 side_bar.html 받아오게 함 -->
+        <!-- 수정할 내용은 side_bar.html 에서 해주시면 다 적용됩니다 -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <div th:replace="fragments/side_bar :: side_bar" />
-    </ul>
-    <!-- 왼쪽 사이드 바 끝 -->
+            <div th:replace="fragments/side_bar :: side_bar" />
+        </ul>
+        <!-- 왼쪽 사이드 바 끝 -->
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
 
-        <!-- Main Content -->
-        <div id="content">
+            <!-- Main Content -->
+            <div id="content">
 
-            <!-- 상단의 nav 바 시작 -->
-            <!-- 이것도 수정하실거 있으시면 fragments 폭더에 nav_bar 수정해주시면 됩니다 -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <div th:replace="fragments/nav_bar :: nav_bar" />
-            </nav>
-            <!-- 상단의 nav 바 끝 -->
+                <!-- 상단의 nav 바 시작 -->
+                <!-- 이것도 수정하실거 있으시면 fragments 폭더에 nav_bar 수정해주시면 됩니다 -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <div th:replace="fragments/nav_bar :: nav_bar" />
+                </nav>
+                <!-- 상단의 nav 바 끝 -->
 
-            <!-- 바디부분 시작 -->
-            <div class="container-fluid">
+                <!-- 바디부분 시작 -->
+                <div class="container-fluid">
 
-                <div class="con">
+                    <div class="con">
 
-                    <!-- 상품 구매에 관한 콘테이너 시작-->
-                    <div class="first-con">
-                        <div class="first-left-con">
-                            <div class="product-img-box"><img class="product-img" th:src="${item.image}" alt=""></div>
-                            <div class="product-img-slide-box">
-                                <!-- 아래 작은 이미지 누르면 바뀌면서 보이게 -->
-                            </div>
-                        </div>
-                        <div class="first-right-con">
-                            <div class="product-title">
-                                <h1 th:text="${item.name}"></h1>
-                            </div>
-                            <div class="product-price-info-box">
-                                <div class="product-price-name">가격</div>
-                                <div class="product-price" th:text="${item.price}"></div>
-                            </div>
-                            <div class="product-member-ship-box">
-                                <div class="product-member-ship-title"></div>
-                                <div class="product-member-ship-info-box">
+                        <!-- 상품 구매에 관한 콘테이너 시작-->
+                        <div class="first-con">
+                            <div class="first-left-con">
+                                <div class="product-img-box"><img class="product-img" th:src="${item.image}" alt="">
+                                </div>
+                                <div class="product-img-slide-box">
+                                    <!-- 아래 작은 이미지 누르면 바뀌면서 보이게 -->
                                 </div>
                             </div>
-                            <div class="product-buy-info-box">
-                                <form class="product-form" action="">
-                                    <div class="content-line">
-                                        <p>옵션1 </p>
-                                        <select class="product-select">
-                                            <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
+                            <div class="first-right-con">
+                                <div class="product-title">
+                                    <h1 th:text="${item.name}"></h1>
+                                </div>
+                                <div class="product-price-info-box">
+                                    <div class="product-price-name">가격</div>
+                                    <div class="product-price" th:text="${item.price}"></div>
+                                </div>
+                                <div class="product-member-ship-box">
+                                    <div class="product-member-ship-title"></div>
+                                    <div class="product-member-ship-info-box">
                                     </div>
-                                    <div class="content-line">
-                                        <p>옵션2 </p>
-                                        <select class="product-select">
-                                            <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                    </div>
-                                    <div class="content-line">
-                                        <p>옵션3 </p>
-                                        <select class="product-select">
-                                            <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
-                                    </div>
-                                    <input type="button" class="product-cart-button" th:onclick="|addOrder(${item.getId()})|"/>
-                                </form>
+                                </div>
+                                <div class="product-buy-info-box">
+                                    <form class="product-form" action="">
+                                        <div class="content-line">
+                                            <p>옵션1 </p>
+                                            <select class="product-select">
+                                                <option selected>Open this select menu</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </div>
+                                        <div class="content-line">
+                                            <p>옵션2 </p>
+                                            <select class="product-select">
+                                                <option selected>Open this select menu</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </div>
+                                        <div class="content-line">
+                                            <p>옵션3 </p>
+                                            <select class="product-select">
+                                                <option selected>Open this select menu</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                            </select>
+                                        </div>
+                                        <input type="button" class="product-cart-button"
+                                            th:onclick="|addOrder(${item.getId()})|" />
+                                    </form>
+                                </div>
+
                             </div>
 
                         </div>
+                        <!-- 상품 구매에 관한 콘테이너 끝-->
 
-                    </div>
-                    <!-- 상품 구매에 관한 콘테이너 끝-->
+                        <!-- 상품 정보에 관한 콘테이너 시작-->
+                        <div class="second-con">
+                            <div class="product-explanation-con">
+                                <div class="youtube-link-box">
+                                    <iframe th:src="${item.itemVideo}"></iframe>
+                                </div>
+                                <div class="product-info-content">
+                                    <p th:text="${item.itemInfo}"></p>
+                                </div>
+                            </div>
 
-                    <!-- 상품 정보에 관한 콘테이너 시작-->
-                    <div class="second-con">
-                        <div class="product-explanation-con">
-                            <div class="youtube-link-box">
-                                <iframe th:src="${item.itemVideo}"></iframe>
-                            </div>
-                            <div class="product-info-content">
-                                <p th:text="${item.itemInfo}"></p>
-                            </div>
                         </div>
+                        <!-- 상품 정보에 관한 콘테이너 시작-->
 
-                    </div>
-                    <!-- 상품 정보에 관한 콘테이너 시작-->
+                        <!-- 리뷰에 관한 콘테이너 시작-->
+                        <div class="third-con">
+                            <div class="review_area">
+                                <ul class="review_list">
+                                    <p class="review_notice">리뷰</p>
+                                    <li class="review_title">
+                                        <div class="review_img">이미지</div>
+                                        <div class="review_title">제목</div>
+                                        <div class="review_writer">작성자</div>
+                                        <div class="review_date">날짜</div>
+                                    </li>
+                                </ul>
 
-                    <!-- 리뷰에 관한 콘테이너 시작-->
-                    <div class="third-con">
-                        <div class="review_area">
-                            <ul class="review_list">
-                                <p class="review_notice">리뷰</p>
-                                <li class="review_title">
-                                    <div class="review_img">이미지</div>
-                                    <div class="review_title">제목</div>
-                                    <div class="review_writer">작성자</div>
-                                    <div class="review_date">날짜</div>
-                                </li>
-                            </ul>
+                                <div class="accordion" id="accordionExample" th:each="review, index : ${reviewList}">
+                                    <div class="card review_items">
+                                        <div class="card-header" th:id="'heading' + ${index}"
+                                            th:data-target="'#collapse' + ${index}">
+                                            <h2 class="mb-0">
+                                                <button class="btn btn-link btn-block text-left" type="button"
+                                                    data-toggle="collapse" aria-expanded="false">
+                                                    <div class="review_img">
+                                                        <img th:src="${review.image}" alt="">
+                                                    </div>
+                                                    <div class="review_title" th:text="${review.title}"></div>
+                                                    <div class="review_writer" th:text="${review.writer}"></div>
+                                                    <div class="review_date" th:text="${review.writer}"></div>
+                                                </button>
+                                            </h2>
+                                        </div>
 
-                            <div class="accordion" id="accordionExample">
-                                <div class="card review_items" th:each="review : ${reviewList}">
-                                    <div class="card-header" id="headingOne">
-                                        <h2 class="mb-0">
-                                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                <div class="review_img">
+                                        <div th:id="'collapse' + ${index}" class="collapse"
+                                            aria-labelledby="'heading' + ${index}" data-parent="#accordionExample">
+                                            <div class="card-body">
+                                                <div class="detail_img">
                                                     <img th:src="${review.image}" alt="">
                                                 </div>
-                                                <div class="review_title" th:text="${review.title}"></div>
-                                                <div class="review_writer" th:text="${review.writer}"></div>
-                                                <div class="review_date"></div>
-                                            </button>
-                                        </h2>
-                                    </div>
-
-                                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="detail_img">
-                                                <img th:src="${review.image}" alt="">
-                                            </div>
-                                            <div class="detail_box">
-                                                <div class="detail_title" th:text="${review.title}"></div>
-                                                <div class="detail_writer" th:text="${review.writer}"></div>
-                                                <div class="detail-content" th:text="${review.content}"></div>
+                                                <div class="detail_box">
+                                                    <div class="detail_title" th:text="${review.title}"></div>
+                                                    <div class="detail_writer" th:text="${review.writer}"></div>
+                                                    <div class="detail-content" th:text="${review.content}"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- 리뷰에 관한 콘테이너 끝-->
+
                     </div>
-                    <!-- 리뷰에 관한 콘테이너 끝-->
-
                 </div>
-            </div>
-            <!-- 바디부분 끝 -->
+                <!-- 바디부분 끝 -->
 
+            </div>
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+            <script>
+
+                const accordions = document.querySelectorAll('.accordion');
+
+                accordions.forEach((accordion) => {
+                    console.log("clicked");
+                    const collapse = accordion.querySelector('.collapse');
+
+                    accordion.addEventListener('click', () => {
+                        collapse.classList.toggle('show');
+                        accordions.forEach((otherAccordion) => {
+                            const otherCollapse = otherAccordion.querySelector('.collapse');
+                            if (otherAccordion !== accordion && otherCollapse.classList.contains('show')) {
+                                otherCollapse.classList.remove('show');
+                            }
+                        });
+                    });
+                });
+
+                function addOrder(id) {
+                    alert("id = " + id);
+                    console.log("들어옴");
+
+                    // JSON 으로 데이터 보냄
+                    $.ajax({
+                        url: "/cart/item",
+                        type: "POST",
+                        data: { "id": id },
+                        success: function (result, status) {
+                            alert("장바구니에 담겼습니다.");
+                            location.href = '/item/info'; // 주문 로직 호출이 성공하면은 위의 메세지가 출력되고, 메인 페이지로 이동
+                        },
+                        error: function (jqXHR, status, error) {
+
+                            if (jqXHR.status == '401') {
+                                alert('로그인 후 이용해주세요');
+                                location.href = '/members/login'; // 401이면(로그인 상태가 아니면) 로그인 페이지로 이동함
+                            } else {
+                                alert(jqXHR.responseText); // 주문 시 에러가 발생하면 메세지 출력됨
+                            }
+
+                        }
+                    });
+                }</script>
         </div>
-
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright &copy; Your Website 2021</span>
-                </div>
-            </div>
-        </footer>
-        <!-- End of Footer -->
 
     </div>
 
-</div>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
 
-<!-- Scroll to Top Button-->
-<a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-</a>
+    <!-- Logout Modal-->
+    <div th:replace="fragments/logout :: logout" />
 
-<!-- Logout Modal-->
-<div th:replace="fragments/logout :: logout"/>
+    <!-- Bootstrap core JavaScript-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Bootstrap core JavaScript-->
-<script src="/vendor/jquery/jquery.min.js"></script>
-<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-<!-- Core plugin JavaScript-->
-<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="/js/sb-admin-2.min.js"></script>
 
-<!-- Custom scripts for all pages-->
-<script src="/js/sb-admin-2.min.js"></script>
+    <!-- Page level plugins -->
 
-<!-- Page level plugins -->
-<script src="/vendor/chart.js/Chart.min.js"></script>
 
-<!-- Page level custom scripts -->
-<script src="/js/demo/chart-area-demo.js"></script>
-<script src="/js/demo/chart-pie-demo.js"></script>
+    <!-- Page level custom scripts -->
+
 
 </body>
 
