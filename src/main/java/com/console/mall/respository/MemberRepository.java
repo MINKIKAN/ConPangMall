@@ -12,26 +12,32 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 
-
 @Repository
 @RequiredArgsConstructor
 public class MemberRepository {
     private final EntityManager em;
 
-    public void save(Member member){
-        em.persist(member);
+    public void save(Member member) {
+
+            em.persist(member);
     }
 
-    public Member findOne(Long id){
-       return em.find(Member.class, id);
+    public Member findOne(Long id) {
+        return em.find(Member.class, id);
     }
 
-    public List<Member> findAll(){
+    public Member findId(String id) {
+        return em.createQuery("select m from Member m where m.login_id=:login_id", Member.class)
+                .setParameter("login_id", id)
+                .getSingleResult();
+    }
+
+    public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class).getResultList();
     }
 
-    public List<Member> findByName(String name) {
-        return em.createQuery("select  m from Member m where m.name = :name", Member.class).setParameter( "name", name).getResultList();
+    public List<Member> isId(String loginid) {
+        return em.createQuery("select  m from Member m where m.login_id = :loginId", Member.class).setParameter("loginId", loginid).getResultList();
     }
 
     public void deleteById(Long id) {
@@ -41,17 +47,15 @@ public class MemberRepository {
         TypedQuery<Long> query = em.createQuery("SELECT m.id FROM Member m WHERE m.login_id = :login_id", Long.class);
         query.setParameter("login_id", loginId);
         Long id = query.getSingleResult();
-      return id;
+        return id;
     }
-//    public Member findByLoginid(String login_id){
-//        return em.find(Member.class,login_id);
-//
-//    }
-    public List<Member> findByloginid(Member member){
-       return em.createQuery("select  m from Member m where m.login_id = :login_id and m.pw = :pw", Member.class)
-               .setParameter("login_id", member.getLogin_id())
-               .setParameter("pw", member.getPw())
-               .getResultList();
+
+
+    public List<Member> findByloginid(Member member) {
+        return em.createQuery("select  m from Member m where m.login_id = :login_id and m.pw = :pw", Member.class)
+                .setParameter("login_id", member.getLogin_id())
+                .setParameter("pw", member.getPw())
+                .getResultList();
     }
 
 
