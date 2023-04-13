@@ -90,7 +90,7 @@ public class MemberController {
 
     }
     @GetMapping("/members/updateForm")
-    public String updateForm(HttpSession session,Model model){
+    public String updateForm(HttpSession session,Model model ){
         String id = (String) session.getAttribute("id");
         Member member = memberService.findId(id);
         UpdateForm form = new UpdateForm();
@@ -106,12 +106,12 @@ public class MemberController {
         model.addAttribute("form", form);
         return "members/updateForm";
     }
-    @ResponseBody
     @PostMapping("/members/updateForm")
     public String update(HttpSession session,@ModelAttribute("form") UpdateForm form) {
         String id = (String) session.getAttribute("id");
         memberService.update(id,form.getName(),form.getCity(),form.getStreet(),form.getZipcode(),form.getEmail(),form.getPhone(),form.getPw());
-        return "/";
+
+        return "redirect:/";
     }
 
     @GetMapping("/members/logout")

@@ -4,7 +4,7 @@
 <!--공통되는 cdn, 타이틀 등 fragments폴더안에 header 안에 넣고 replace 했습니다 -->
 <head>
     <div th:replace="fragments/header :: header"/>
-    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/itemadmin.css">
 </head>
 
 <body id="page-top">
@@ -67,28 +67,31 @@
             </script>
             <div class="container">
                 <div class="con">
-                    <div class="login-title">
-                        상품 추가
-                    </div>
+
                     <form action="">
-                        <div class="label mb-5">><label for="name">이름</label></div>
+                        <div class="login-title">
+                            상품 추가
+                        </div>
+                        <div class="label "><label for="name">이름</label></div>
                         <input type="text" id="name" name="name" placeholder="">
-                        <div class="label mb-5"><label for="price">가격</label></div>
+                        <div class="label "><label for="price">가격</label></div>
                         <input type="text" id="price" name="price" placeholder="">
-                        <div class="label mb-5"><label for="stockQuantity">수량</label></div>
+                        <div class="label "><label for="stockQuantity">수량</label></div>
                         <input type="text" id="stockQuantity" name="stockQuantity" placeholder="">
-                        <div class="label mb-5"><label for="file">업로드</label></div>
+                        <div class="label "><label for="file">업로드</label></div>
                         <input type="file" id="file" name="file" placeholder="">
-                        <div class="label mb-5"><label for="itemInfo">정보</label></div>
+                        <div class="label "><label for="itemInfo">정보</label></div>
                         <input type="text" id="itemInfo" name="itemInfo" placeholder="">
-                        <div class="label mb-5"><label for="itemVideo">유튜브</label></div>
+                        <div class="label "><label for="itemVideo">유튜브</label></div>
                         <input type="text" id="itemVideo" name="itemVideo" placeholder="">
-                        <div class="label mb-5"><label for="category">카테고리</label></div>
+                        <div class="label "><label for="category">카테고리</label></div>
+                        <div class="category">
                         <select name="category" id="category">
                             <option th:each="category : ${categoryList}" th:value="${category.id}"
                                     th:text="${category.name}"></option>
                         </select>
                         <input type="button" onclick="itemAdd(form)" value="등록"/>
+                        </div>
                     </form>
                 </div>
 
