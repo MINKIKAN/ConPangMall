@@ -37,7 +37,8 @@
             <!-- 바디 보여주는 부분 시작 -->
             <div class="container-fluid">
                 <div class="notice_area">
-                    <p class="notice_title"><a href="/notice/new">공지사항</a></p>
+                    <p class="notice_title">공지사항 <button class="notice_add" th:if="${session.id == 'admin'}" onclick="location.href='/notice/new'">+</button></p>
+                    <!--<a href="/notice/new">글쓰기</a>-->
                     <div class="accordion" id="noticeAccordion">
                         <div class="notice_index">
                             <div class="notice_num">번호</div>
@@ -47,14 +48,14 @@
                         </li>
                     </ul>
                         </div>
-                        <div th:each="board : ${list}" class="accordion-item">
+                        <div th:each="board,index : ${list}" class="accordion-item">
                             <div class="accordion-header">
                                 <button class="accordion-button collapsed d-flex align-items-center" type="button" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse'+${board.getId()}" aria-expanded="false">
-                                    <div class="notice_num" th:text="${board.getId()}"></div>
+                                    <div class="notice_num" th:text="${index.count}"></div>
                                     <div class="notice_title" th:text="${board.getTitle()}"></div>
                                     <div class="notice_writer" th:text="${board.getWriter()}"></div>
                                     <div class="notice_date" th:text="${#temporals.format(board.getDate(), 'yyyy-MM-dd HH:mm:ss')}"></div>
-                                    <button th:if="${session.id == 'admin'}" type="button" class="btn btn-danger" th:attr="onclick='deleteNotice('+${board.getId()}+')'">삭제</button>
+                                    <button th:if="${session.id == 'admin'}" type="button" class="btn btn-danger" th:attr="onclick='deleteNotice('+${board.getId()}+')'" style="font-size: 8px;">삭제</button>
                                     <script>
                                         function deleteNotice(boardId) {
                                             location.href = '/notice/delete?boardId=' + boardId;
@@ -62,6 +63,7 @@
                                     </script>
                                 </button>
                             </div>
+
                             <div th:id="'collapse' + ${board.getId()}" class="accordion-collapse collapse" data-bs-parent="#noticeAccordion">
                                 <div class="accordion-body">
                                     <div class="notice_content" th:text="${board.getContent()}"></div>
