@@ -22,13 +22,16 @@ public class Cart {
     private Long id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member; // 구매자
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
-    private Item item;
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    private List<CartItem> list = new ArrayList<>();
 
+    public void addCartItem(CartItem cartItem) {
+        list.add(cartItem);
+        cartItem.setCart(this);
+    }
 }
 

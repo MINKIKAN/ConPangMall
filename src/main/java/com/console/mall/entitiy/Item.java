@@ -35,24 +35,8 @@ public class Item {
     private List<Review> list = new ArrayList<>();
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
 
-    public void setCart(Order order) {
-        this.order = order;
-    }
-    public List<OrderItem> getOrderItemList() {
-        List<OrderItem> orderItemList = new ArrayList<>();
-        this.getOrderItemList().forEach(orders -> {
-            for (OrderItem orderItem : orders.getItem().getOrderItemList()) {
-                if (orderItem.getItem().equals(this)) {
-                    orderItemList.add(orderItem);
-                }
-            }
-        });
-        return orderItemList;
-    }
+
     public void removeStock(int quantity) {
         int restStock = this.stockQuantity - quantity;
         if (restStock < 0) {

@@ -15,29 +15,29 @@ import java.util.List;
 @RequestMapping("/orders")
 @RequiredArgsConstructor
 public class OrderApiController {
-    private final ItemService itemService;
-    private final OrderService orderService;
-
-    @PostMapping("/{userId}")
-    public List<Order> getOrdersByUserId(@PathVariable("userId") Long userId) {
-        return orderService.getOrdersByUserId(userId);
-    }
-
-    @PostMapping("/")
-
-    public Order createOrder(@RequestBody Item item) {
-        return orderService.createOrder(new Order());
-    }
-
-
-    @PutMapping("/{orderId}")
-    public Order updateOrder(@PathVariable("orderId") Long orderId, @RequestBody Order order) {
-        return orderService.updateOrder(orderId, order);
-    }
-
-    @DeleteMapping("/{orderId}")
-    public void deleteOrder(@PathVariable("orderId") Long orderId) {
-        orderService.deleteOrder(orderId);
-    }
+//    private final ItemService itemService;
+//    private final OrderService orderService;
+//
+//    @PostMapping("/{userId}")
+//    public List<Order> getOrdersByUserId(@PathVariable("userId") Long userId) {
+//        return orderService.getOrdersByUserId(userId);
+//    }
+//
+//    @PostMapping("/")
+//
+//    public Order createOrder(@RequestBody Item item) {
+//        return orderService.createOrder(new Order());
+//    }
+//
+//
+//    @PutMapping("/{orderId}")
+//    public Order updateOrder(@PathVariable("orderId") Long orderId, @RequestBody Order order) {
+//        return orderService.updateOrder(orderId, order);
+//    }
+//
+//    @DeleteMapping("/{orderId}")
+//    public void deleteOrder(@PathVariable("orderId") Long orderId) {
+//        orderService.deleteOrder(orderId);
+//    }
 
 }

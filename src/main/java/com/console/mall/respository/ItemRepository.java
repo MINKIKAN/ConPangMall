@@ -34,4 +34,5 @@ public class ItemRepository {
                 .setParameter("id", id)
                 .getSingleResult();
     }
+
 }

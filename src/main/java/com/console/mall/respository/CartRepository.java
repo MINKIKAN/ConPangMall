@@ -1,5 +1,6 @@
 package com.console.mall.respository;
 import com.console.mall.entitiy.Cart;
+import com.console.mall.entitiy.CartItem;
 import com.console.mall.entitiy.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -28,9 +29,15 @@ public class CartRepository  {
         em.persist(cart);
     }
 
-    public List<Item> findById(Long id) {
-        return em.createQuery("select c.item from Cart c where c.member.id =:id")
+    public Cart findByIdCart(Long id) {
+        return (Cart) em.createQuery("select c from Cart c where c.member.id =:id")
                 .setParameter("id", id)
-                .getResultList();
+                .getSingleResult();
     }
+    public List<Item> allItem(Long id) {
+        return em.createQuery("SELECT i FROM Cart c JOIN c.list ci JOIN Item i ON ci.item.id = i.id WHERE c.id = :cartId", Item.class)
+                 .setParameter("cartId", id)
+                 .getResultList();
+    }
+
 }

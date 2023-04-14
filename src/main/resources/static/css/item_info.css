@@ -170,6 +170,8 @@
     font-size: 20px;
     font-weight: 600;
 }
+
+
 .product-explanation-con {
     margin-top: 50px;
     width: 100%;
@@ -263,7 +265,6 @@ li.review_title div { width:25%; text-align:center; }
 
 .review_items { display:flex; align-items:center; flex-wrap:wrap; }
 .card-header { width:100%; padding:0; }
-.collapse { width:100%; }
 .accordion-review>.card>.card-header button.btn-link { display:flex; width:100%; align-items:center; }
 .accordion-review>.card>.card-header button.btn-link div { width:25%; text-align:center; }
 .accordion-review>.card>.card-header button.btn-link div img { max-width:100%; object-fit:contain; }

@@ -26,6 +26,6 @@ public class Member {
     @Embedded
     private Address address;
 
-
-
+    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    private Cart cart;
 }

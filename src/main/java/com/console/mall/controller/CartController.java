@@ -25,11 +25,9 @@ public class CartController {
     public String cartList(HttpSession session, Model model) {
         String id = (String)session.getAttribute("id");
 
-        Long memberId = memberService.getId(id);
-
-        List<Item> itemList = cartService.findByCart(memberId);
-
         Member member = memberService.findId(id);
+
+        List<Item> itemList = cartService.findAllItem(member.getId());
 
         int totalPrice = getTotalPrice(itemList);
 

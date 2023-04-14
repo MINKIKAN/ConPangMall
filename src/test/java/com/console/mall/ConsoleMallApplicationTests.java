@@ -36,6 +36,7 @@ class ConsoleMallApplicationTests {
 	void DB연동() {
 		Assertions.assertNotNull(em);
 	}
+
 	@Test
 	void 회원추가() {
 
@@ -51,113 +52,122 @@ class ConsoleMallApplicationTests {
 		member1.setName("김철수");
 		member1.setPhone("010-1234-5678");
 		member1.setPw("qwer");
+		Cart cart = new Cart();
+		cart.setMember(member1);
+		member1.setCart(cart);
 
+//
+//
+//		Member member2 = new Member();
+//		member2.setAddress(new Address("서울시","강남구 역삼동","123-456"));
+//		member2.getAddress().setCity("서울시");
+//		member2.getAddress().setStreet("마포구 서교동");
+//		member2.setEmail("user2@example.com");
+//		member2.setLogin_id("asdf");
+//		member2.setName("이영희");
+//		member2.setPhone("010-2345-6789");
+//		member2.setPw("asdf");
+//		member2.setCart(new Cart());
+//
+//		Member member4 = new Member();
+//		member4.setAddress(new Address("서울시","강남구 역삼동","123-456"));
+//		member4.getAddress().setCity("인천시");
+//		member4.getAddress().setStreet("연수구 송도동");
+//		member4.getAddress().setZipcode("901-234");
+//		member4.setEmail("user4@example.com");
+//		member4.setLogin_id("qwe");
+//		member4.setName("최지원");
+//		member4.setPhone("010-4567-8901");
+//		member4.setPw("qwe");
+//		member4.setCart(new Cart());
+//
+//		Member member5 = new Member();
+//		member5.setAddress(new Address("서울시","강남구 역삼동","123-456"));
+//		member5.getAddress().setCity("대구시");
+//		member5.getAddress().setStreet("수성구 지산동");
+//		member5.getAddress().setZipcode("567-890");
+//
+//		member5.setEmail("user5@example.com");
+//		member5.setLogin_id("asd");
+//		member5.setName("윤승민");
+//		member5.setPhone("010-5678-9012");
+//		member5.setPw("asd");
+//		member5.setCart(new Cart());
+//
+//		Member member6 = new Member();
+//		member6.setAddress(new Address("서울시","강남구 역삼동","123-456"));
+//		member6.getAddress().setCity("광주시");
+//		member6.getAddress().setStreet("북구 중흥동");
+//		member6.getAddress().setZipcode("234-567");
+//		member6.setEmail("user6@example.com");
+//		member6.setLogin_id("zxc");
+//		member6.setName("송지영");
+//		member6.setPhone("010-6789-0123");
+//		member6.setPw("zxc");
+//		member5.setCart(new Cart());
+//		Member member7 = new Member();
+//		member7.setAddress(new Address("서울시","강남구 역삼동","123-456"));
+//		member7.getAddress().setCity("울산시");
+//		member7.getAddress().setStreet("남구 신정동");
+//		member7.getAddress().setZipcode("890-123");
+//		member7.setEmail("user7@example.com");
+//		member7.setLogin_id("qw");
+//		member7.setName("박재현");
+//		member7.setPhone("010-7890-1234");
+//		member7.setPw("qw");
+//		member5.setCart(new Cart());
+//		Member member8 = new Member();
+//		member8.setAddress(new Address("서울시","강남구 역삼동","123-456"));
+//		member8.getAddress().setCity("대전시");
+//		member8.getAddress().setStreet("서구 월평동");
+//		member8.getAddress().setZipcode("456-789");
+//		member8.setEmail("user8@example.com");
+//		member8.setLogin_id("as");
+//		member8.setName("이성민");
+//		member8.setPhone("010-8901-2345");
+//		member8.setPw("as");
+//		member5.setCart(new Cart());
+//		Member member9 = new Member();
+//		member9.setAddress(new Address("서울시","강남구 역삼동","123-456"));
+//		member9.getAddress().setCity("경기도");
+//		member9.getAddress().setStreet("용인시 수지구");
+//		member9.getAddress().setZipcode("012-345");
+//		member9.setEmail("user9@example.com");
+//		member9.setLogin_id("zx");
+//		member9.setName("김태희");
+//		member9.setPhone("010-9012-3456");
+//		member9.setPw("zx");
+//		member5.setCart(new Cart());
+//		Member member10 = new Member();
+//		member10.setAddress(new Address("서울시","강남구 역삼동","123-456"));
+//		member10.getAddress().setCity("제주도");
+//		member10.getAddress().setStreet("제주시 구좌읍");
+//		member10.getAddress().setZipcode("678-901");
+//		member10.setEmail("user10@example.com");
+//		member10.setLogin_id("q");
+//		member10.setName("송하늘");
+//		member10.setPhone("010-1234-5678");
+//		member10.setPw("q");
+//		member5.setCart(new Cart());
+//		Member member11 = new Member();
+//		member11.setName("관리자");
+//		member11.setLogin_id("admin");
+//		member11.setPw("admin");
+//		member5.setCart(new Cart());
 
-		Member member2 = new Member();
-		member2.setAddress(new Address("서울시","강남구 역삼동","123-456"));
-		member2.getAddress().setCity("서울시");
-		member2.getAddress().setStreet("마포구 서교동");
-		member2.setEmail("user2@example.com");
-		member2.setLogin_id("asdf");
-		member2.setName("이영희");
-		member2.setPhone("010-2345-6789");
-		member2.setPw("asdf");
-
-		Member member4 = new Member();
-		member4.setAddress(new Address("서울시","강남구 역삼동","123-456"));
-		member4.getAddress().setCity("인천시");
-		member4.getAddress().setStreet("연수구 송도동");
-		member4.getAddress().setZipcode("901-234");
-		member4.setEmail("user4@example.com");
-		member4.setLogin_id("qwe");
-		member4.setName("최지원");
-		member4.setPhone("010-4567-8901");
-		member4.setPw("qwe");
-
-		Member member5 = new Member();
-		member5.setAddress(new Address("서울시","강남구 역삼동","123-456"));
-		member5.getAddress().setCity("대구시");
-		member5.getAddress().setStreet("수성구 지산동");
-		member5.getAddress().setZipcode("567-890");
-
-		member5.setEmail("user5@example.com");
-		member5.setLogin_id("asd");
-		member5.setName("윤승민");
-		member5.setPhone("010-5678-9012");
-		member5.setPw("asd");
-
-		Member member6 = new Member();
-		member6.setAddress(new Address("서울시","강남구 역삼동","123-456"));
-		member6.getAddress().setCity("광주시");
-		member6.getAddress().setStreet("북구 중흥동");
-		member6.getAddress().setZipcode("234-567");
-		member6.setEmail("user6@example.com");
-		member6.setLogin_id("zxc");
-		member6.setName("송지영");
-		member6.setPhone("010-6789-0123");
-		member6.setPw("zxc");
-
-		Member member7 = new Member();
-		member7.setAddress(new Address("서울시","강남구 역삼동","123-456"));
-		member7.getAddress().setCity("울산시");
-		member7.getAddress().setStreet("남구 신정동");
-		member7.getAddress().setZipcode("890-123");
-		member7.setEmail("user7@example.com");
-		member7.setLogin_id("qw");
-		member7.setName("박재현");
-		member7.setPhone("010-7890-1234");
-		member7.setPw("qw");
-
-		Member member8 = new Member();
-		member8.setAddress(new Address("서울시","강남구 역삼동","123-456"));
-		member8.getAddress().setCity("대전시");
-		member8.getAddress().setStreet("서구 월평동");
-		member8.getAddress().setZipcode("456-789");
-		member8.setEmail("user8@example.com");
-		member8.setLogin_id("as");
-		member8.setName("이성민");
-		member8.setPhone("010-8901-2345");
-		member8.setPw("as");
-
-		Member member9 = new Member();
-		member9.setAddress(new Address("서울시","강남구 역삼동","123-456"));
-		member9.getAddress().setCity("경기도");
-		member9.getAddress().setStreet("용인시 수지구");
-		member9.getAddress().setZipcode("012-345");
-		member9.setEmail("user9@example.com");
-		member9.setLogin_id("zx");
-		member9.setName("김태희");
-		member9.setPhone("010-9012-3456");
-		member9.setPw("zx");
-
-		Member member10 = new Member();
-		member10.setAddress(new Address("서울시","강남구 역삼동","123-456"));
-		member10.getAddress().setCity("제주도");
-		member10.getAddress().setStreet("제주시 구좌읍");
-		member10.getAddress().setZipcode("678-901");
-		member10.setEmail("user10@example.com");
-		member10.setLogin_id("q");
-		member10.setName("송하늘");
-		member10.setPhone("010-1234-5678");
-		member10.setPw("q");
-
-		Member member11 = new Member();
-		member11.setName("관리자");
-		member11.setLogin_id("admin");
-		member11.setPw("admin");
-
-
-		memberRepository.save(member2);
-		memberRepository.save(member4);
-		memberRepository.save(member5);
-		memberRepository.save(member6);
-		memberRepository.save(member7);
-		memberRepository.save(member8);
-		memberRepository.save(member9);
-		memberRepository.save(member10);
-		memberRepository.save(member11);
+		memberRepository.save(member1);
+//		memberRepository.save(member2);
+//		memberRepository.save(member4);
+//		memberRepository.save(member5);
+//		memberRepository.save(member6);
+//		memberRepository.save(member7);
+//		memberRepository.save(member8);
+//		memberRepository.save(member9);
+//		memberRepository.save(member10);
+//		memberRepository.save(member11);
 
 	}
+
 	@Test
 	void 카테고리AND아이템추가() {
 		// 카테고리 추가
@@ -319,7 +329,7 @@ class ConsoleMallApplicationTests {
 	public void 더미데이터추가() {
 		Category ps = categoryRepository.findOne(1L);
 
-		for(int i = 0; i < 200; i++) {
+		for(int i = 0; i < 30; i++) {
 			Item item = new Item();
 			item.setName("product" + i);
 			item.setPrice(i + 2000);
