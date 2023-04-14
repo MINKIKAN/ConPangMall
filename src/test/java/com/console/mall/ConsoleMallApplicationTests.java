@@ -51,7 +51,6 @@ class ConsoleMallApplicationTests {
 		member1.setName("김철수");
 		member1.setPhone("010-1234-5678");
 		member1.setPw("qwer");
-		member1.setCart(new Cart());
 
 
 		Member member2 = new Member();
@@ -63,7 +62,6 @@ class ConsoleMallApplicationTests {
 		member2.setName("이영희");
 		member2.setPhone("010-2345-6789");
 		member2.setPw("asdf");
-		member2.setCart(new Cart());
 
 		Member member4 = new Member();
 		member4.setAddress(new Address("서울시","강남구 역삼동","123-456"));
@@ -75,14 +73,12 @@ class ConsoleMallApplicationTests {
 		member4.setName("최지원");
 		member4.setPhone("010-4567-8901");
 		member4.setPw("qwe");
-		member4.setCart(new Cart());
 
 		Member member5 = new Member();
 		member5.setAddress(new Address("서울시","강남구 역삼동","123-456"));
 		member5.getAddress().setCity("대구시");
 		member5.getAddress().setStreet("수성구 지산동");
 		member5.getAddress().setZipcode("567-890");
-		member5.setCart(new Cart());
 
 		member5.setEmail("user5@example.com");
 		member5.setLogin_id("asd");
@@ -111,7 +107,6 @@ class ConsoleMallApplicationTests {
 		member7.setName("박재현");
 		member7.setPhone("010-7890-1234");
 		member7.setPw("qw");
-		member7.setCart(new Cart());
 
 		Member member8 = new Member();
 		member8.setAddress(new Address("서울시","강남구 역삼동","123-456"));
@@ -123,7 +118,6 @@ class ConsoleMallApplicationTests {
 		member8.setName("이성민");
 		member8.setPhone("010-8901-2345");
 		member8.setPw("as");
-		member8.setCart(new Cart());
 
 		Member member9 = new Member();
 		member9.setAddress(new Address("서울시","강남구 역삼동","123-456"));
@@ -135,7 +129,6 @@ class ConsoleMallApplicationTests {
 		member9.setName("김태희");
 		member9.setPhone("010-9012-3456");
 		member9.setPw("zx");
-		member9.setCart(new Cart());
 
 		Member member10 = new Member();
 		member10.setAddress(new Address("서울시","강남구 역삼동","123-456"));
@@ -147,7 +140,6 @@ class ConsoleMallApplicationTests {
 		member10.setName("송하늘");
 		member10.setPhone("010-1234-5678");
 		member10.setPw("q");
-		member10.setCart(new Cart());
 
 		Member member11 = new Member();
 		member11.setName("관리자");
