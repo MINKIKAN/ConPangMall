@@ -264,9 +264,9 @@ li.review_title div { width:25%; text-align:center; }
 .review_items { display:flex; align-items:center; flex-wrap:wrap; }
 .card-header { width:100%; padding:0; }
 .collapse { width:100%; }
-.accordion>.card>.card-header button.btn-link { display:flex; width:100%; align-items:center; }
-.accordion>.card>.card-header button.btn-link div { width:25%; text-align:center; }
-.accordion>.card>.card-header button.btn-link div img { max-width:100%; object-fit:contain; }
+.accordion-review>.card>.card-header button.btn-link { display:flex; width:100%; align-items:center; }
+.accordion-review>.card>.card-header button.btn-link div { width:25%; text-align:center; }
+.accordion-review>.card>.card-header button.btn-link div img { max-width:100%; object-fit:contain; }
 
 .card-body { flex:none; display: flex; flex-wrap: wrap; }
 .card-body .detail_img { width:50%; }

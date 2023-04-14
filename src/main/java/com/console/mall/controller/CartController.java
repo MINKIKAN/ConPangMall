@@ -33,7 +33,7 @@ public class CartController {
 
         int totalPrice = getTotalPrice(itemList);
 
-        model.addAttribute("cartList", itemList);
+        model.addAttribute("itemList", itemList);
         model.addAttribute("member", member);
         model.addAttribute("totalPrice", totalPrice);
         return "cartList";
