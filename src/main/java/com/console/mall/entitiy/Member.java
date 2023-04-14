@@ -25,8 +25,9 @@ public class Member {
 
     @Embedded
     private Address address;
-
-    @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cart_id")
     private Cart cart; // 구매자
+
 
 }

@@ -21,8 +21,7 @@ public class Cart {
     @Column(name = "cart_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @OneToOne(mappedBy = "cart", cascade = CascadeType.ALL)
     private Member member; // 구매자
 
     @ManyToOne(fetch = FetchType.LAZY)
