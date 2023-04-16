@@ -33,10 +33,6 @@ public class MemberApiController {
             return "no";
         }
         session.setAttribute("id", member.getLogin_id());
-        session.setAttribute("cart", member.getCart());
-        System.out.println((Cart)session.getAttribute("cart"));
-        System.out.println(((Cart) session.getAttribute("cart")).getId());
-        System.out.println((Cart)session.getAttribute("cart"));
         return "yes";
     }
 
