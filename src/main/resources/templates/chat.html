@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocket Chat</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // WebSocket 연결
+            var socket = new WebSocket("ws://" + location.host + "/chat?username=" + encodeURIComponent(username));
+
+            // 연결되었을 때 실행되는 콜백 함수
+            socket.onopen = function() {
+                console.log("Connected to WebSocket server");
+            };
+
+            // 메시지 수신할 때 실행되는 콜백 함수
+            socket.onmessage = function(event) {
+                var message = event.data;
+                $("#messageList").append("<li>" + message + "</li>");
+            };
+
+            // WebSocket 연결이 끊겼을 때 실행되는 콜백 함수
+            socket.onclose = function(event) {
+                console.log("Disconnected from WebSocket server");
+            };
+
+            // 메시지 전송 버튼 클릭 이벤트 핸들러
+            $("#sendBtn").click(function() {
+                var message = $("#messageInput").val();
+                socket.send(message);
+                $("#messageInput").val("");
+            });
+        });
+    </script>
+</head>
+<body>
+<ul id="messageList"></ul>
+<input type="text" id="messageInput">
+<button id="sendBtn">Send</button>
+</body>
+</html>

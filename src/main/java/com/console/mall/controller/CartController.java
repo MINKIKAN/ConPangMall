@@ -1,6 +1,7 @@
 package com.console.mall.controller;
 
 import com.console.mall.entitiy.Cart;
+import com.console.mall.entitiy.CartItem;
 import com.console.mall.entitiy.Item;
 import com.console.mall.entitiy.Member;
 import com.console.mall.service.CartService;
@@ -24,25 +25,12 @@ public class CartController {
     @GetMapping("/cart")
     public String cartList(HttpSession session, Model model) {
         String id = (String)session.getAttribute("id");
-
-        Member member = memberService.findId(id);
-
-        List<Item> itemList = cartService.findAllItem(member.getId());
-
-        int totalPrice = getTotalPrice(itemList);
-
-        model.addAttribute("itemList", itemList);
-        model.addAttribute("member", member);
-        model.addAttribute("totalPrice", totalPrice);
+        Long memberId = memberService.getId(id);
+        Cart cart = cartService.findByCart(memberId);
+        model.addAttribute("cart", cart);
         return "cartList";
     }
 
-    private int getTotalPrice(List<Item> itemList) {
-        AtomicInteger totalPrice = new AtomicInteger();
-        itemList.forEach(i -> {
-            totalPrice.addAndGet(i.getPrice());
-        });
-        return totalPrice.get();
-    }
+
 }
 

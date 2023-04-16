@@ -37,45 +37,73 @@
             <div class="container-fluid">
                 <div class="cart_area">
                     <p class="cart_title">장바구니</p>
+                    <script>
 
+                        function deleteCart(id) {
+                            $(".cart_del").attr("disabled", true);
+                            $.ajax ({
+                                url : "/carts/delete",
+                                data : {"id": id },
+                                type : "POST",
+                                success : function() {
+                                    $(".cart_del").attr("disabled", false);
+                                    location.reload();
+                                }
+                            });
+
+
+                        }
+                        function addOrder(cartId) {
+                            $(".buy_btn").attr("disabled", true);
+                            alert("cartId : " + cartId);
+                            $.ajax ({
+                                url : "/orders/add",
+                                type : "POST",
+                                data : {"cartId" : cartId},
+                                success : function() {
+                                    $(".buy_btn").attr("disabled", false);
+                                    location.reload();
+                                },
+                                error : function() {alert('ajax error')}
+                            })
+
+                        }
+                    </script>
                     <div class="btn_area">
                         <button class="select_all">전체선택</button>
-                        <button class="select_del">선택삭제</button>
                     </div>
                     <ul class="cart_list">
                         <li class="cart_index">
-                            <div class="cart_cheek"><input type="checkbox" name="cart_cheek" id=""></div>
                             <div class="cart_img">이미지</div>
                             <div class="cart_title">상품이름</div>
                             <div class="cart_price">가격</div>
                             <div class="cart_del">삭제</div>
                         </li>
-                        <li class="cart_items" th:each="item : ${itemList}">
-                            <a href="경로들어갈곳">
-                                <div class="cart_cheek"><input type="checkbox" name="cart_cheek" id=""></div>
-                                <div class="cart_img"><img th:src="${item.image}"></img></div>
-                                <div class="cart_title" th:text="${item.name}"></div>
-                                <div class="cart_price" th:text="${item.price}"></div>
-                                <div class="cart_del"><button>삭제</button></div>
-                            </a>
+                        <li class="cart_items" th:each="cartItem: ${cart.getList()}">
+                            <form onsubmit="return false;">
+                                <div class="cart_img"><img th:src="${cartItem.getItem().getImage()}"></img></div>
+                                <div class="cart_title" th:text="${cartItem.getItem().getName()}"></div>
+                                <div class="cart_price" th:text="${cartItem.getItem().getPrice()}"></div>
+                                <div class="cart_del"><button th:onclick="|deleteCart(${cartItem.getId()})|">삭제</button></div>
+                            </form>
                         </li>
                     </ul>
                     <div class="total_area">
-                        <p class="total_price">총 금액 : <span th:text="${totalPrice}"></span> 원</p>
-                        <button class="buy_btn">구매하기</button>
+                        <p class="total_price">총 금액 : <span th:text="${cart.getTotalPrice()}"></span> 원</p>
+                        <button class="buy_btn" th:onclick="|addOrder(${cart.getMember().getId()})|">구매하기</button>
                     </div>
 
 
                     <div class="address_cheek">
                         <p class="address_title">배송지 확인</p>
-                        <div class="address_area">
+                        <div class="address_area" th:with="member = ${cart.getMember()}">
                             <div class="address_txt01">주소 : <span th:text="${member.getAddress().getCity() + member.getAddress().getStreet()}"></span> </div>
                             <div class="address_txt02">상세주소 : <span th:text="${member.getAddress().getZipcode()}"></span> </div>
                             <button class="change_btn">배송지 변경</button>
                         </div>
                     </div>
 
-                    <div class="address_popup">
+                    <div class="address_popup" th:with="member = ${cart.getMember()}">
                         <div class="add_pop_txt01"><label for="">수령인</label><input type="text" name="" id="" th:value="${member.getName()}"></div>
                         <div class="add_pop_txt02"><label for="">연락처</label><input type="text" name="" id="" th:value="${member.getPhone()}"></div>
                         <div class="add_pop_txt03"><label for="">주소</label><input type="text" name="" id=""></div>
@@ -106,7 +134,7 @@
     </div>
 
 </div>
-  
+
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>

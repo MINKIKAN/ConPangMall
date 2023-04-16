@@ -26,12 +26,22 @@ public class Cart {
     @JoinColumn(name = "member_id")
     private Member member; // 구매자
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CartItem> list = new ArrayList<>();
+
+    private int totalPrice;
 
     public void addCartItem(CartItem cartItem) {
         list.add(cartItem);
         cartItem.setCart(this);
+    }
+
+    public void setTotalPrice() {
+        int totalPrice = 0;
+        for (CartItem ci : list) {
+            totalPrice += ci.getItem().getPrice();
+        }
+        this.totalPrice = totalPrice;
     }
 }
 

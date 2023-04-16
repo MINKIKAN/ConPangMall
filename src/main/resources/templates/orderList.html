@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <div th:replace="fragments/header :: header"/>
+    <link rel="stylesheet" href="/css/cartList.css">
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- 왼쪽 사이드 바 시작 -->
+    <!-- th:replace로 templates안에 fragments 폴더안에 side_bar.html 받아오게 함 -->
+    <!-- 수정할 내용은 side_bar.html 에서 해주시면 다 적용됩니다 -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <div th:replace="fragments/side_bar :: side_bar"/>
+    </ul>
+    <!-- 왼쪽 사이드 바 끝 -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- 상단의 nav 바 시작 -->
+            <!-- 이것도 수정하실거 있으시면 fragments 폭더에 nav_bar 수정해주시면 됩니다 -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <div th:replace="fragments/nav_bar :: nav_bar"/>
+            </nav>
+            <!-- 상단의 nav 바 끝 -->
+
+            <!-- 바디 부분 시작 -->
+            <div class="container-fluid">
+                <div class="cart_area">
+                    <p class="cart_title">주문목록</p>
+                    <script>
+
+                        function deleteCart(id) {
+                            $(".cart_del").attr("disabled", true);
+                            $.ajax({
+                                url: "/carts/delete",
+                                data: {"id": id},
+                                type: "POST",
+                                success: function () {
+                                    $(".cart_del").attr("disabled", false);
+                                    location.reload();
+                                }
+                            });
+
+
+                        }
+
+                        function addOrder(cartId) {
+                            $(".buy_btn").attr("disabled", true);
+                            alert("cartId : " + cartId);
+                            $.ajax({
+                                url: "/orders/add",
+                                type: "POST",
+                                data: {"cartId": cartId},
+                                success: function () {
+                                    $(".buy_btn").attr("disabled", false);
+                                    location.reload();
+                                },
+                                error: function () {
+                                    alert('ajax error')
+                                }
+                            })
+
+                        }
+                    </script>
+                    <div class="btn_area">
+                        <button class="select_all">전체선택</button>
+                    </div>
+                    <ul class="cart_list accordion" id="orderAccordion">
+                        <li class="cart_index">
+                            <div class="cart_img">이미지</div>
+                            <div class="cart_title">상품이름</div>
+                            <div class="cart_price">가격</div>
+                            <div class="cart_del">삭제</div>
+                        </li>
+                        <li class="cart_items accordion-item" th:each="order : ${orderList}">
+                            <button class="accordion-button collapsed d-flex align-items-center" type="button"
+                                    data-bs-toggle="collapse" th:attr="data-bs-target='#collapse'+${order.getId()}"
+                                    aria-expanded="false">
+                                <div class="cart_title" th:text="${order.getMember().getName()}"></div>
+                                <p class="total_price">총 금액 : <span th:text="${order.getTotalPrice()}"></span> 원</p>
+                                <div class="cart_del">
+                                    <button th:onclick="|deleteOrder(${order.getId()})|">삭제</button>
+                                </div>
+                            </button>
+                            <div th:id="'collapse' + ${order.getId()}" class="accordion-collapse collapse"
+                                 data-bs-parent="#orderAccordion">
+                                <div class="order_content" th:each="orderItem : ${order.getList()}">
+                                    <div th:text="${orderItem.getItem().getName()}"></div>
+                                    <div th:text="${orderItem.getItem().getPrice()}"></div>
+                                    <div><img th:src="${orderItem.getItem().getImage()}"/></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+
+
+            </div>
+        </div>
+        <!-- 바디 부분 시작 -->
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+            integrity="sha384-oBqDVmMxmnOQLrjhlzD2rs8U+//E1e9zg5z83P5iZb23z6E5gqXw0yJH/em6jc5"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+            crossorigin="anonymous"></script>
+    <!-- Footer -->
+    <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright &copy; Your Website 2020</span>
+            </div>
+        </div>
+    </footer>
+    <!-- End of Footer -->
+
+</div>
+
+</div>
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div th:replace="fragments/logout :: logout"/>
+
+<!-- Bootstrap core JavaScript-->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

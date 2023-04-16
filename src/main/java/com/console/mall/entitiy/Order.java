@@ -26,8 +26,10 @@ public class Order {
     private List<OrderItem> list = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    private int totalPrice;
 
 //
 //    @ManyToOne(fetch = FetchType.LAZY)

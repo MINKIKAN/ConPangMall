@@ -1,6 +1,7 @@
 package com.console.mall.api;
 
 import com.console.mall.entitiy.Cart;
+import com.console.mall.entitiy.CartItem;
 import com.console.mall.entitiy.Item;
 import com.console.mall.entitiy.Member;
 import com.console.mall.service.CartService;
@@ -30,7 +31,15 @@ public class CartAPIController {
 
         return null;
     }
+    @PostMapping("/delete")
+    public String delItem(HttpSession session, @RequestParam("id") Long cartItemId, Model model) {
+        String loginId = (String)session.getAttribute("id");
+        Member member = memberService.findId(loginId);
+        Cart cart = cartService.deleteCart(cartItemId, member);
+        model.addAttribute("cart", cart);
 
+        return null;
+    }
 
 
 }

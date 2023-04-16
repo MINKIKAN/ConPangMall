@@ -77,11 +77,21 @@
 </div>
 
 <!-- Nav Item - Pages Collapse Menu -->
-<li class="nav-item">
+<li class="nav-item" th:if="${#session != null and #session.getAttribute('id') != 'admin'}">
     <a class="nav-link" href="/cart">
         <i class="fas fa-shopping-bag"></i>
         <span> 장바구니</span></a>
+
+
 </li>
+<li class="nav-item" th:if="${#session != null and #session.getAttribute('id') == 'admin'}">
+    <a class="nav-link" href="/order/list">
+        <i class="fas fa-shopping-bag"></i>
+        <span> 주문목록</span></a>
+
+
+</li>
+
 
 <!-- 공지사항 NAV -->
 <li class="nav-item">

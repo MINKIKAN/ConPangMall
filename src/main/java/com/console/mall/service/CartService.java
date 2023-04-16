@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @RequiredArgsConstructor
@@ -34,11 +36,32 @@ public class CartService {
     }
 
     public Cart findByCart(Long id) {
-        return cartRepository.findByIdCart(id);
+        Cart cart = cartRepository.findByIdCart(id);
+        cart.setTotalPrice();
+        return cart;
     }
 
-    public List<Item> findAllItem(Long memberId) {
+    public Cart findAllItem(Long memberId) {
         Cart cart = findByCart(memberId);
-        return cartRepository.allItem(cart.getId());
+        List<Item> itemList = cartRepository.allItem(cart.getId());
+        int idx = 0;
+        List<CartItem> list = cart.getList();
+        for (CartItem ci : list) {
+            ci.setItem(itemList.get(idx));
+            idx++;
+        }
+        cart.setList(list);
+        System.out.println("totalPrice = " + cart.getTotalPrice());
+        System.out.println("totalPrice = " + cart.getTotalPrice());
+        System.out.println("totalPrice = " + cart.getTotalPrice());
+        return cart;
     }
+
+    public Cart deleteCart(Long cartItemId, Member member) {
+        cartRepository.delete(cartItemId);
+        Cart cart = cartRepository.findByIdCart(member.getId());
+        return cart;
+    }
+
+
 }

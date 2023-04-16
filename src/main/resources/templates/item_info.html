@@ -4,12 +4,13 @@
 <head>
     <script>
         function addOrder(id) {
-
+            $(".product-cart-button").attr("disabled", true);
             $.ajax({
                 url: "/carts/item",
                 type: "POST",
                 data: { "id" : id },
                 success: function (result, status) {
+                    $(".product-cart-button").attr("disabled", false);
                     alert("장바구니에 담겼습니다.");
                 }
             });

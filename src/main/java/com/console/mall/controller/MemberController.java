@@ -61,34 +61,11 @@ public class MemberController {
         return "members/memberList";
     }
 
-//    @PostMapping("members/{id}/delete")
-//    public String delete(@PathVariable Long id){
-//        memberService.deleteMember(id);
-//        return "redirect:/members";
-//    }
-    //public String loginForm(Model model){
-    //    model.addAttribute("loginForm", new loginForm());
-    //    return "members/loginForm";
-    //}
     @GetMapping("/members/login")
-        public String loginForm(){
-            return "members/loginForm";
+    public String login() {
+        return "members/loginForm";
     }
 
-    @ResponseBody
-    @PostMapping("/members/login-check")
-    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session){
-
-        Member loginResult = memberService.login(memberDTO);
-        System.out.println("loginResult = " + loginResult);
-        if(loginResult != null){
-            session.setAttribute("id",loginResult.getLogin_id());
-            Member member = memberService.findOne(memberService.getId(loginResult.getLogin_id()));
-            return "yes";
-        }
-            return "no";
-
-    }
     @GetMapping("/members/updateForm")
     public String updateForm(HttpSession session,Model model ){
         String id = (String) session.getAttribute("id");

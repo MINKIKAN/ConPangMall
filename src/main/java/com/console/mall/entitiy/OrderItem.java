@@ -7,7 +7,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED) // 생성자 protected
 public class OrderItem {
 
     @Id @GeneratedValue
