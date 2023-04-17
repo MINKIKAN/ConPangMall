@@ -76,4 +76,10 @@ public class MemberRepository {
                 .getSingleResult();
 
     }
+    public int delete(String pw){
+        int deleteCnt = em.createQuery("delete from Member m where m.pw=:pw").setParameter("pw", pw).executeUpdate();
+        return deleteCnt;
+    }
+
+
 }
