@@ -10,22 +10,21 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-public class Review {
+public class Review extends Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
     private Long id;
 
-    private String writer;
+
     private String image;
-    private String title;
+    private int rating;
 
-    @Column(name = "created_date", columnDefinition = "TIMESTAMP")
-    private LocalDateTime createdDate;
 
-    @Column(columnDefinition = "LONGTEXT")
-    private String content;
+
+
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
