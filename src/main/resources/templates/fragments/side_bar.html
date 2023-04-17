@@ -97,16 +97,24 @@
 <li class="nav-item">
     <a class="nav-link" href="/notice">
         <i class="fas fa-bullhorn"></i>
-        <span>공지사항</span></a>
+        <span> 공지사항</span></a>
 </li>
 
 <!-- Nav Item - Tables -->
-<li class="nav-item">
-    <a class="nav-link" href="tables.html">
+<li class="nav-item" th:if="${#session != null and #session.getAttribute('id') != 'admin'}">
+    <a class="nav-link" href="/chat">
         <i class="fa-sharp fa-solid fa-comment"></i>
-        <span>1:1 문의</span></a>
-</li>
+        <span> 1:1문의</span></a>
 
+
+</li>
+<li class="nav-item" th:if="${#session != null and #session.getAttribute('id') == 'admin'}">
+    <a class="nav-link" href="/chat/list">
+        <i class="fa-sharp fa-solid fa-comment"></i>
+        <span> 회원문의</span></a>
+
+
+</li>
 <!-- Divider -->
 <hr class="sidebar-divider d-none d-md-block">
 

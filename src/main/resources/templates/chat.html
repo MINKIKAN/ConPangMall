@@ -1,17 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>WebSocket Chat</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // WebSocket 연결
-            var socket = new WebSocket("ws://" + location.host + "/chat?username=" + encodeURIComponent(username));
+    <title>Chat Room</title>
+</head>
+<body>
+<h1>Chat Room</h1>
+<form id="loginForm">
+    <label for="usernameInput">Username:</label>
+    <input type="text" id="usernameInput" required>
+    <button type="submit">Connect</button>
+</form>
+<div id="chatRoom" style="display: none;">
+    <ul id="messageList"></ul>
+    <input type="text" id="messageInput">
+    <button type="button" id="sendBtn">Send</button>
+</div>
+<script src="/static/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // WebSocket 연결
+        var socket;
+
+        $("#loginForm").submit(function(event) {
+            event.preventDefault();
+
+            var username = $("#usernameInput").val();
+            socket = new WebSocket("ws://" + location.host + "/chat?username=" + encodeURIComponent(username));
 
             // 연결되었을 때 실행되는 콜백 함수
             socket.onopen = function() {
                 console.log("Connected to WebSocket server");
+                $("#loginForm").hide();
+                $("#chatRoom").show();
+                $("#messageInput").focus();
             };
 
             // 메시지 수신할 때 실행되는 콜백 함수
@@ -32,11 +54,7 @@
                 $("#messageInput").val("");
             });
         });
-    </script>
-</head>
-<body>
-<ul id="messageList"></ul>
-<input type="text" id="messageInput">
-<button id="sendBtn">Send</button>
+    });
+</script>
 </body>
 </html>

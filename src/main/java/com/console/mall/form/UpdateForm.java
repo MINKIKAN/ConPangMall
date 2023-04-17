@@ -1,4 +1,4 @@
-package com.console.mall.controller;
+package com.console.mall.form;
 
 
 import lombok.Getter;

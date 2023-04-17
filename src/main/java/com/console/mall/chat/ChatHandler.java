@@ -5,12 +5,10 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ChatHandler extends TextWebSocketHandler {
-
     // 사용자 세션 관리를 위한 Map
     private final Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
 
@@ -20,6 +18,18 @@ public class ChatHandler extends TextWebSocketHandler {
         // 세션 ID를 사용자의 이름으로 설정하여 Map에 저장
         String username = (String) session.getAttributes().get("username");
         sessions.put(username, session);
+
+        // 관리자와의 1:1 채팅 시작
+        if ("admin".equals(username)) {
+            session.sendMessage(new TextMessage("관리자와의 1:1 채팅을 시작합니다."));
+        } else {
+            WebSocketSession adminSession = sessions.get("admin");
+            if (adminSession != null && adminSession.isOpen()) {
+                adminSession.sendMessage(new TextMessage(username + "님이 1:1 채팅을 요청합니다."));
+            } else {
+                session.sendMessage(new TextMessage("현재 관리자가 온라인이 아닙니다."));
+            }
+        }
     }
 
     // 클라이언트가 서버로 메시지를 보냈을 때 실행되는 메소드
