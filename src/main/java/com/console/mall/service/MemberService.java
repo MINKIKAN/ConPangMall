@@ -1,6 +1,5 @@
 package com.console.mall.service;
 
-import com.console.mall.controller.MemberForm;
 import com.console.mall.dto.MemberDTO;
 import com.console.mall.entitiy.Address;
 import com.console.mall.entitiy.Cart;
@@ -10,12 +9,8 @@ import com.console.mall.respository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 
 import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 @Transactional(readOnly = true)
@@ -61,6 +56,7 @@ public class MemberService {
         return id;
     }
 
+
 @Transactional
 
     public Member login(MemberDTO memberDTO){
@@ -73,7 +69,15 @@ public class MemberService {
         }
         Member m = memberRepository.findByloginid(member).get(0);
         return m;
+    }
+    @Transactional
+    public String delete(String pw){
+        int delete = memberRepository.delete(pw);
+        if(delete<=0){
+            return null;
+        }
 
+        return "";
     }
     @Transactional
     public void update(String id,String name,String city,String street,String zipcode,String email,String phone,String pw){
@@ -92,4 +96,7 @@ public class MemberService {
     public Cart findByCart(String id) {
         return memberRepository.findByIdCart(id);
     }
+
+
+
 }
