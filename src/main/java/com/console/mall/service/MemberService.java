@@ -56,7 +56,6 @@ public class MemberService {
         return id;
     }
 
-
 @Transactional
 
     public Member login(MemberDTO memberDTO){
@@ -69,15 +68,7 @@ public class MemberService {
         }
         Member m = memberRepository.findByloginid(member).get(0);
         return m;
-    }
-    @Transactional
-    public String delete(String pw){
-        int delete = memberRepository.delete(pw);
-        if(delete<=0){
-            return null;
-        }
 
-        return "";
     }
     @Transactional
     public void update(String id,String name,String city,String street,String zipcode,String email,String phone,String pw){
@@ -96,7 +87,4 @@ public class MemberService {
     public Cart findByCart(String id) {
         return memberRepository.findByIdCart(id);
     }
-
-
-
 }

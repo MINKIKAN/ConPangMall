@@ -3,10 +3,7 @@
 <!--<head th:replace="fragments/header :: header" />-->
 <head>
   <link rel="stylesheet" href="/css/join.css">
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-  <script type="text/javascript" src="/js/address.js" defer></script>
 </head>
-
 <style>
   .fieldError {
     border-color: #bd2130;
@@ -26,8 +23,8 @@
       <input type="text" th:field="*{name}" class="form-control" placeholder="이름을 입력하세요">
     </div>
     <div class="form-group">
-      <label th:for="city">도시</label><button type="button" readonly onclick="findAddr()">주소 찾기</button>
-      <input id = "address" type="text" th:field="*{city}" class="form-control" placeholder="도시를 입력하세요">
+      <label th:for="city">도시</label>
+      <input type="text" th:field="*{city}" class="form-control" placeholder="도시를 입력하세요">
     </div>
     <div class="form-group">
       <label th:for="street">거리</label>
@@ -35,7 +32,7 @@
     </div>
     <div class="form-group">
       <label th:for="zipcode">우편번호</label>
-      <input id ="zipcode" type="text" th:field="*{zipcode}" class="form-control" placeholder="우편번호를 입력하세요">
+      <input type="text" th:field="*{zipcode}" class="form-control" placeholder="우편번호를 입력하세요">
     </div>
     <div class="form-group">
       <label th:for="email">이메일</label>

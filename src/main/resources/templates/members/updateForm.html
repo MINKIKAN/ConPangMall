@@ -3,10 +3,6 @@
 <!--<head th:replace="fragments/header :: header" />-->
 <head>
   <link rel="stylesheet" href="/css/update.css">
-  <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-
-  <script type="text/javascript" src="/js/address.js" defer></script>
 </head>
 <style>
   .fieldError {
@@ -20,7 +16,7 @@
   <div class="con">
   <form role="form"  action="/members/updateForm" th:object="${form}" method="post">
     <div class="form-group">
-      <h1>회원 정보 수정</h1>
+      <h1>회원정보 수정</h1>
     </div>
     <div class="form-group">
       <label th:for="name">이름</label>
@@ -29,8 +25,8 @@
 
     </div>
     <div class="form-group">
-      <label th:for="city">도시</label><button type="button" readonly onclick="findAddr()">주소 찾기</button>
-      <input id = "address" type="text" th:field="*{city}" class="form-control" placeholder="도시를 입력하세요">
+      <label th:for="city">도시</label>
+      <input type="text" th:field="*{city}" class="form-control" placeholder="도시를 입력하세요">
     </div>
     <div class="form-group">
       <label th:for="street">거리</label>
@@ -38,7 +34,7 @@
     </div>
     <div class="form-group">
       <label th:for="zipcode">우편번호</label>
-      <input id ="zipcode" type="text" th:field="*{zipcode}" class="form-control" placeholder="우편번호를 입력하세요">
+      <input type="text" th:field="*{zipcode}" class="form-control" placeholder="우편번호를 입력하세요">
     </div>
     <div class="form-group">
       <label th:for="email">이메일</label>
@@ -56,41 +52,12 @@
       <input type="password" th:field="*{pw}" class="form-control" placeholder="비밀번호를 입력하세요">
 
     </div>
-    <button type="submit" >수정완료</button>
-    <a class="dropdown-item" href="/members/deleteForm">회원탈퇴</a>
+    <button type="submit" class="btn btn-primary">수정완료</button>
   </form>
   <br/>
     </div>
 <!--  <div th:replace="fragments/footer :: footer" />-->
 </div> <!-- /container -->
-<!--                      modal 구현 보류         -->
-<!--<div class="modal fade" id="deleteModal" tabindex="-1"-->
-<!--     aria-labelledby="exampleModalLabel" aria-hidden="true" >-->
-<!--  <div class="modal-dialog" >-->
-<!--    <div class="modal-content" >-->
-<!--      <div class="modal-header">-->
-<!--        <h5 class="modal-title fs-5" id="exampleModalLabel">회원탈퇴</h5>-->
-<!--        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">-->
-
-<!--        </button>-->
-<!--      </div>-->
-<!--      <div class="modal-body">-->
-<!--        <div class="col-md-4">-->
-<!--          <label for="validationServer01" class="form-label">비밀번호확인</label>-->
-<!--          <input type="password" class ="form-control is-valid" id="password" name="password" value="" required>-->
-
-<!--        </div>-->
-<!--        <div class="invalid-feedback" id="errMsg">비밀번호가 일치하지 않습니다</div>-->
-<!--        <div class="modal-footer">-->
-<!--          <button type="button"  id="delete" onclick="location.href='/members/deleteMember'">탈퇴하기</button>-->
-<!--          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
 
 </body>
 </html>
-

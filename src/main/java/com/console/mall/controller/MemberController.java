@@ -57,16 +57,6 @@ public class MemberController {
         return "members/memberList";
     }
 
-//    @GetMapping("/members/deleteMember")
-//    public String delete(HttpSession session){
-//        memberService.deleteMember(session.getId());
-//        session.removeAttribute("id");
-//        return "redirect:/";
-//    }
-    //public String loginForm(Model model){
-    //    model.addAttribute("loginForm", new loginForm());
-    //    return "members/loginForm";
-    //}
     @GetMapping("/members/login")
     public String login() {
         return "members/loginForm";
@@ -101,21 +91,5 @@ public class MemberController {
     public String logout(HttpSession session ){
         session.removeAttribute("id");
         return "redirect:/";
-    }
-    @GetMapping("/members/deleteForm")
-    public String deleteForm(){
-        return "members/deleteForm";
-    }
-    @ResponseBody
-    @PostMapping("/members/deleteMember")
-    public String delete(String pw){
-
-        String deleteResult = memberService.delete(pw);
-        System.out.println("deleteResult = " + deleteResult);
-        if(deleteResult != null){
-            return "yes";
-        }
-        return "no";
-
     }
 }
