@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.metamodel.SingularAttribute;
 import java.io.Serializable;
@@ -51,11 +52,15 @@ public class MemberRepository {
     }
 
     public Long findById(String loginId) {
-        return em.createQuery("SELECT m.id FROM Member m WHERE m.login_id = :loginId", Long.class)
-                .setParameter("loginId", loginId)
-                .getSingleResult();
-
+        try {
+            return em.createQuery("SELECT m.id FROM Member m WHERE m.login_id = :loginId", Long.class)
+                    .setParameter("loginId", loginId)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null; // 회원이 존재하지 않을 때는 null을 반환하도록 처리
+        }
     }
+
 
     //    public Member findByLoginid(String login_id){
 //        return em.find(Member.class,login_id);

@@ -102,23 +102,57 @@
                             <button class="change_btn">배송지 변경</button>
                         </div>
                     </div>
+                    <div class="modal-wrapper" style="display: none;">
+                    <div class="address_popup">
 
-                    <div class="address_popup" th:with="member = ${cart.getMember()}">
-                        <div class="add_pop_txt01"><label for="">수령인</label><input type="text" name="" id="" th:value="${member.getName()}"></div>
-                        <div class="add_pop_txt02"><label for="">연락처</label><input type="text" name="" id="" th:value="${member.getPhone()}"></div>
-                        <div class="add_pop_txt03"><label for="">주소</label><input type="text" name="" id=""></div>
-                        <div class="add_pop_txt04"><label for="">상세주소</label><input type="text" name="" id=""></div>
-                        <div class="add_pop_txt05"><label for="">메모</label><input type="text" name="" id=""></div>
-
+                        <div class="add_pop_txt03">
+                            <label for="">주소</label>
+                            <input type="text" name="" id="">
+                        </div>
+                        <div class="add_pop_txt04">
+                            <label for="">상세주소</label>
+                            <input type="text" name="" id="">
+                        </div>
+                        <div class="add_pop_txt05">
+                            <label for="">메모</label>
+                            <input type="text" name="" id="">
+                        </div>
                         <div class="pop_btn_area">
                             <button class="edit_btn">수정</button>
                             <button class="cancel_btn">취소</button>
                         </div>
                     </div>
+
+                </div>
                 </div>
             </div>
             <!-- 바디 부분 시작 -->
 
+            <script>
+                $(function() {
+                    $('.change_btn').click(function() {
+                        // 모달창 띄우기
+                        $('.modal-wrapper').css({
+                            'display': 'block',
+                            'z-index': '9999'
+                        });
+                    });
+
+                    $('.cancel_btn').click(function() {
+                        // 모달창 닫기
+                        $('.modal-wrapper').css({
+                            'display': 'none'
+                        });
+                    });
+
+                    $('body').on('click', '.edit_btn', function() {
+                        // 수정 버튼 클릭 시 동작할 코드 작성
+                        console.log('수정 버튼 클릭됨');
+                    });
+                });
+
+
+            </script>
         </div>
 
         <!-- Footer -->

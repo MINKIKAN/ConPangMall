@@ -21,4 +21,7 @@ public class ReviewService {
         Review review = reviewRepository.findOne(id);
         return review;
     }
+    public void saveReview(Review review) {
+        reviewRepository.writeReivew(review);
+    }
 }
