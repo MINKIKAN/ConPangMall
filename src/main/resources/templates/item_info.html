@@ -56,7 +56,7 @@
                         <!-- 상품 구매에 관한 콘테이너 시작-->
                         <div class="first-con">
                             <div class="first-left-con">
-                                <div class="product-img-box"><img class="product-img" th:src="${item.image}" alt="">
+                                <div class="product-img-box"><img class="product-img" th:src="${item.getImage()}" alt="">
                                 </div>
                                 <div class="product-img-slide-box">
                                     <!-- 아래 작은 이미지 누르면 바뀌면서 보이게 -->
@@ -64,11 +64,11 @@
                             </div>
                             <div class="first-right-con">
                                 <div class="product-title">
-                                    <h1 th:text="${item.name}"></h1>
+                                    <h1 th:text="${item.getName()}"></h1>
                                 </div>
                                 <div class="product-price-info-box">
                                     <div class="product-price-name">가격</div>
-                                    <div class="product-price" th:text="${item.price}"></div>
+                                    <div class="product-price" th:text="${item.getPrice()}"></div>
                                 </div>
                                 <div class="product-member-ship-box">
                                     <div class="product-member-ship-title"></div>
@@ -119,10 +119,10 @@
                         <div class="second-con">
                             <div class="product-explanation-con">
                                 <div class="youtube-link-box">
-                                    <iframe th:src="${item.itemVideo}"></iframe>
+                                    <iframe th:src="${item.getItemVideo()}"></iframe>
                                 </div>
                                 <div class="product-info-content">
-                                    <p th:text="${item.itemInfo}"></p>
+                                    <p th:text="${item.getItemInfo()}"></p>
                                 </div>
                             </div>
 
@@ -150,11 +150,11 @@
                                                 <button class="btn btn-link btn-block text-left" type="button"
                                                     data-toggle="collapse" aria-expanded="false">
                                                     <div class="review_img">
-                                                        <img th:src="${review.image}" alt="">
+                                                        <img th:src="${review.getImage()}" alt="">
                                                     </div>
-                                                    <div class="review_title" th:text="${review.title}"></div>
-                                                    <div class="review_writer" th:text="${review.writer}"></div>
-                                                    <div class="review_date" th:text="${review.writer}"></div>
+                                                    <div class="review_title" th:text="${review.getTitle()}"></div>
+                                                    <div class="review_writer" th:text="${review.getWriter()}"></div>
+                                                    <div class="review_date" th:text="${review.getCreatedDate()}"></div>
                                                 </button>
                                             </h2>
                                         </div>
@@ -163,12 +163,12 @@
                                             aria-labelledby="'heading' + ${index}" data-parent="#accordionExample">
                                             <div class="card-body">
                                                 <div class="detail_img">
-                                                    <img th:src="${review.image}" alt="">
+                                                    <img th:src="${review.getImage()}" alt="">
                                                 </div>
                                                 <div class="detail_box">
-                                                    <div class="detail_title" th:text="${review.title}"></div>
-                                                    <div class="detail_writer" th:text="${review.writer}"></div>
-                                                    <div class="detail-content" th:text="${review.content}"></div>
+                                                    <div class="detail_title" th:text="${review.getTitle()}"></div>
+                                                    <div class="detail_writer" th:text="${review.getWriter()}"></div>
+                                                    <div class="detail-content" th:text="${review.getContent()}"></div>
                                                 </div>
                                             </div>
                                         </div>
