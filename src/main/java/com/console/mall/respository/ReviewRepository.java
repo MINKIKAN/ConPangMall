@@ -26,4 +26,10 @@ public class ReviewRepository {
 
     }
 
+    public void writeReivew(Review review){
+        em.persist(review);
+    }
+
+
+
 }

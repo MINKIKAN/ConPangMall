@@ -1,6 +1,5 @@
 package com.console.mall.entitiy;
 
-import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,5 +29,6 @@ public class Review {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
+
 
 }

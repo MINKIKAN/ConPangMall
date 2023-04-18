@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -46,4 +48,11 @@ public class OrderService {
 
         return orderRepository.findAll();
     }
+
+    public List<Item> getOneByUserId (String id){
+        Long memberId = memberRepository.findById(id);
+        return orderRepository.findByMemberId(memberId);
+    }
+
+
 }
