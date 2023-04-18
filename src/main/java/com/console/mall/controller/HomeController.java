@@ -13,7 +13,7 @@ import java.net.http.HttpRequest;
 
 @Controller
 @Slf4j
-public class Homecontroller {
+public class HomeController {
 
     @RequestMapping("/")
     public String home(HttpServletRequest request) {
@@ -23,7 +23,7 @@ public class Homecontroller {
 
     @GetMapping("/message")
     public String message(HttpSession session) {
-        session.removeAttribute("message");
+        session.removeAttribute("msg");
         return "home";
     }
 }

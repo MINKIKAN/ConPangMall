@@ -19,7 +19,7 @@
         location.href = '/message';
     }
 </script>
-<script th:if="${#session != null and #session.getAttribute('message') != null }">
+<script th:if="${#session != null and #session.getAttribute('msg') != null }">
     error();
 </script>
 
