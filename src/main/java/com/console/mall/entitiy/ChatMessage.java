@@ -1,5 +1,6 @@
 package com.console.mall.entitiy;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,11 +10,9 @@ import javax.persistence.Id;
 
 @Getter
 @Setter
-@Entity
+@AllArgsConstructor
 public class ChatMessage {
 
-    @Id
-    private String roomId;
     private String content;
     private String senderId;
 
