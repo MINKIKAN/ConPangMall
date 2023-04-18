@@ -7,20 +7,23 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "videos")
+@Table(name = "involved_companies")
 @Getter
 @Setter
-public class Video {
+public class InvolvedCompany {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @SerializedName("video_id")
-    @Column(name = "video_id")
-    private String videoId;
+    @SerializedName("company")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_id")
+    private Company company;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
     private Game game;
+
+    // constructors, getters, setters, etc.
 }

@@ -1,6 +1,9 @@
 package com.console.mall.controller;
 
 import com.console.mall.entitiy.Game;
+import com.console.mall.entitiy.GameMode;
+import com.console.mall.entitiy.Platform;
+import com.console.mall.entitiy.Video;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import lombok.RequiredArgsConstructor;
@@ -30,12 +33,14 @@ public class RecomGameController {
         headers.set("Authorization", "Bearer cvit9m38vcnnduyjxsyc9xthnsf656");
 
         String url = "https://api.igdb.com/v4/games";
-        String query = "fields name, platforms.name, cover.url, summary, total_rating_count, release_dates.human, genres.name, involved_companies.company.name, game_modes.name, videos.video_id, screenshots.url; where release_dates.platform = " + id + " & total_rating_count > 1000; sort total_sales desc; limit 10;";
+        String query = "fields name, platforms.name, cover.url, summary, total_rating_count, release_dates.human, genres.name, involved_companies.company.name, game_modes.name, videos.video_id, screenshots.url; where release_dates.platform = " + id + " & total_rating_count > 100; sort total_sales desc; limit 10;";
+
         HttpEntity<String> entity = new HttpEntity<>(query, headers);
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
         String responseBody = response.getBody();
-        model.addAttribute("responseBody", responseBody);
+        System.out.println(responseBody);
+//        model.addAttribute("responseBody", responseBody);
 
         // Gson 객체 생성
         Gson gson = new Gson();
@@ -44,8 +49,32 @@ public class RecomGameController {
         Type gameListType = new TypeToken<List<Game>>(){}.getType();
         List<Game> games = gson.fromJson(responseBody, gameListType);
 
+//        for (Game game : games) {
+//            List<Video> videos = game.getVideos();
+//            for (Video video : videos) {
+//                System.out.println("Video ID: " + video.getVideoId());
+//            }
+//        }
+        for (Game game : games) {
+            List<GameMode> gameModes = game.getGameModes();
+            if (gameModes != null) {
+                for (GameMode gameMode : gameModes) {
+                    System.out.println("Game Mode: " + gameMode.getName());
+                }
+            }
+        }
+
+        String pName = "";
+        if(Integer.parseInt(id) == 48)  pName = "PS4";
+        else if(Integer.parseInt(id) == 167)  pName = "PS5";
+        else if(Integer.parseInt(id) == 169)  pName = "Xbox Series X/S";
+        else if(Integer.parseInt(id) == 130)  pName = "Nintendo Switch";
+        else if(Integer.parseInt(id) == 49)  pName = "Oculus VR";
+
+
         // Model에 games 리스트를 추가하여 View로 전달
         model.addAttribute("games", games);
+        model.addAttribute("pName", pName);
 
         return "recomGame";
     }

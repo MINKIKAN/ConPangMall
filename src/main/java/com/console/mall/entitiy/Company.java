@@ -1,5 +1,6 @@
 package com.console.mall.entitiy;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,14 +16,10 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @SerializedName("name")
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "game_id")
-    private Game game;
-
-    // constructors, getters, setters, etc.
 }
 
 
