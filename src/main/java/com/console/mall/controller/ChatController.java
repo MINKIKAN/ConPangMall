@@ -36,6 +36,7 @@ public class ChatController {
     public String enterChatRoom(@PathVariable("roomId") String roomId, HttpSession session, Model model) {
         List<ChatMessage> list = chatService.findById(roomId);
 
+
         model.addAttribute("list", list);
         model.addAttribute("roomId", roomId);
         model.addAttribute("memberId", (String)session.getAttribute("id"));
