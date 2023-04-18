@@ -35,7 +35,7 @@ public class ChatController {
     public String enterChatRoom(@PathVariable("roomId") String roomId, HttpSession session, Model model) {
         ChatMessage chatMessage = chatService.findById(roomId);
         if (chatMessage == null) {
-            chatMessage = new ChatMessage(roomId, "");
+//            chatMessage = new ChatMessage(roomId, "");/
             chatService.save(roomId, chatMessage);
         }
 

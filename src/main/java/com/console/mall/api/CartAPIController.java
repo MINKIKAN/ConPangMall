@@ -27,6 +27,9 @@ public class CartAPIController {
     @PostMapping("/item")
     public String addItem(HttpSession session, @RequestParam("id") Long itemId, Model model) {
         String memberId = (String)session.getAttribute("id");
+        if(memberId==null){
+            return "check";
+        }
         cartService.updateCart(itemId, memberId);
 
         return null;

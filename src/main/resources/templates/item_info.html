@@ -3,13 +3,18 @@
 
 <head>
     <script>
-        function addOrder(id) {
+        function addOrder(itemId) {
+
             $(".product-cart-button").attr("disabled", true);
             $.ajax({
                 url: "/carts/item",
                 type: "POST",
-                data: { "id" : id },
-                success: function (result, status) {
+                data: { "id" : itemId },
+                success: function (data) {
+                    if(data=="check"){
+                        alert("로그인 후 이용해주세요")
+                        return false;
+                    }
                     $(".product-cart-button").attr("disabled", false);
                     alert("장바구니에 담겼습니다.");
                 }
