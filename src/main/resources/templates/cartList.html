@@ -33,8 +33,43 @@
             </nav>
             <!-- 상단의 nav 바 끝 -->
 
+            <script>
+                $(function() {
+                    $("#btnLoadGames").click(function() {
+                        $.ajax({
+                            url: "https://api.igdb.com/v4/artworks",
+                            type: "POST",
+                            headers: {
+                                "Client-ID": "0dle430ej7oslhsv235qjsf4m49hch",
+                                "Authorization": "Bearer ycztk3e54o45fd8wawjqii57mddf70",
+                                "Accept": "application/json"
+                            },
+                            data: {
+                                "fields": "alpha_channel,animated,checksum,game,height,image_id,url,width;"
+                            },
+                            success: function(response) {
+                                var games = response.data;
+                                for (var i = 0; i < games.length; i++) {
+                                    var game = games[i];
+                                    console.log("Name: " + game.name);
+                                    var cover = game.cover;
+                                    if (cover != null) {
+                                        console.log("Cover URL: " + cover.url);
+                                    } else {
+                                        console.log("No cover image found.");
+                                    }
+                                }
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                    });
+                });
+            </script>
             <!-- 바디 부분 시작 -->
             <div class="container-fluid">
+
                 <div class="cart_area">
                     <p class="cart_title">장바구니</p>
                     <script>
