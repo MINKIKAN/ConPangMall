@@ -120,8 +120,8 @@
 </li>
 
 <!-- Nav Item - Tables -->
-<li class="nav-item" th:if="${#session != null and #session.getAttribute('id') != 'admin'}">
-    <a class="nav-link" href="/chat">
+<li class="nav-item" th:if="${#session != null and #session.getAttribute('id') != 'admin' and #session.getAttribute('id') != null}">
+    <a class="nav-link" th:href="@{/chat/{roomId}(roomId=${session.id})}">
         <i class="fa-sharp fa-solid fa-comment"></i>
         <span> 1:1문의</span></a>
 

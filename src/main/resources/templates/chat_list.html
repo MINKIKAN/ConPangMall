@@ -3,6 +3,9 @@
 
 <!--공통되는 cdn, 타이틀 등 fragments폴더안에 header 안에 넣고 replace 했습니다 -->
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha384-HaL+bQKckyviPy+n0J1+CbH9XagnKlifxXn0oMclZUufOy2Q2HpKkDdJvWkZ+JGz"
+            crossorigin="anonymous"></script>
     <div th:replace="fragments/header :: header" />
     <link rel="stylesheet" href="/css/chat_list.css">
 </head>
@@ -42,7 +45,7 @@
                         <div class="chat-delete">삭제</div>
                     </div>
                     <div class="chat-list" th:each="member : ${memberList}">
-                        <a th:href="@{/chat/room/{id}(id=${member.getLogin_id()})}" class="member-name">
+                        <a th:href="@{/chat/{roomId}(roomId=${member.getLogin_id()})}" class="member-name">
                             <div class="member-name" th:text="${member.getName()}">이름</div>
                             <div class="message-status">확인</div>
                             <div class="chat-delete"><button>삭제</button></div>
