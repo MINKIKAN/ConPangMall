@@ -19,56 +19,45 @@ import java.util.List;
 //}
 @Entity
 @Table(name = "games")
+@Getter
+@Setter
 public class Game {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @ManyToMany
-    @JoinTable(name = "game_platforms",
-            joinColumns = @JoinColumn(name = "game_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "platform_id", referencedColumnName = "id"))
-    private List<Platform> platforms;
-
-    @Column
-    private String coverUrl;
-
-    @Column(length = 5000)
+    @Column(name = "summary")
     private String summary;
 
-    @Column
-    private Long totalRatingCount;
+    @Column(name = "total_rating_count")
+    private Integer totalRatingCount;
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ReleaseDate> releaseDates;
 
-    @ManyToMany
-    @JoinTable(name = "game_genres",
-            joinColumns = @JoinColumn(name = "game_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "genre_id", referencedColumnName = "id"))
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Genre> genres;
 
-    @ManyToMany
-    @JoinTable(name = "game_companies",
-            joinColumns = @JoinColumn(name = "game_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "company_id", referencedColumnName = "id"))
-    private List<Company> involvedCompanies;
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Company> companies;
 
-    @ManyToMany
-    @JoinTable(name = "game_modes",
-            joinColumns = @JoinColumn(name = "game_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "mode_id", referencedColumnName = "id"))
-    private List<GameMode> gameModes;
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Platform> platforms;
 
-    @OneToMany(mappedBy = "game")
+    @OneToOne(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Cover cover;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Video> videos;
 
-    @OneToMany(mappedBy = "game")
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Screenshot> screenshots;
+
+    @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<GameMode> gameModes;
 
     // constructors, getters, setters, etc.
 }

@@ -35,6 +35,7 @@ public class RecomGameController {
 
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.POST, entity, String.class);
         String responseBody = response.getBody();
+        model.addAttribute("responseBody", responseBody);
 
         // Gson 객체 생성
         Gson gson = new Gson();
