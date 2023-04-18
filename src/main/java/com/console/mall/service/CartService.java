@@ -28,7 +28,7 @@ public class CartService {
     public void updateCart(Long itemId, String memberId) {
         Long id = memberRepository.findById(memberId);
         Cart cart = findByCart(id);
-        Item item = itemRepository.findOne(itemId).get(0);
+        Item item = itemRepository.findOne(itemId);
         CartItem cartItem = CartItem.createCartItem(cart, item);
         cart.addCartItem(cartItem);
         cartRepository.save(cart);

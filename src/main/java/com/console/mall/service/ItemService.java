@@ -13,9 +13,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ItemService {
-    private static ItemRepository itemRepository;
-
-
+    private final ItemRepository itemRepository;
 
     @Transactional
     public void saveItem(Item item) {
@@ -23,8 +21,10 @@ public class ItemService {
     }
 
     public Item findOneItem(Long id) {
-        List<Item> itemList = itemRepository.findOne(id);
-        return itemList.get(0);
+//        List<Item> itemList = itemRepository.findOne(id);
+//        return itemList.get(0);
+        Item item = itemRepository.findOne(id);
+        return item;
     }
 
     public List<Item> findAllItem(Long id, PaginationDTO paginationDTO) {
@@ -32,7 +32,6 @@ public class ItemService {
         int recordSize = paginationDTO.getRecordSize();
         return itemRepository.getList(id, start , recordSize);
     }
-
 
     public Long allCount(Long id) {
         return itemRepository.allCount(id);
