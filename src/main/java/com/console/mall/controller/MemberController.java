@@ -73,11 +73,12 @@ public class MemberController {
 
     @GetMapping("/members/updateForm")
     public String updateForm(HttpSession session,Model model ){
+
         String id = (String) session.getAttribute("id");
         Member member = memberService.findId(id);
         UpdateForm form = new UpdateForm();
 
-        form.setId(member.getId());
+
         form.setName(member.getName());
         form.setCity(member.getAddress().getCity());
         form.setStreet(member.getAddress().getStreet());
@@ -89,7 +90,8 @@ public class MemberController {
         return "members/updateForm";
     }
     @PostMapping("/members/updateForm")
-    public String update(HttpSession session,@ModelAttribute("form") UpdateForm form,Model model) {
+    public String update(HttpSession session,@ModelAttribute("form") UpdateForm form,BindingResult result) {
+        
         String id = (String) session.getAttribute("id");
         memberService.update(id,form.getName(),form.getCity(),form.getStreet(),form.getZipcode(),form.getEmail(),form.getPhone(),form.getPw());
 

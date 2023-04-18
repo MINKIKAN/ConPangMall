@@ -37,6 +37,7 @@ public class ChatController {
         List<ChatMessage> list = chatService.findById(roomId);
 
 
+
         model.addAttribute("list", list);
         model.addAttribute("roomId", roomId);
         model.addAttribute("memberId", (String)session.getAttribute("id"));
