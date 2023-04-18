@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -33,12 +34,9 @@ public class ChatController {
     }
     @GetMapping("/chat/{roomId}")
     public String enterChatRoom(@PathVariable("roomId") String roomId, HttpSession session, Model model) {
-        ChatMessage chatMessage = chatService.findById(roomId);
-        if (chatMessage == null) {
-            chatMessage = new ChatMessage(roomId, "");
-            chatService.save(roomId, chatMessage);
-        }
+        List<ChatMessage> list = chatService.findById(roomId);
 
+        model.addAttribute("list", list);
         model.addAttribute("roomId", roomId);
         model.addAttribute("memberId", (String)session.getAttribute("id"));
         return "chat";
@@ -46,7 +44,7 @@ public class ChatController {
 
     @MessageMapping("/chatting/{roomId}")
     public void send(@DestinationVariable("roomId") String roomId, ChatMessage chatMessage) {
-        chatService.save(roomId, chatMessage);
+        chatService.save(chatMessage);
         messagingTemplate.convertAndSend("/topic/chatting/" + roomId, chatMessage);
     }
 

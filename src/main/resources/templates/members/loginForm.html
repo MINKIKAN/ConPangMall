@@ -10,6 +10,9 @@
         border-color: #bd2130;
     }
 </style>
+<script th:if="${#request.getAttribute('message') != null}">
+    alert("다른 컴퓨터에서 로그인하여 접속이 끊어졌습니다.");
+</script>
 <body class="">
 
     <!--    <div th:replace="fragments/bodyHeader :: bodyHeader"/>-->
