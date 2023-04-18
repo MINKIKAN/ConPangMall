@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Chat Room</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -10,7 +10,9 @@
 
 <div>
     <h1>Chat Room - Room ID: <span th:text="${roomId}"></span></h1>
-    <ul id="chatLog"></ul>
+    <ul id="chatLog">
+        <p th:each="cm : ${list}" th:text="${cm.getContent()}"></p>
+    </ul>
 </div>
 
 <div>
@@ -29,7 +31,7 @@
         function showMessage(message) {
             let chatLog = $('#chatLog');
             let messageString = message.senderId + ' : ' + message.content;
-            let messageElement = $('<li>').text(messageString);
+            let messageElement = $('<p>').text(messageString);
             chatLog.append(messageElement);
         }
 

@@ -6,6 +6,7 @@ import com.console.mall.entitiy.Member;
 import com.console.mall.service.MemberService;
 
 import com.console.mall.session.SessionService;
+import com.console.mall.session.SessionServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -25,10 +26,10 @@ import java.util.stream.Collectors;
 @RequestMapping("/member")
 public class MemberApiController {
     private final MemberService memberService;
-//    private final SessionService sessionService;
+    private final SessionServiceImpl sessionService;
 
     @PostMapping("/login")
-    public String login(@RequestParam("id") String id, @RequestParam("pw") String pw, HttpSession session) {
+    public String login(@RequestParam("id") String id, @RequestParam("pw") String pw, HttpSession session, Model model) {
         MemberDTO memberDTO = new MemberDTO();
         memberDTO.setLogin_id(id);
         memberDTO.setPw(pw);
@@ -37,47 +38,33 @@ public class MemberApiController {
             return "no";
         }
         session.setAttribute("id", id);
+        loginCheck(id, session, model);
         return "yes";
     }
 
-//
-//    @PostMapping("/login")
-//    public String login(@RequestParam("id") String id, @RequestParam("pw") String pw, HttpSession session, HttpServletRequest request) {
-//        // 기존 세션이 있는 경우, 다른 컴퓨터에서 로그인한 것으로 판단하고 로그아웃 처리
-//        String prevSessionId = sessionService.getSessionIdByUsername(id);
-//        if (prevSessionId != null && !prevSessionId.equals(session.getId())) {
-//            HttpSession prevSession = sessionService.getSessionById(prevSessionId);
-//            if (prevSession != null) {
-//                prevSession.invalidate();
-//            }
-//            sessionService.removeSessionByUsername(id);
-//            session.invalidate();
-//            return "redirect:/login?message=다른 컴퓨터에서 로그인하여 접속이 끊어졌습니다.";
-//        }
-//
-//        // 새로운 세션을 등록하고 사용자 정보를 저장
-//        session.setAttribute("id", id);
-//
-//        // 현재 세션 ID를 데이터베이스나 캐시에 저장
-//        sessionService.saveSessionIdByUsername(id, session.getId());
-//
-//        return "redirect:/dashboard";
-//    }
-//
-//    @GetMapping("/dashboard")
-//    public String dashboard(HttpSession session) {
-//        String id = (String) session.getAttribute("id");
-//
-//        // 세션 ID를 확인하여, 이전에 다른 컴퓨터에서 로그인한 경우 로그아웃 처리
-//        String prevSessionId = sessionService.getSessionIdByUsername(id);
-//        if (prevSessionId != null && !prevSessionId.equals(session.getId())) {
-//            sessionService.removeSessionByUsername(id);
-//            session.invalidate();
-//            return "redirect:/login?message=다른 컴퓨터에서 로그인하여 접속이 끊어졌습니다.";
-//        }
-//
-//        return "dashboard";
-//    }
+
+    private String loginCheck(String id, HttpSession session, Model model) {
+        // 기존 세션이 있는 경우, 다른 컴퓨터에서 로그인한 것으로 판단하고 로그아웃 처리
+        String prevSessionId = sessionService.getSessionIdByUsername(id);
+        if (prevSessionId != null && !prevSessionId.equals(session.getId())) {
+            HttpSession prevSession = sessionService.getSessionById(prevSessionId);
+            if (prevSession != null) {
+                prevSession.invalidate();
+            }
+            sessionService.removeSessionByUsername(id);
+            model.addAttribute("message", "다른 컴퓨터에서 로그인하여 접속이 끊어졌습니다.");
+            return "redirect:/members/loginForm?message=다른 컴퓨터에서 로그인하여 접속이 끊어졌습니다.";
+        }
+
+        // 새로운 세션을 등록하고 사용자 정보를 저장
+        session.setAttribute("id", id);
+
+        // 현재 세션 ID를 데이터베이스나 캐시에 저장
+        sessionService.saveSessionIdByUsername(id, session.getId());
+
+        return null;
+    }
+
 
     @PostMapping("/v1/members")
     // requset -> json -> 객체  return 객체 -> json
