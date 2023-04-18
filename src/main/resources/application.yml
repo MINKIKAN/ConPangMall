@@ -36,3 +36,7 @@ server:
     encoding:
       force-response: true
 
+      spring:
+        thymeleaf:
+          prefix: classpath:/templates/
+

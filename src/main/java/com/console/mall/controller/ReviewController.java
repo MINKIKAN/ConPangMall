@@ -67,7 +67,7 @@ public class ReviewController {
 
     @GetMapping("/reviews/new")
     public String showReviewForm() {
-        return "Cart";
+        return "home";
     }
 
 }
