@@ -28,7 +28,7 @@ public class OrderController {
         String id=(String) session.getAttribute("id");
         List<Item> itemList = orderService.getOneByUserId(id);
         model.addAttribute("itemList", itemList);
-        return "/orderedItem/form";
+        return "orderedItem/form";
     }
 
 
