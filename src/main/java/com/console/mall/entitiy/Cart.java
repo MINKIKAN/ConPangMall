@@ -26,7 +26,7 @@ public class Cart {
     @JoinColumn(name = "member_id")
     private Member member; // 구매자
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<CartItem> list = new ArrayList<>();
 
     private int totalPrice;

@@ -16,7 +16,7 @@
     <!-- 수정할 내용은 side_bar.html 에서 해주시면 다 적용됩니다 -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <div th:replace="fragments/side_bar :: side_bar"/>
+        <div th:replace="fragments/side_bar :: side_bar" />
     </ul>
     <!-- 왼쪽 사이드 바 끝 -->
 
@@ -29,7 +29,7 @@
             <!-- 상단의 nav 바 시작 -->
             <!-- 이것도 수정하실거 있으시면 fragments 폭더에 nav_bar 수정해주시면 됩니다 -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <div th:replace="fragments/nav_bar :: nav_bar"/>
+                <div th:replace="fragments/nav_bar :: nav_bar" />
             </nav>
             <!-- 상단의 nav 바 끝 -->
 
@@ -43,7 +43,7 @@
                             $(".cart_del").attr("disabled", true);
                             $.ajax({
                                 url: "/carts/delete",
-                                data: {"id": id},
+                                data: { "id": id },
                                 type: "POST",
                                 success: function () {
                                     $(".cart_del").attr("disabled", false);
@@ -60,7 +60,7 @@
                             $.ajax({
                                 url: "/orders/add",
                                 type: "POST",
-                                data: {"cartId": cartId},
+                                data: { "cartId": cartId },
                                 success: function () {
                                     $(".buy_btn").attr("disabled", false);
                                     location.reload();
@@ -77,27 +77,39 @@
                     </div>
                     <ul class="cart_list accordion" id="orderAccordion">
                         <li class="cart_index">
-                            <div class="cart_img">이미지</div>
-                            <div class="cart_title">상품이름</div>
+                            <!--                            <div class="cart_img">이미지</div>-->
+                            <div class="cart_title">이름</div>
                             <div class="cart_price">가격</div>
                             <div class="cart_del">삭제</div>
                         </li>
-                        <li class="cart_items accordion-item" th:each="order : ${orderList}">
-                            <button class="accordion-button collapsed d-flex align-items-center" type="button"
-                                    data-bs-toggle="collapse" th:attr="data-bs-target='#collapse'+${order.getId()}"
-                                    aria-expanded="false">
-                                <div class="cart_title" th:text="${order.getMember().getName()}"></div>
-                                <p class="total_price">총 금액 : <span th:text="${order.getTotalPrice()}"></span> 원</p>
+
+                        <li class="cart_items_accordion-item" th:each="order : ${orderList}">
+                            <div class="accordion-content">
+                            <a class="accordion-button collapsed d-flex align-items-center" type="button"
+                               data-bs-toggle="collapse" th:attr="data-bs-target='#collapse'+${order.getId()}"
+                               aria-expanded="false">
+                            <div class="cart_title" th:text="${order.getMember().getName()}"></div>
+                            <div class="total">
+
+<!--                                    <div class="cart_price">-->
+                                        <p class="total_price">총 금액 : <span
+                                                th:text="${order.getTotalPrice()}"></span> 원
+                                        </p>
+<!--                                    </div>-->
+                            </div>
+
                                 <div class="cart_del">
                                     <button th:onclick="|deleteOrder(${order.getId()})|">삭제</button>
                                 </div>
-                            </button>
+                            </a>
+                            </div>
+
                             <div th:id="'collapse' + ${order.getId()}" class="accordion-collapse collapse"
                                  data-bs-parent="#orderAccordion">
                                 <div class="order_content" th:each="orderItem : ${order.getList()}">
-                                    <div th:text="${orderItem.getItem().getName()}"></div>
-                                    <div th:text="${orderItem.getItem().getPrice()}"></div>
-                                    <div><img th:src="${orderItem.getItem().getImage()}"/></div>
+                                    <div class="order_content_name" th:text="${orderItem.getItem().getName()}"></div>
+                                    <div class="order_content_price"th:text="${orderItem.getItem().getPrice()+'원'}"></div>
+                                    <div class="order_content_img"><img th:src="${orderItem.getItem().getImage()}" /></div>
                                     <div></div>
                                 </div>
                             </div>
@@ -118,17 +130,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
             crossorigin="anonymous"></script>
     <!-- Footer -->
-    <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright &copy; Your Website 2020</span>
-            </div>
-        </div>
-    </footer>
+
     <!-- End of Footer -->
 
 </div>
-
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2020</span>
+        </div>
+    </div>
+</footer>
 </div>
 
 <!-- Scroll to Top Button-->

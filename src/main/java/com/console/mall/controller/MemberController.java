@@ -13,7 +13,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.List;
@@ -32,7 +34,7 @@ public class MemberController {
     }
 
     @PostMapping("/members/new")
-    public String create(@Valid MemberForm form, BindingResult result) {
+    public String create(@Valid MemberForm form, BindingResult result, Model model) {
         if(result.hasErrors()){
             return "members/createMemberForm";
         }
@@ -46,7 +48,12 @@ public class MemberController {
         member.setLogin_id(form.getLogin_id());
         member.setPw(form.getPw());
         member.setPhone(form.getPhone());
-        memberService.join(member);
+        try {
+            memberService.join(member);
+        }catch(IllegalStateException e){
+           model.addAttribute("errorMessage",e.getMessage());
+            return "members/createMemberForm";
+        }
         return "redirect:/";
     }
 
@@ -57,16 +64,7 @@ public class MemberController {
         return "members/memberList";
     }
 
-//    @GetMapping("/members/deleteMember")
-//    public String delete(HttpSession session){
-//        memberService.deleteMember(session.getId());
-//        session.removeAttribute("id");
-//        return "redirect:/";
-//    }
-    //public String loginForm(Model model){
-    //    model.addAttribute("loginForm", new loginForm());
-    //    return "members/loginForm";
-    //}
+
     @GetMapping("/members/login")
     public String login() {
         return "members/loginForm";
@@ -90,11 +88,12 @@ public class MemberController {
         return "members/updateForm";
     }
     @PostMapping("/members/updateForm")
-    public String update(HttpSession session,@ModelAttribute("form") UpdateForm form) {
+    public String update(HttpSession session,@ModelAttribute("form") UpdateForm form,Model model) {
         String id = (String) session.getAttribute("id");
         memberService.update(id,form.getName(),form.getCity(),form.getStreet(),form.getZipcode(),form.getEmail(),form.getPhone(),form.getPw());
 
         return "redirect:/";
+
     }
 
     @GetMapping("/members/logout")
@@ -108,14 +107,26 @@ public class MemberController {
     }
     @ResponseBody
     @PostMapping("/members/deleteMember")
-    public String delete(String pw){
-
-        String deleteResult = memberService.delete(pw);
+    public String delete(HttpSession session, String pw){
+        String id = (String)session.getAttribute("id");
+        int deleteResult = memberService.delete(id, pw);
         System.out.println("deleteResult = " + deleteResult);
-        if(deleteResult != null){
+        if(deleteResult != 0){
+            session.removeAttribute("id");
             return "yes";
         }
         return "no";
 
+    }
+    @GetMapping("/members/delete")
+    public String delete(@RequestParam("id") Long id, RedirectAttributes redirectAttributes) {
+        Member member = memberService.findOne(id);
+        if (member == null) {
+            redirectAttributes.addFlashAttribute("error", "해당 회원이 존재하지 않습니다.");
+        } else {
+            memberService.delete(member);
+            redirectAttributes.addFlashAttribute("message", "회원이 삭제되었습니다.");
+        }
+        return "redirect:/members";
     }
 }

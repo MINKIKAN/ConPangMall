@@ -40,12 +40,13 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top:20px;
 }
 
 input {
     width: 100%;
     height: 30%;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 label {
@@ -63,4 +64,13 @@ label {
 
 button:active {
     background: rgba(171, 171, 171, 1);
+}
+.footer {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.updateButton {
+    margin-right: 60px;
 }
