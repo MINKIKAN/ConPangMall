@@ -1,0 +1,78 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Test API</title>-->
+<!--    <style>-->
+<!--        .game {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            margin-bottom: 20px;-->
+<!--            border: 1px solid #ccc;-->
+<!--            padding: 10px;-->
+<!--        }-->
+<!--        .game img {-->
+<!--            width: 100px;-->
+<!--            height: 100px;-->
+<!--            margin-right: 20px;-->
+<!--        }-->
+<!--        .game .info {-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            justify-content: center;-->
+<!--        }-->
+<!--        .game .name {-->
+<!--            font-weight: bold;-->
+<!--            font-size: 1.2em;-->
+<!--            margin-bottom: 5px;-->
+<!--        }-->
+<!--        .game .platform {-->
+<!--            margin-bottom: 5px;-->
+<!--        }-->
+<!--        .game .summary {-->
+<!--            margin-top: 5px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div class="container">-->
+<!--    <h1>Top 10 Games</h1>-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-12">-->
+<!--            <table class="table table-striped">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th>Image</th>-->
+<!--                    <th>Name</th>-->
+<!--                    <th>Platforms</th>-->
+<!--                    <th>Summary</th>-->
+<!--                    <th>Total Rating</th>-->
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+<!--                &lt;!&ndash; Loop through the games &ndash;&gt;-->
+<!--                <tr th:each="game : ${games}">-->
+<!--                    <td>-->
+<!--                        &lt;!&ndash; If cover exists, show image. Otherwise, show default no-image image &ndash;&gt;-->
+<!--                        <img th:if="${game.cover}" th:src="${game.cover.url}" alt="Game Cover" height="100">-->
+<!--                        <img th:unless="${game.cover}" src="/images/no-image.png" alt="No Image" height="100">-->
+<!--                    </td>-->
+<!--                    <td th:text="${game.name}"></td>-->
+<!--                    <td>-->
+<!--                        <ul>-->
+<!--                            &lt;!&ndash; Loop through the platforms &ndash;&gt;-->
+<!--                            <li th:each="platform : ${game.platforms}" th:text="${platform.name}"></li>-->
+<!--                        </ul>-->
+<!--                    </td>-->
+<!--                    <td th:text="${game.summary}"></td>-->
+<!--                    <td th:text="${game.total_rating}"></td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--</body>-->
+
+
+<!--</html>-->

@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -24,6 +26,10 @@ public class CartController {
     @GetMapping("/cart")
     public String cartList(HttpSession session, Model model) {
         String id = (String)session.getAttribute("id");
+        if(id == null){
+            model.addAttribute("message", "로그인이 필요한 서비스입니다.");
+            return "/members/loginForm";
+        }
 
         Long memberId = memberService.getId(id);
 
