@@ -1,18 +1,17 @@
 package com.console.mall.service;
 
-import com.console.mall.entitiy.*;
+import com.console.mall.entitiy.Cart;
+import com.console.mall.entitiy.CartItem;
+import com.console.mall.entitiy.Item;
+import com.console.mall.entitiy.Member;
 import com.console.mall.respository.CartRepository;
 import com.console.mall.respository.ItemRepository;
 import com.console.mall.respository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +28,7 @@ public class CartService {
     public void updateCart(Long itemId, String memberId) {
         Long id = memberRepository.findById(memberId);
         Cart cart = findByCart(id);
-        Item item = itemRepository.findOne(itemId);
+        Item item = itemRepository.findOne(itemId).get(0);
         CartItem cartItem = CartItem.createCartItem(cart, item);
         cart.addCartItem(cartItem);
         cartRepository.save(cart);

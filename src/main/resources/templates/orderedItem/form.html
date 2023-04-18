@@ -5,6 +5,8 @@
   <div th:replace="fragments/header :: header"/>
   <link rel="stylesheet" href="/css/cartList.css">
   <link rel="stylesheet" href="/css/notice.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <body id="page-top">
@@ -55,7 +57,8 @@
                   <div class="cart_img"><img th:src="${orderItem.getItem().getImage()}"/></div>
                   <div class="cart_title" th:text="${orderItem.getItem().getName()}"></div>
                   <div class="cart_price" th:text="${orderItem.getItem().getPrice()}"></div>
-                  <button class="reivew_add" >리뷰쓰기</button>
+                  <div class="" id="getId" name="itemId" th:value="${orderItem.getItem().getId()}"/>
+                  <button class="reivew_add" th:onclick="|addItemId(${orderItem.getItem().getId()})|">리뷰쓰기</button>
                 </div>
               </div>
             </li>
@@ -79,17 +82,19 @@
         </div>
         <div>
           <label for="writer">작성자:</label>
-          <input type="text" id="writer" name="writer"  required>
+          <input type="text" id="writer" name="writer" value="${sessionScope.id}"  required>
         </div>
         <div>
           <label for="content">내용:</label>
           <textarea id="content_notice" name="content" placeholder="내용을 입력하세요" required></textarea>
         </div>
         <div>
+          <input type="hidden" id="itemid" name="itemId" value="#getid"/>
           <button type="button" onclick="submitNoticeForm(this.form)">리뷰작성</button>
           <button class="cancel_btn">취소</button>
         </div>
       </form>
+
 
       <div>
         <a href="/notice"></a>
@@ -119,13 +124,19 @@
       console.log('수정 버튼 클릭됨');
     });
   });
+  let itemId = null;
+  function addItemId(id) {
+    itemId = id;
+  }
   function submitNoticeForm(form) {
+    alert("itemId = " + itemId);
     $.ajax({
       url: '/reviews',
       data: {
         title: form.title.value,
         writer: form.writer.value,
-        content: form.content.value
+        content: form.content.value,
+        itemId : itemId
       },
       type: 'POST',
       success: function (data) {
@@ -138,8 +149,7 @@
     });
   }
 </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
-          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
   <!-- Footer -->
 
   <!-- End of Footer -->

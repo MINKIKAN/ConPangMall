@@ -16,12 +16,15 @@ public class ItemRepository {
     public void save(Item item) {
         em.persist(item);
     }
-    public Item findOne(Long id) {
-        return em.find(Item.class,id);
+    public List<Item> findOne(Long id) {
+        return em.createQuery("select i from Item i where i.id =:id", Item.class)
+                .setParameter("id", id)
+                .getResultList();
+
     }
 
     public List<Item> getList(Long id, int start, int recordSize) {
-        List<Item> itemList = em.createQuery("select i from Item i Join i.category c where c.id = :id")
+        List<Item> itemList = em.createQuery("select i from Item i Join i.category c where c.id = :id", Item.class)
                 .setParameter("id", id)
                 .setFirstResult(start)
                 .setMaxResults(recordSize)

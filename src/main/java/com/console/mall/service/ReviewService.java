@@ -4,10 +4,12 @@ import com.console.mall.entitiy.Review;
 import com.console.mall.respository.ReviewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ReviewService {
 

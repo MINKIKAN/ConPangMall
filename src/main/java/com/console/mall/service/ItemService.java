@@ -13,7 +13,9 @@ import java.util.List;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class ItemService {
-    private final ItemRepository itemRepository;
+    private static ItemRepository itemRepository;
+
+
 
     @Transactional
     public void saveItem(Item item) {
@@ -21,8 +23,8 @@ public class ItemService {
     }
 
     public Item findOneItem(Long id) {
-        Item item = itemRepository.findOne(id);
-        return item;
+        List<Item> itemList = itemRepository.findOne(id);
+        return itemList.get(0);
     }
 
     public List<Item> findAllItem(Long id, PaginationDTO paginationDTO) {
