@@ -5,6 +5,7 @@ import com.console.mall.entitiy.Cart;
 import com.console.mall.entitiy.Member;
 import com.console.mall.service.MemberService;
 
+import com.console.mall.session.SessionRegistry;
 import com.console.mall.session.SessionService;
 import com.console.mall.session.SessionServiceImpl;
 import lombok.AllArgsConstructor;
@@ -37,30 +38,32 @@ public class MemberApiController {
         if (member == null) {
             return "no";
         }
-        loginCheck(id, session, model);
+        loginCheck(id, session);
         return "yes";
     }
 
-    private String loginCheck(String id, HttpSession session, Model model) {
+
+    private String loginCheck(String id, HttpSession session) {
         // 기존 세션이 있는 경우, 다른 컴퓨터에서 로그인한 것으로 판단하고 로그아웃 처리
         String prevSessionId = sessionService.getSessionIdByUsername(id);
         if (prevSessionId != null && !prevSessionId.equals(session.getId())) {
             HttpSession prevSession = sessionService.getSessionById(prevSessionId);
             if (prevSession != null) {
-                prevSession.invalidate();
+                prevSession.removeAttribute("id");
+                prevSession.setAttribute("message", "다른 컴퓨터에서 로그인하여 로그아웃 됩니다.");
+                sessionService.removeSessionByUsername(id);
+                SessionRegistry.removeSession(prevSessionId);
             }
-            sessionService.removeSessionByUsername(id);
-            session.invalidate();
-            return "";
         }
+        SessionRegistry.addSession(session);
+        session.setAttribute("id", id);
 
         // 새로운 세션을 등록하고 사용자 정보를 저장
-        session.setAttribute("id", id);
 
         // 현재 세션 ID를 데이터베이스나 캐시에 저장
         sessionService.saveSessionIdByUsername(id, session.getId());
 
-        return "null";
+        return null;
     }
 
 

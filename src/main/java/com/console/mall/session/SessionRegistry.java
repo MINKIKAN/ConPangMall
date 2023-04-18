@@ -11,8 +11,8 @@ public class SessionRegistry {
         sessionMap.put(session.getId(), session);
     }
 
-    public static synchronized void removeSession(HttpSession session) {
-        sessionMap.remove(session.getId());
+    public static synchronized void removeSession(String id) {
+        sessionMap.remove(id);
     }
 
     public static synchronized HttpSession getSessionById(String sessionId) {
