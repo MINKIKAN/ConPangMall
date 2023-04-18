@@ -37,11 +37,9 @@ public class MemberApiController {
         if (member == null) {
             return "no";
         }
-        session.setAttribute("id", id);
         loginCheck(id, session, model);
         return "yes";
     }
-
 
     private String loginCheck(String id, HttpSession session, Model model) {
         // 기존 세션이 있는 경우, 다른 컴퓨터에서 로그인한 것으로 판단하고 로그아웃 처리
@@ -52,8 +50,8 @@ public class MemberApiController {
                 prevSession.invalidate();
             }
             sessionService.removeSessionByUsername(id);
-            model.addAttribute("message", "다른 컴퓨터에서 로그인하여 접속이 끊어졌습니다.");
-            return "redirect:/members/loginForm?message=다른 컴퓨터에서 로그인하여 접속이 끊어졌습니다.";
+            session.invalidate();
+            return "";
         }
 
         // 새로운 세션을 등록하고 사용자 정보를 저장
@@ -62,25 +60,26 @@ public class MemberApiController {
         // 현재 세션 ID를 데이터베이스나 캐시에 저장
         sessionService.saveSessionIdByUsername(id, session.getId());
 
-        return null;
+        return "null";
     }
 
 
     @PostMapping("/v1/members")
     // requset -> json -> 객체  return 객체 -> json
-    public CreateMemberResponse saveMemberV1(@RequestBody Member member){
+    public CreateMemberResponse saveMemberV1(@RequestBody Member member) {
         Long id = memberService.join(member);
         return new CreateMemberResponse(id);
     }
 
     @Data
     @AllArgsConstructor
-    static class CreateMemberResponse{
+    static class CreateMemberResponse {
         private Long id;
     }
+
     @PostMapping("/v2/members")
     // requset -> json -> 객체  return 객체 -> json
-    public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request,Model model){
+    public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request, Model model) {
         Member member = new Member();
         member.setName(request.getName());
         member.setEmail(request.getEmail());
@@ -90,8 +89,9 @@ public class MemberApiController {
         Long id = memberService.join(member);
         return new CreateMemberResponse(id);
     }
+
     @Data
-    static class CreateMemberRequest{
+    static class CreateMemberRequest {
         @NotBlank(message = "이름입력 필수")
         private String name;
         @NotBlank(message = "이메일입력 필수")
@@ -102,8 +102,9 @@ public class MemberApiController {
         private String pw;
         @NotBlank(message = "핸드폰번호입력 필수")
         private String phone;
-        @ConstructorProperties({"name","email","login_id","pw","phone"})
-        public CreateMemberRequest(String name,String email,String login_id,String pw,String phone){
+
+        @ConstructorProperties({"name", "email", "login_id", "pw", "phone"})
+        public CreateMemberRequest(String name, String email, String login_id, String pw, String phone) {
             this.name = name;
             this.email = email;
             this.login_id = login_id;
@@ -114,15 +115,16 @@ public class MemberApiController {
 
 
     @Data
-    static class UpdateMemberRequest{
+    static class UpdateMemberRequest {
         @NotBlank(message = "이름입력 필수")
         private String name;
         private String email;
         private String login_id;
         private String pw;
         private String phone;
-        @ConstructorProperties({"name","email","login_id","pw","phone"})
-        public UpdateMemberRequest(String name,String email,String login_id,String pw,String phone){
+
+        @ConstructorProperties({"name", "email", "login_id", "pw", "phone"})
+        public UpdateMemberRequest(String name, String email, String login_id, String pw, String phone) {
             this.name = name;
             this.email = email;
             this.login_id = login_id;
@@ -133,7 +135,7 @@ public class MemberApiController {
 
     @Data
     @AllArgsConstructor
-    static class UpdateMemberResponse{
+    static class UpdateMemberResponse {
         private Long id;
         private String name;
         private String email;
