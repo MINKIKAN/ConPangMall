@@ -9,6 +9,7 @@ import com.console.mall.session.SessionService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -92,7 +93,7 @@ public class MemberApiController {
     }
     @PostMapping("/v2/members")
     // requset -> json -> 객체  return 객체 -> json
-    public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request){
+    public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request,Model model){
         Member member = new Member();
         member.setName(request.getName());
         member.setEmail(request.getEmail());

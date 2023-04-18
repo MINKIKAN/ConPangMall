@@ -21,5 +21,6 @@ public class UpdateForm {
         @Pattern(regexp = "(01[01])(\\d{3,4})(\\d{4})", message = "올바른 휴대폰 번호를 입력해주세요.")
         private String phone;
         @Size(min=2,max = 5,message = "비밀번호는 2자 이상 5자 이하로 입력해주세요")
+
         private String pw;
 }

@@ -43,11 +43,14 @@ public class MemberRepository {
 
     public List<Member> findByName(String name) {
         return em.createQuery("select  m from Member m where m.name = :name", Member.class).setParameter("name", name).getResultList();
-    }    
+    }
+
     public List<Member> isId(String loginid) {
         return em.createQuery("select  m from Member m where m.login_id = :loginId", Member.class).setParameter("loginId", loginid).getResultList();
     }
-
+    public List<Member> isEmail(String email){
+        return em.createQuery("select m from Member m where m.email=:email",Member.class).setParameter("email",email).getResultList();
+    }
     public void deleteById(Long id) {
     }
 
@@ -79,6 +82,12 @@ public class MemberRepository {
         return (Cart) em.createQuery("select m.cart from Member m where m.login_id =:id")
                 .setParameter("id", id)
                 .getSingleResult();
+
+    }
+    public void delete(Member m) {
+
+        // Member 엔티티 삭제
+        em.remove(m);
 
     }
 }
