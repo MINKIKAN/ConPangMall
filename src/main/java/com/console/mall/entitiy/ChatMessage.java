@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@Entity
 public class ChatMessage {
 
     @Id
