@@ -1,60 +1,60 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Chat Room</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
-<h1>Chat Room</h1>
-<form id="loginForm">
-    <label for="usernameInput">Username:</label>
-    <input type="text" id="usernameInput" required>
-    <button type="submit">Connect</button>
-</form>
-<div id="chatRoom" style="display: none;">
-    <ul id="messageList"></ul>
-    <input type="text" id="messageInput">
-    <button type="button" id="sendBtn">Send</button>
+
+<div>
+    <h1>Chat Room - Room ID: <span th:text="${roomId}"></span></h1>
+    <ul id="chatLog"></ul>
 </div>
-<script src="/static/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // WebSocket 연결
-        var socket;
 
-        $("#loginForm").submit(function(event) {
-            event.preventDefault();
+<div>
+    <form id="messageForm">
+        <input type="text" id="message" name="message">
+        <button type="submit">Send</button>
+    </form>
+</div>
 
-            var username = $("#usernameInput").val();
-            socket = new WebSocket("ws://" + location.host + "/chat?username=" + encodeURIComponent(username));
+<script type="text/javascript" th:inline="javascript">
+    $(document).ready(function () {
+        let roomId = /*[[${roomId}]]*/ '';
+        let memberId = /*[[${memberId}]]*/ '';
+        let socket = new SockJS('/ws');
+        let stompClient = Stomp.over(socket);
+        function showMessage(message) {
+            let chatLog = $('#chatLog');
+            let messageString = message.senderId + ' : ' + message.content;
+            let messageElement = $('<li>').text(messageString);
+            chatLog.append(messageElement);
+        }
 
-            // 연결되었을 때 실행되는 콜백 함수
-            socket.onopen = function() {
-                console.log("Connected to WebSocket server");
-                $("#loginForm").hide();
-                $("#chatRoom").show();
-                $("#messageInput").focus();
-            };
-
-            // 메시지 수신할 때 실행되는 콜백 함수
-            socket.onmessage = function(event) {
-                var message = event.data;
-                $("#messageList").append("<li>" + message + "</li>");
-            };
-
-            // WebSocket 연결이 끊겼을 때 실행되는 콜백 함수
-            socket.onclose = function(event) {
-                console.log("Disconnected from WebSocket server");
-            };
-
-            // 메시지 전송 버튼 클릭 이벤트 핸들러
-            $("#sendBtn").click(function() {
-                var message = $("#messageInput").val();
-                socket.send(message);
-                $("#messageInput").val("");
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/chatting/' + roomId, function (message) {
+                showMessage(JSON.parse(message.body));
             });
+        });
+
+
+        $('#messageForm').on('submit', function (e) {
+            e.preventDefault();
+            let message = $('#message').val();
+            if (message) {
+                stompClient.send('/app/chatting/' + roomId, {}, JSON.stringify({
+                    'content': message,
+                    'senderId': memberId
+                }));
+                $('#message').val('');
+            }
         });
     });
 </script>
+
 </body>
 </html>
+
