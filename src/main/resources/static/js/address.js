@@ -13,7 +13,6 @@ function findAddr(){
             if(roadAddr !== ''){
                 document.getElementById("address").value = roadAddr;
             }
-
             else if(jibunAddr !== ''){
                 document.getElementById("address").value = jibunAddr;
             }

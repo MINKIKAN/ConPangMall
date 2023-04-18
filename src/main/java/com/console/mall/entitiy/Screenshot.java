@@ -1,21 +1,24 @@
 package com.console.mall.entitiy;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "screenshots")
+@Getter
+@Setter
 public class Screenshot {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    private String url;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id")
     private Game game;
 
-    @Column(nullable = false)
-    private String url;
-
-    // constructors, getters, setters, etc.
+    // getters and setters
 }

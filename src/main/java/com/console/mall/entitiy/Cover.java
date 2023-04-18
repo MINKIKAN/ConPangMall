@@ -7,10 +7,20 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "covers")
+@Getter
+@Setter
 public class Cover {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "url")
     private String url;
 
-    // getter and setter
+    @OneToOne
+    @JoinColumn(name = "game_id")
+    private Game game;
+
+    // constructors, getters, setters, etc.
 }
