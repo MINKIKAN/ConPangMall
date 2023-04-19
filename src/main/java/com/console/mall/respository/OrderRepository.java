@@ -30,5 +30,21 @@ public class OrderRepository {
                                    //"SELECT i FROM Order o JOIN o.list oi JOIN oi.item i WHERE o.member.id = :memberId"
 
 
+//    System.out.println("repo = "+orderId);
+
+    public void deleteById(Long orderId){
+        // 오더 아이템 삭제 쿼리
+        String deleteOrderItemQuery = "delete from OrderItem oi where oi.order.id = :id";
+        em.createQuery(deleteOrderItemQuery)
+                .setParameter("id", (int)(long)orderId)
+                .executeUpdate();
+
+        // 오더 삭제 쿼리
+        String deleteOrderQuery = "delete from Order o where o.id = :id";
+        em.createQuery(deleteOrderQuery)
+                .setParameter("id", (int)(long)orderId)
+                .executeUpdate();
+    }
+
 //
 }

@@ -124,6 +124,20 @@ p.notice_title { font-size: 36px; margin: 20px auto; }
     font-family: Arial, sans-serif;
 }
 
+.notice_index {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px; /* 행의 높이 */
+}
+
+.accordion-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 50px; /* 행의 높이 */
+}
+
 .notice_area {
     max-width: 800px;
     margin: 0 auto;
@@ -131,8 +145,12 @@ p.notice_title { font-size: 36px; margin: 20px auto; }
 }
 
 .notice_title {
-    font-size: 24px;
+    height: 30px; /* 원하는 높이로 조정 */
+    line-height: 30px; /* 높이와 동일한 값으로 설정 */
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .notice_index,

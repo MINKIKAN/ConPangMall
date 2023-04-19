@@ -54,5 +54,9 @@ public class OrderService {
         return orderRepository.findByMemberId(memberId);
     }
 
+    public void deleteOrder(Long orderId) {
+        System.out.println("service"+orderId);
+        orderRepository.deleteById(orderId);
+    }
 
 }

@@ -48,18 +48,22 @@
                         </div>
                         <div th:each="board,index : ${list}" class="accordion-item">
                             <div class="accordion-header">
-                                <button class="accordion-button collapsed d-flex align-items-center" type="button" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse'+${board.getId()}" aria-expanded="false">
-                                    <div class="notice_num" th:text="${index.count}"></div>
-                                    <div class="notice_title" th:text="${board.getTitle()}"></div>
-                                    <div class="notice_writer" th:text="${board.getWriter()}"></div>
-                                    <div class="notice_date" th:text="${#temporals.format(board.getDate(), 'yyyy-MM-dd HH:mm:ss')}"></div>
-                                    <button th:if="${session.id == 'admin'}" type="button" class="btn btn-danger" th:attr="onclick='deleteNotice('+${board.getId()}+')'" style="font-size: 8px;">삭제</button>
-                                    <script>
-                                        function deleteNotice(boardId) {
-                                            location.href = '/notice/delete?boardId=' + boardId;
-                                        }
-                                    </script>
-                                </button>
+                                <div class="d-flex justify-content-between align-items-center w-100">
+                                    <button class="accordion-button collapsed d-flex align-items-center" type="button" data-bs-toggle="collapse" th:attr="data-bs-target='#collapse'+${board.getId()}" aria-expanded="false">
+                                        <div class="notice_num" th:text="${index.count}"></div>
+                                        <div class="notice_title" th:text="${board.getTitle()}"></div>
+                                        <div class="notice_writer" th:text="${board.getWriter()}"></div>
+                                        <div class="notice_date" th:text="${#temporals.format(board.getDate(), 'yyyy-MM-dd HH:mm:ss')}"></div>
+                                    </button>
+                                    <div class="d-flex align-items-center">
+                                        <button th:if="${session.id == 'admin'}" type="button" class="btn btn-danger" th:attr="onclick='deleteNotice('+${board.getId()}+')'" style="font-size: 8px;">삭제</button>
+                                    </div>
+                                </div>
+                                <script>
+                                    function deleteNotice(boardId) {
+                                        location.href = '/notice/delete?boardId=' + boardId;
+                                    }
+                                </script>
                             </div>
 
                             <div th:id="'collapse' + ${board.getId()}" class="accordion-collapse collapse" data-bs-parent="#noticeAccordion">
