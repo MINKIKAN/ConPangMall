@@ -76,7 +76,7 @@ td {
     margin: 0;
     padding: 0;
     border: 0;
-    vertical-align: top;
+    /*vertical-align: top;*/
     background: transparent;
 }
 
@@ -3979,7 +3979,7 @@ ul.items_list .items_box .item_price p.price {
 }
 .pagination-box {
     width: 50%;
-    height: 200px;
+    /*height: 200px;*/
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -3988,4 +3988,13 @@ ul.items_list .items_box .item_price p.price {
     color: crimson;
     border:1px solid #222;
     padding: 5px;
+}
+
+.pagination-lg .page-link{
+    font-size: 15px;
+    background: none;
+    border: none;
+}
+.pagination-box a:hover{
+    text-decoration: none;
 }

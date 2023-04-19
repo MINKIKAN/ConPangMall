@@ -74,35 +74,60 @@
 
                 </div>
             </div>
+            <div class="pagination pagination-lg">
+
+                <ul class="pagination-box">
+                    <!-- 이전 페이지 링크 -->
+                    <li class="page-link" th:if="${pagination.page > pagination.pageSize}">
+                        <a th:href="@{/item/prev(page=${pagination.startPage - 1}, totalPages=${pagination.totalPages}, id=${id})}"><</a>
+                    </li>
+                    <li class="page-link" th:if="${pagination.page > 1}">
+                        <a th:href="@{/item/prev(page=${pagination.page - 1}, totalPages=${pagination.totalPages}, id=${id})}">이전</a>
+                    </li>
+                    <!-- 페이지 번호 링크 -->
+                    <li class="page-item" aria-current="page" th:each="pageNumber : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"
+                        th:class="${pageNumber == pagination.page} ? 'active' : ''">
+                        <a th:href="@{/item(page=${pageNumber}, totalPages=${pagination.totalPages}, id=${id})}"
+                           th:text="${pageNumber}"></a>
+                    </li>
+                    <!-- 다음 페이지 링크 -->
+                    <li class="page-link" th:if="${pagination.page < pagination.totalRecord}">
+                        <a th:href="@{/item(page=${pagination.page + 1}, totalPages=${pagination.totalPages}, id=${id})}">다음</a>
+                    </li>
+                    <li class="page-link" th:if="${pagination.page < pagination.totalRecord}">
+                        <a th:href="@{/item(page=${pagination.endPage + 1}, totalPages=${pagination.totalPages}, id=${id})}">></a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
 </div>
-<div class="pagination pagination-lg">
+<!--<div class="pagination pagination-lg">-->
 
-    <ul class="pagination-box">
-        <!-- 이전 페이지 링크 -->
-        <li class="page-link" th:if="${pagination.page > pagination.pageSize}">
-            <a th:href="@{/item/prev(page=${pagination.startPage - 1}, totalPages=${pagination.totalPages}, id=${id})}"><</a>
-        </li>
-        <li class="page-link" th:if="${pagination.page > 1}">
-            <a th:href="@{/item/prev(page=${pagination.page - 1}, totalPages=${pagination.totalPages}, id=${id})}">이전</a>
-        </li>
-        <!-- 페이지 번호 링크 -->
-        <li class="page-item" aria-current="page" th:each="pageNumber : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"
-            th:class="${pageNumber == pagination.page} ? 'active' : ''">
-            <a th:href="@{/item(page=${pageNumber}, totalPages=${pagination.totalPages}, id=${id})}"
-               th:text="${pageNumber}"></a>
-        </li>
-        <!-- 다음 페이지 링크 -->
-        <li class="page-link" th:if="${pagination.page < pagination.totalRecord}">
-            <a th:href="@{/item(page=${pagination.page + 1}, totalPages=${pagination.totalPages}, id=${id})}">다음</a>
-        </li>
-        <li class="page-link" th:if="${pagination.page < pagination.totalRecord}">
-            <a th:href="@{/item(page=${pagination.endPage + 1}, totalPages=${pagination.totalPages}, id=${id})}">></a>
-        </li>
-    </ul>
-</div>
+<!--    <ul class="pagination-box">-->
+<!--        &lt;!&ndash; 이전 페이지 링크 &ndash;&gt;-->
+<!--        <li class="page-link" th:if="${pagination.page > pagination.pageSize}">-->
+<!--            <a th:href="@{/item/prev(page=${pagination.startPage - 1}, totalPages=${pagination.totalPages}, id=${id})}"><</a>-->
+<!--        </li>-->
+<!--        <li class="page-link" th:if="${pagination.page > 1}">-->
+<!--            <a th:href="@{/item/prev(page=${pagination.page - 1}, totalPages=${pagination.totalPages}, id=${id})}">이전</a>-->
+<!--        </li>-->
+<!--        &lt;!&ndash; 페이지 번호 링크 &ndash;&gt;-->
+<!--        <li class="page-item" aria-current="page" th:each="pageNumber : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"-->
+<!--            th:class="${pageNumber == pagination.page} ? 'active' : ''">-->
+<!--            <a th:href="@{/item(page=${pageNumber}, totalPages=${pagination.totalPages}, id=${id})}"-->
+<!--               th:text="${pageNumber}"></a>-->
+<!--        </li>-->
+<!--        &lt;!&ndash; 다음 페이지 링크 &ndash;&gt;-->
+<!--        <li class="page-link" th:if="${pagination.page < pagination.totalRecord}">-->
+<!--            <a th:href="@{/item(page=${pagination.page + 1}, totalPages=${pagination.totalPages}, id=${id})}">다음</a>-->
+<!--        </li>-->
+<!--        <li class="page-link" th:if="${pagination.page < pagination.totalRecord}">-->
+<!--            <a th:href="@{/item(page=${pagination.endPage + 1}, totalPages=${pagination.totalPages}, id=${id})}">></a>-->
+<!--        </li>-->
+<!--    </ul>-->
+<!--</div>-->
 <!-- 바디 부분 끝 -->
 
 </div>

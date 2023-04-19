@@ -90,7 +90,7 @@
                             <option th:each="category : ${categoryList}" th:value="${category.id}"
                                     th:text="${category.name}"></option>
                         </select>
-                        <input type="button" onclick="itemAdd(form)" value="등록"/>
+                        <input class="itemAddBtn" type="button" onclick="itemAdd(form)" value="등록"/>
                         </div>
                     </form>
                 </div>
