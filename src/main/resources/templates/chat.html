@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Chat Room</title>
+    <div th:replace="fragments/header :: header" />
+    <link rel="stylesheet" href="/css/notice.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl7/1L_dstPt3HV5HzF6Gvk/e3s2R1s1e+c1od3y+u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -18,22 +21,74 @@
         }
     </style>
 </head>
-<body>
 
-<div>
-    <h1>Chat Room - Room ID: <span th:text="${roomId}"></span></h1>
-    <ul id="chatLog">
-        <p th:each="cm : ${list}" th:text="${cm.getContent()}"></p>
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- 왼쪽 사이드 바 시작 -->
+    <!-- th:replace로 templates안에 fragments 폴더안에 side_bar.html 받아오게 함 -->
+    <!-- 수정할 내용은 side_bar.html 에서 해주시면 다 적용됩니다 -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <div th:replace="fragments/side_bar :: side_bar" />
     </ul>
+    <!-- 왼쪽 사이드 바 끝 -->
+
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- 상단의 nav 바 시작 -->
+            <!-- 이것도 수정하실거 있으시면 fragments 폭더에 nav_bar 수정해주시면 됩니다 -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <div th:replace="fragments/nav_bar :: nav_bar" />
+            </nav>
+            <!-- 상단의 nav 바 끝 -->
+
+            <!-- 바디 보여주는 부분 시작 -->
+            <div class="container-fluid">
+                <div>
+                    <h1><span th:text="${roomId}"> 님의 회원문의</span></h1>
+                    <ul id="chatLog">
+                        <p th:each="cm : ${list}" th:text="${cm.getContent()}"></p>
+                    </ul>
+                </div>
+
+                <div>
+                    <form id="messageForm">
+                        <input type="text" id="message" name="message">
+                        <button type="submit" class="send_btn">Send</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- 바디 보여주는 부분 끝 -->
+        </div>
+
+
+
+        <!-- Footer 시작-->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2020</span>
+                </div>
+            </div>
+        </footer>
+        <!-- Footer 끝 -->
+
+    </div>
+
 </div>
 
-<div>
-    <form id="messageForm">
-        <input type="text" id="message" name="message">
-        <button type="submit" class="send_btn">Send</button>
-    </form>
-</div>
-
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
 <script type="text/javascript" th:inline="javascript">
     $(document).ready(function () {
         let roomId = /*[[${roomId}]]*/ '';
@@ -48,12 +103,18 @@
         }
 
         stompClient.connect({}, function (frame) {
+            joinChatMessage();
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/chatting/' + roomId, function (message) {
                 showMessage(JSON.parse(message.body));
             });
         });
-
+        function joinChatMessage() {
+            stompClient.send('/app/chatting/' +  roomId, {}, JSON.stringify({
+                'type' : 'JOIN',
+                'senderId' : memberId
+            }));
+        }
 
         $('#messageForm').on('submit', function (e) {
             e.preventDefault();
@@ -66,9 +127,30 @@
                 $('#message').val('');
             }
         });
+        window.onbeforeunload = function() {
+            // 서버에게 LEAVE 메시지 전송
+            stompClient.send("/app/chatting/" + roomId, {}, JSON.stringify({
+                senderId: memberId,
+                type: 'EXIT'
+            }));
+            // WebSocket 연결 종료
+            stompClient.disconnect();
+        }
     });
 </script>
+<!-- Logout Modal-->
+<div th:replace="fragments/logout :: logout"/>
+
+<!-- Bootstrap core JavaScript-->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/js/sb-admin-2.min.js"></script>
 
 </body>
-</html>
 
+</html>

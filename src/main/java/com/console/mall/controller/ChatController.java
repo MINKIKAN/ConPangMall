@@ -46,39 +46,25 @@ public class ChatController {
 
     @MessageMapping("/chatting/{roomId}")
     public void send(@DestinationVariable("roomId") String roomId, ChatMessage chatMessage) {
-        chatService.save(chatMessage);
-        messagingTemplate.convertAndSend("/topic/chatting/" + roomId, chatMessage);
+
+        if (chatMessage.getType() == ChatMessage.MessageType.JOIN) { // 새로운 사용자가 접속했을 경우
+            ChatMessage joinMessage = new ChatMessage();
+            joinMessage.setType(ChatMessage.MessageType.CHAT);
+            joinMessage.setSenderId(chatMessage.getSenderId());
+            joinMessage.setContent(chatMessage.getSenderId() + "님이 들어왔습니다.");
+            messagingTemplate.convertAndSend("/topic/chatting/" + roomId, joinMessage);
+        } else if (chatMessage.getType() == ChatMessage.MessageType.EXIT){ // 일반적인 채팅 메시지인 경우
+            ChatMessage leaveMessage = new ChatMessage();
+            leaveMessage.setType(ChatMessage.MessageType.CHAT);
+            leaveMessage.setSenderId(chatMessage.getSenderId());
+            leaveMessage.setContent(chatMessage.getSenderId() + "님이 나갔습니다.");
+            messagingTemplate.convertAndSend("/topic/chatting/" + roomId, leaveMessage);
+        } else {
+            chatService.save(chatMessage);
+            messagingTemplate.convertAndSend("/topic/chatting/" + roomId, chatMessage);
+        }
     }
 
-//    @MessageMapping("/chatting/{roomId}")
-//    public void subscribe(@DestinationVariable("roomId") String roomId, ChatMessage chatMessage) {
-//        messagingTemplate.convertAndSend("/topic/" + roomId, chatMessage);
-//    }
-//    @MessageMapping("/chat/admin/{userId}")
-//    public void joinChatRoom(@PathVariable String userId, @Payload Chat chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-//        if (chatRooms.get(userId).size() == 0) {
-//            List<String> userList = new ArrayList<>();
-//            userList.add("admin");
-//            chatRooms.put(userId, userList); // 채팅방 ID 생성
-//        } else {
-//            chatRooms.get(userId).add("admin");
-//            Chat joinMessage = new Chat();
-//            joinMessage.setType(Chat.MessageType.JOIN);
-//            joinMessage.setRoomId(chatMessage.getRoomId());
-//            joinMessage.setSender(chatMessage.getSender());
-//            joinMessage.setContent("관리자 님이 채팅방에 참여하였습니다.");
-//            messagingTemplate.convertAndSendToUser(userId, "/queue/chat", joinMessage);
-//        }
-//        headerAccessor.getSessionAttributes().put("userId", userId);
-//
-//
-//        // WebSocket 세션에 사용자 ID를 등록합니다.
-//
-//        // 채팅방에 사용자를 추가합니다.
-//
-//        // 모든 참여자에게 채팅방에 새로운 사용자가 참여했음을 알립니다.
-//
-//    }
 
 }
 

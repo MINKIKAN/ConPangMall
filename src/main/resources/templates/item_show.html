@@ -78,6 +78,16 @@
     </div>
 
 </div>
+<script>
+    function pagination(pageNumber) {
+        $.ajax ({
+            url : "/item/pagination",
+            data : {
+                "page" : pageNumber
+            }
+        })
+    }
+</script>
 <div class="pagination pagination-lg">
 
     <ul class="pagination-box">
@@ -91,7 +101,7 @@
         <!-- 페이지 번호 링크 -->
         <li class="page-item" aria-current="page" th:each="pageNumber : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"
             th:class="${pageNumber == pagination.page} ? 'active' : ''">
-            <a th:href="@{/item(page=${pageNumber}, totalPages=${pagination.totalPages}, id=${id})}"
+            <a onclick="pagination(this.value)" th:value="${pageNumber}"
                th:text="${pageNumber}"></a>
         </li>
         <!-- 다음 페이지 링크 -->

@@ -19,6 +19,7 @@ import org.springframework.web.util.UriUtils;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -114,17 +115,15 @@ public class ItemController {
                                @RequestParam("category_id") Long id) throws IOException {
 
         byte[] bytes = file.getBytes();
-        String fileName = UriUtils.encode(file.getOriginalFilename(), StandardCharsets.UTF_8);
-        String root = System.getProperty("user.dir");
-        System.out.println("root = " + root);
-        Path path = Paths.get(root + "/src/main/resources/static/img/" + fileName.replace("\\", "/"));
+        String decodedFileName = URLDecoder.decode(file.getOriginalFilename(), StandardCharsets.UTF_8);
+        Path path = Paths.get("src/main/resources/static/img/" + decodedFileName.replace("\\", "/"));
         Files.write(path, bytes);
 
         Item item = new Item();
         item.setName(name);
         item.setPrice(price);
         item.setStockQuantity(stockQuantity);
-        item.setImage("/img/" + fileName);
+        item.setImage("/img/" + decodedFileName);
         item.setItemInfo(itemInfo);
         item.setItemVideo(itemVideo);
         Category category = categoryService.findOneCategory(id);
@@ -160,5 +159,4 @@ public class ItemController {
         model.addAttribute("id", id);
         return "item_show";
     }
-
 }
