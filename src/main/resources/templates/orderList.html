@@ -88,9 +88,9 @@
                             }
                         }
                     </script>
-                    <div class="btn_area">
-                        <button class="select_all">전체선택</button>
-                    </div>
+<!--                    <div class="btn_area">-->
+<!--                        <button class="select_all">전체선택</button>-->
+<!--                    </div>-->
                     <ul class="cart_list accordion" id="orderAccordion">
                         <li class="cart_index">
                             <!--                            <div class="cart_img">이미지</div>-->
@@ -126,7 +126,7 @@
                                     <div class="order_content_name" th:text="${orderItem.getItem().getName()}"></div>
                                     <div class="order_content_price"th:text="${orderItem.getItem().getPrice()+'원'}"></div>
                                     <div class="order_content_img"><img th:src="${orderItem.getItem().getImage()}" /></div>
-                                    <div></div>
+<!--                                    <div></div>-->
                                 </div>
                             </div>
                         </li>

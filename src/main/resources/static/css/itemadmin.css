@@ -69,5 +69,8 @@ button:active {
 .category input,
 #category {
     height: 30px;
-    width: 50px;
+    /*width: 50px;*/
+}
+.itemAddBtn{
+    margin-left:10px;
 }
