@@ -78,7 +78,6 @@ public class MemberController {
         Member member = memberService.findId(id);
         UpdateForm form = new UpdateForm();
 
-
         form.setName(member.getName());
         form.setCity(member.getAddress().getCity());
         form.setStreet(member.getAddress().getStreet());
@@ -91,9 +90,25 @@ public class MemberController {
     }
     @PostMapping("/members/updateForm")
     public String update(HttpSession session,@ModelAttribute("form") UpdateForm form,BindingResult result) {
-        
+
         String id = (String) session.getAttribute("id");
-        memberService.update(id,form.getName(),form.getCity(),form.getStreet(),form.getZipcode(),form.getEmail(),form.getPhone(),form.getPw());
+// 이메일 유효성 검사
+        if (!form.getEmail().matches("/^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$/")) {
+            result.rejectValue("email", "invalidEmail", "올바른 이메일 주소를 입력해주세요.");
+            return "members/updateForm";
+        }
+
+        // 핸드폰번호 유효성 검사
+        if (!form.getPhone().matches("01[016789]-\\d{3,4}-\\d{4}")) {
+            result.rejectValue("phone", "invalidPhone", "올바른 핸드폰 번호를 입력해주세요.");
+            return "members/updateForm";
+        }
+        // 비밀번호 유효성 검사
+        if (form.getPw().length() < 2 || form.getPw().length() > 5) {
+            result.rejectValue("pw", "invalidPw", "비밀번호는 2자 이상 5자 이하로 입력해주세요.");
+            return "members/updateForm";
+        }
+        memberService.update(id, form.getName(), form.getCity(), form.getStreet(), form.getZipcode(), form.getEmail(), form.getPhone(), form.getPw());
 
         return "redirect:/";
 

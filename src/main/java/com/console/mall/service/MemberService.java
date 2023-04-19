@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -95,6 +96,8 @@ public class MemberService {
     @Transactional
     public void update(String id, String name, String city, String street, String zipcode, String email, String phone, String pw) {
         Member member = memberRepository.findId(id);
+
+
         Address address = new Address(city, street, zipcode);
         member.setName(name);
         member.setAddress(address);
