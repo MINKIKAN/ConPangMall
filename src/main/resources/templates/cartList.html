@@ -115,7 +115,7 @@
                             <div class="cart_del">삭제</div>
                         </li>
                         <li class="cart_items" th:each="cartItem: ${cart.getList()}">
-                            <form onsubmit="return false;">
+                            <form onsubmit="return false;" style="display: flex; justify-content:space-between; align-items:center; width:100%;">
                                 <div class="cart_img"><img th:src="${cartItem.getItem().getImage()}"></img></div>
                                 <div class="cart_title" th:text="${cartItem.getItem().getName()}"></div>
                                 <div class="cart_price" th:text="${cartItem.getItem().getPrice()}"></div>
