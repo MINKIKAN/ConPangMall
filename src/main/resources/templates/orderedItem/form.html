@@ -51,19 +51,16 @@
               <div class="cart_price">가격</div>
               <div class="cart_del">리뷰쓰기</div>
             </li>
-            <div class="ordered_items">
-              <div th:each="order : ${itemList}">
-                <div th:id="'collapse' + ${order.getId()}" >
-                  <div class="order_content" th:each="orderItem : ${order.getList()}">
-                    <div class="cart_img"><img th:src="${orderItem.getItem().getImage()}"/></div>
-                    <div class="cart_title" th:text="${orderItem.getItem().getName()}"></div>
-                    <div class="cart_price" th:text="${orderItem.getItem().getPrice()}"></div>
-                    <div class="" id="getId" name="itemId" th:value="${orderItem.getItem().getId()}"/>
-                    <button class="reivew_add" >리뷰쓰기</button>
-                  </div>
+            <li class="ordered_items" th:each="order : ${itemList}">
+                <div class="order_content" th:each="orderItem : ${order.getList()}">
+                  <div class="cart_img"><img th:src="${orderItem.getItem().getImage()}"/></div>
+                  <div class="cart_title" th:text="${orderItem.getItem().getName()}"></div>
+                  <div class="cart_price" th:text="${orderItem.getItem().getPrice()}"></div>
+                    <button class="reivew_add" th:onclick="|addItemId(${orderItem.getItem().getId()})|">리뷰쓰기</button>
                 </div>
-              </div>
-            </div>
+
+
+
 
 
 
@@ -94,7 +91,7 @@
           <textarea id="content_notice" name="content" placeholder="내용을 입력하세요" required></textarea>
         </div>
         <div>
-          <input type="hidden" id="itemid" name="itemId" value="#getid"/>
+          <input type="hidden" id="itemId" name="itemId" value="#getid"/>
           <button type="button" onclick="submitNoticeForm(this.form)">리뷰작성</button>
           <button class="cancel_btn">취소</button>
         </div>
