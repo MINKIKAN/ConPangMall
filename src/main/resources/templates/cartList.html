@@ -89,89 +89,89 @@
 
 
                         }
-                        // function addOrder(cartId) {
-                        //     $(".buy_btn").attr("disabled", true);
-                        //     alert("cartId : " + cartId);
-                        //     $.ajax ({
-                        //         url : "/orders/add",
-                        //         type : "POST",
-                        //         data : {"cartId" : cartId},
-                        //         success : function() {
-                        //             $(".buy_btn").attr("disabled", false);
-                        //             location.reload();
+                        function addOrder(cartId) {
+                            $(".buy_btn").attr("disabled", true);
+                            alert("cartId : " + cartId);
+                            $.ajax ({
+                                url : "/orders/add",
+                                type : "POST",
+                                data : {"cartId" : cartId},
+                                success : function() {
+                                    $(".buy_btn").attr("disabled", false);
+                                    location.reload();
+                                },
+                                error : function() {alert('ajax error')}
+                            })
+                        }
+                        // async function addOrder(memberId) {
+                        //     // AJAX 요청으로 서버에서 필요한 정보를 가져옴
+                        //     $.ajax({
+                        //         url: "/orders/add",
+                        //         type: "POST",
+                        //         data: { "memberId": memberId },
+                        //         success: async function (data) {
+                        //             // 서버에서 받아온 정보를 사용하여 결제 요청 구성
+                        //             const response = await Bootpay.requestPayment({
+                        //                 application_id: "643ed04b755e27001ce57cdc",
+                        //                 price: data.totalPrice,
+                        //                 order_name: data.orderName,
+                        //                 order_id: data.newOrderId,
+                        //                 user: {
+                        //                     id: memberId,
+                        //                     username: data.member.name,
+                        //                     phone: data.member.phone,
+                        //                     email: data.member.email,
+                        //                 },
+                        //                 items: data.cartItems.map(item => ({
+                        //                     id: item.item.id,
+                        //                     name: item.item.name,
+                        //                     qty: 1, // 임의로 1로 설정, 필요하면 서버에서 제공하는 값을 사용하세요.
+                        //                     price: item.item.price,
+                        //                 })),
+                        //                 extra: {
+                        //                     open_type: "iframe",
+                        //                     card_quota: "0,2,3",
+                        //                     escrow: false,
+                        //                 },
+                        //             });
                         //         },
-                        //         error : function() {alert('ajax error')}
-                        //     })
+                        //         success: function (data) {
+                        //             // 결제 완료 시 처리
+                        //             console.log('결제 성공');
+                        //             console.log(data);
+                        //             verifyPayment(data.receipt_id);
+                        //         },
+                        //         fail: function (data) {
+                        //             // 결제 실패 시 처리
+                        //             console.log('결제 실패');
+                        //             console.log(data);
+                        //         },
+                        //         cancel: function (data) {
+                        //             // 결제 취소 시 처리
+                        //             console.log('결제 취소');
+                        //             console.log(data);
+                        //         },
+                        //     });
                         // }
-                        async function addOrder(memberId) {
-                            // AJAX 요청으로 서버에서 필요한 정보를 가져옴
-                            $.ajax({
-                                url: "/orders/add",
-                                type: "POST",
-                                data: { "memberId": memberId },
-                                success: async function (data) {
-                                    // 서버에서 받아온 정보를 사용하여 결제 요청 구성
-                                    const response = await Bootpay.requestPayment({
-                                        application_id: "643ed04b755e27001ce57cdc",
-                                        price: data.totalPrice,
-                                        order_name: data.orderName,
-                                        order_id: data.newOrderId,
-                                        user: {
-                                            id: memberId,
-                                            username: data.member.name,
-                                            phone: data.member.phone,
-                                            email: data.member.email,
-                                        },
-                                        items: data.cartItems.map(item => ({
-                                            id: item.item.id,
-                                            name: item.item.name,
-                                            qty: 1, // 임의로 1로 설정, 필요하면 서버에서 제공하는 값을 사용하세요.
-                                            price: item.item.price,
-                                        })),
-                                        extra: {
-                                            open_type: "iframe",
-                                            card_quota: "0,2,3",
-                                            escrow: false,
-                                        },
-                                    });
-                                },
-                                success: function (data) {
-                                    // 결제 완료 시 처리
-                                    console.log('결제 성공');
-                                    console.log(data);
-                                    verifyPayment(data.receipt_id);
-                                },
-                                fail: function (data) {
-                                    // 결제 실패 시 처리
-                                    console.log('결제 실패');
-                                    console.log(data);
-                                },
-                                cancel: function (data) {
-                                    // 결제 취소 시 처리
-                                    console.log('결제 취소');
-                                    console.log(data);
-                                },
-                            });
-                        }
-                        function verifyPayment(receiptId) {
-                            $.ajax({
-                                url: '/payment/verify',
-                                type: 'POST',
-                                data: { receipt_id: receiptId },
-                                success: function (response) {
-                                    if (response === 'success') {
-                                        // 결제 검증 성공 처리
-                                        console.log('결제 검증 성공');
-                                    } else {
-                                        // 결제 검증 실패 처리
-                                        console.log('결제 검증 실패');
-                                    }
-                                },
-                                error: function () {
-                                    console.log('서버 에러');
-                                },
-                            });
-                        }
+                        // function verifyPayment(receiptId) {
+                        //     $.ajax({
+                        //         url: '/payment/verify',
+                        //         type: 'POST',
+                        //         data: { receipt_id: receiptId },
+                        //         success: function (response) {
+                        //             if (response === 'success') {
+                        //                 // 결제 검증 성공 처리
+                        //                 console.log('결제 검증 성공');
+                        //             } else {
+                        //                 // 결제 검증 실패 처리
+                        //                 console.log('결제 검증 실패');
+                        //             }
+                        //         },
+                        //         error: function () {
+                        //             console.log('서버 에러');
+                        //         },
+                        //     });
+                        // }
                     </script>
                     <div class="btn_area">
                         <button class="select_all">전체선택</button>
