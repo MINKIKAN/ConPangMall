@@ -39,20 +39,18 @@
                     <p class="cart_title">주문목록</p>
                     <script>
 
-                        function deleteCart(id) {
-                            $(".cart_del").attr("disabled", true);
-                            $.ajax({
-                                url: "/carts/delete",
-                                data: { "id": id },
-                                type: "POST",
-                                success: function () {
-                                    $(".cart_del").attr("disabled", false);
-                                    location.reload();
-                                }
-                            });
-
-
-                        }
+                        // function deleteCart(id) {
+                        //     $(".cart_del").attr("disabled", true);
+                        //     $.ajax({
+                        //         url: "/carts/delete",
+                        //         data: { "id": id },
+                        //         type: "POST",
+                        //         success: function () {
+                        //             $(".cart_del").attr("disabled", false);
+                        //             location.reload();
+                        //         }
+                        //     });
+                        // }
 
                         function addOrder(cartId) {
                             $(".buy_btn").attr("disabled", true);
@@ -70,6 +68,24 @@
                                 }
                             })
 
+
+                        }
+
+                        function deleteOrder(orderId) {
+                            // alert("orderId : " + orderId);
+                            if (confirm("해당 주문을 삭제하시겠습니까?")) {
+                                $.ajax({
+                                    url: "/orders/delete",
+                                    type: "POST",
+                                    data: { "id": orderId+"" },
+                                    success: function () {
+                                        location.reload();
+                                    },
+                                    error: function () {
+                                        alert('ajax error')
+                                    }
+                                })
+                            }
                         }
                     </script>
                     <div class="btn_area">
