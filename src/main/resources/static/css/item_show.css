@@ -3995,6 +3995,21 @@ ul.items_list .items_box .item_price p.price {
     background: none;
     border: none;
 }
-.pagination-box a:hover{
+a:hover{
     text-decoration: none;
 }
+.items_list a {
+    color: black;
+
+}
+.items_list .items_box{
+    display: flex;
+    flex-direction: column;
+}
+.items_list .items_box .item_name .item_txt01 a{
+    widh:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+

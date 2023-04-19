@@ -80,7 +80,7 @@
     height: 5%;
     display: flex;
     justify-content: space-around;
-    align-items: space-evenly;
+    align-items: center;
 }
 .product-member-ship-box {
     width: 80%;
