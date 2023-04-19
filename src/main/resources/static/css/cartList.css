@@ -51,7 +51,7 @@ p.cart_title {
     text-align: center;
 }
 
-.cart_items a {
+.cart_items form {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -64,7 +64,7 @@ p.cart_title {
     /*flex-grow: 3;*/
 }
 
-.cart_items a div {
+.cart_items form div {
     width: 200px;
     text-align: center;
 }

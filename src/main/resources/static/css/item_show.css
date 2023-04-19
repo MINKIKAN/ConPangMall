@@ -3912,11 +3912,13 @@ ul.items_list .items_box .item_name {
 
 ul.items_list .items_box .img_box a {
     display: block;
+    min-height:165px;
 }
 
 ul.items_list .items_box .img_box a img {
     max-width: 100%;
-    object-fit: contain;
+    width: 100%;
+    object-fit: cover;
 }
 
 ul.items_list .items_box .item_name {
@@ -3983,5 +3985,7 @@ ul.items_list .items_box .item_price p.price {
     align-items: center;
 }
 .pagination-box > .active {
-    color: blue;
+    color: crimson;
+    border:1px solid #222;
+    padding: 5px;
 }

@@ -130,7 +130,7 @@ p.notice_title { font-size: 36px; margin: 20px auto; }
     padding: 30px 0;
 }
 
-.notice_title {
+.notice_area > .notice_title {
     font-size: 24px;
     font-weight: bold;
 }
