@@ -30,8 +30,4 @@ public class Order {
     private Member member;
 
     private int totalPrice;
-
-
-
-
 }
