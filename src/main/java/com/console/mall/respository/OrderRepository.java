@@ -3,12 +3,10 @@ package com.console.mall.respository;
 import com.console.mall.entitiy.Item;
 import com.console.mall.entitiy.Order;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -23,7 +21,7 @@ public class OrderRepository {
     }
 
     public List<Item> findByMemberId(Long memberId) {
-        return em.createQuery("SELECT i FROM Order o JOIN o.list oi JOIN oi.item i  WHERE o.member.id = :memberId", Item.class)
+        return em.createQuery("SELECT i FROM Member m, Order o, OrderItem oi, Item i WHERE m.id = o.member.id AND o.id = oi.order.id AND oi.item.id = i.id AND m.id = :memberId", Item.class)
                 .setParameter("memberId", memberId)
                 .getResultList();
     }
