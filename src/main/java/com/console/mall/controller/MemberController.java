@@ -93,7 +93,7 @@ public class MemberController {
 
         String id = (String) session.getAttribute("id");
 // 이메일 유효성 검사
-        if (!form.getEmail().matches("/^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$/")) {
+        if (!form.getEmail().matches("^[a-zA-Z0-9+-\\_.]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+$")) {
             result.rejectValue("email", "invalidEmail", "올바른 이메일 주소를 입력해주세요.");
             return "members/updateForm";
         }

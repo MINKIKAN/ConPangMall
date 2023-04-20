@@ -16,7 +16,7 @@ public class UpdateForm {
         private String city;
         private String street;
         private String zipcode;
-        @Pattern(regexp="/^([a-z0-9_\\.-]+)@([\\da-z\\.-]+)\\.([a-z\\.]{2,6})$/",message = "올바른 이메일주소를 입력해주세요.")
+
         private String email;
 
         private String phone;
