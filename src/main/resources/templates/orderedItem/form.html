@@ -51,29 +51,25 @@
               <div class="cart_price">가격</div>
               <div class="cart_del">리뷰쓰기</div>
             </li>
-            <li class="ordered_items" th:each="order : ${itemList}">
-                <div class="order_content" th:each="orderItem : ${order.getList()}">
-                  <div class="cart_img"><img th:src="${orderItem.getItem().getImage()}"/></div>
-                  <div class="cart_title" th:text="${orderItem.getItem().getName()}"></div>
-                  <div class="cart_price" th:text="${orderItem.getItem().getPrice()}"></div>
-                    <button class="reivew_add" th:onclick="|addItemId(${orderItem.getItem().getId()})|">리뷰쓰기</button>
-                </div>
-
-
-
-
-
-
-
-
-
           </ul>
-        </div>
+          <div class="cart_list">
+            <ul>
+              <li th:each="item : ${itemList}">
+                <div class="ordered_items">
 
+                    <div class="order_content">
+                      <div class="cart_img"><img th:src="${item.getImage()}"/></div>
+                      <div class="cart_title" th:text="${item.getName()}"></div>
+                      <div class="cart_price" th:text="${item.getPrice()}"></div>
+                      <button class="reivew_add" th:onclick="|addItemId(${item.getId()})|">리뷰쓰기</button>
+                    </div>
 
-      </div>
-    </div>
-    <!-- 바디 부분 시작 -->
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 바디 부분 시작 -->
     <div class="modal-wrapper" style="display: none;">
     <div class="add_notice">
       <h1>리뷰 작성</h1>

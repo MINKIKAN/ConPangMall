@@ -1,12 +1,10 @@
 package com.console.mall.entitiy;
 
-import com.console.mall.dto.MemberDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
@@ -29,6 +27,4 @@ public class Member {
     @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
     private Cart cart;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Order> list = new ArrayList<>();
 }
