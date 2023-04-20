@@ -1,9 +1,6 @@
 package com.console.mall.service;
 
-import com.console.mall.entitiy.Cart;
-import com.console.mall.entitiy.Item;
-import com.console.mall.entitiy.Member;
-import com.console.mall.entitiy.Order;
+import com.console.mall.entitiy.*;
 import com.console.mall.respository.CartRepository;
 import com.console.mall.respository.MemberRepository;
 import com.console.mall.respository.OrderRepository;
@@ -11,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -28,18 +26,18 @@ public class OrderService {
         Order order = new Order();
         order.setMember(member);
 
+        List<OrderItem> orderItemList = new ArrayList<>();
+        for (CartItem ci : cart.getList()) {
+            OrderItem orderItem = new OrderItem();
+            orderItem.setItem(ci.getItem());
+            orderItem.setOrder(order);
+            orderItemList.add(orderItem);
+        }
+        order.setList(orderItemList);
+        order.setTotalPrice(cart.getTotalPrice());
+        List<CartItem> cartItemList = new ArrayList<>();
+        cart.setList(cartItemList);
 
-//        List<OrderItem> orderItemList = new ArrayList<>();
-//        for (CartItem ci : cart.getList()) {
-//            OrderItem orderItem = new OrderItem();
-//            orderItem.setItem(ci.getItem());
-//            orderItem.setOrder(order);
-//            orderItemList.add(orderItem);
-//        }
-//        order.setList(orderItemList);
-//        order.setTotalPrice(cart.getTotalPrice());
-//        List<CartItem> cartItemList = new ArrayList<>();
-//        cart.setList(cartItemList);
         cartRepository.deleteAll(cart.getId());
         orderRepository.save(order);
     }

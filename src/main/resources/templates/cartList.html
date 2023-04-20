@@ -5,6 +5,8 @@
     <div th:replace="fragments/header :: header" />
     <link rel="stylesheet" href="/css/cartList.css">
     <script src="https://js.bootpay.co.kr/bootpay-4.3.1.min.js" type="application/javascript"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script type="text/javascript" src="/js/address.js" defer></script>
 </head>
 
 <body id="page-top">
@@ -89,13 +91,12 @@
 
 
                         }
-                        function addOrder(cartId) {
+                        function addOrder(memberId) {
                             $(".buy_btn").attr("disabled", true);
-                            alert("cartId : " + cartId);
                             $.ajax ({
                                 url : "/orders/add",
                                 type : "POST",
-                                data : {"cartId" : cartId},
+                                data : {"memberId" : memberId},
                                 success : function() {
                                     $(".buy_btn").attr("disabled", false);
                                     location.reload();
@@ -173,9 +174,7 @@
                         //     });
                         // }
                     </script>
-                    <div class="btn_area">
-                        <button class="select_all">전체선택</button>
-                    </div>
+
                     <ul class="cart_list">
                         <li class="cart_index">
                             <div class="cart_img">이미지</div>
@@ -207,26 +206,46 @@
                             <button class="change_btn">배송지 변경</button>
                         </div>
                     </div>
+                    <script>
+                        function addUpdate(form) {
+                            $.ajax({
+                                url : '/member/address',
+                                type : 'POST',
+                                data : {
+                                    'address' : form.address.value,
+                                    'zipcode' : form.zipcode.value,
+                                    'street' : form.street.value
+                                },
+                                success : function(){
+                                    $('.modal-wrapper').css({
+                                        'display': 'none'
+                                    });
+                                    location.reload();
+                                    console.log('ok')},
+                                error : function() {alert('error')}
+                            })
+                        }
+                    </script>
                     <div class="modal-wrapper" style="display: none;">
-                    <div class="address_popup">
+                    <form class="address_popup" onsubmit="return false;">
 
-<!--                        <div class="add_pop_txt03">-->
-<!--                            <label for="1">주소</label>-->
-<!--                            <input type="text" name="" id="a">-->
-<!--                        </div>-->
-<!--                        <div class="add_pop_txt04">-->
-<!--                            <label for="1">상세주소</label>-->
-<!--                            <input type="text" name="" id="a">-->
-<!--                        </div>-->
-<!--                        <div class="add_pop_txt05">-->
-<!--                            <label for="1">메모</label>-->
-<!--                            <input type="text" name="" id="a">-->
-<!--                        </div>-->
+                        <div class="add_pop_txt03">
+                            <button id="city-btn" name="city-btn" readonly onclick="findAddr()">주소찾기</button>
+                            <input id="address" name="address" type="text" class="form-control" placeholder="주소를 입력하세요">
+                        </div>
+                        <div class="add_pop_txt04">
+                            <label for="zipcode">우편번호</label>
+                            <input type="text" name="zipcode" id="zipcode" readonly>
+                        </div>
+                        <div class="add_pop_txt05">
+                            <label for="street">상세주소</label>
+                            <input type="text" name="street" id="street">
+                        </div>
                         <div class="pop_btn_area">
-                            <button class="edit_btn">수정</button>
+                            <button class="edit_btn" onclick="addUpdate(form)">수정</button>
                             <button class="cancel_btn">취소</button>
                         </div>
-                    </div>
+                    </form>
 
                 </div>
                 </div>

@@ -26,7 +26,7 @@ public class OrderApiController {
     private final MemberService memberService;
 
     @PostMapping("/add")
-    public String addOrder(@RequestParam("cartId") Long memberId, Model model) {
+    public String addOrder(@RequestParam("memberId") Long memberId, Model model) {
         orderService.saveOrder(memberId);
         return null;
     }

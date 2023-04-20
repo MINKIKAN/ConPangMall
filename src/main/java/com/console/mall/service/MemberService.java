@@ -107,7 +107,9 @@ public class MemberService {
 
         memberRepository.save(member);
     }
-
+    public void save(Member member) {
+        memberRepository.save(member);
+    }
 
 
     public Cart findByCart(String id) {

@@ -1,6 +1,7 @@
 package com.console.mall.api;
 
 import com.console.mall.dto.MemberDTO;
+import com.console.mall.entitiy.Address;
 import com.console.mall.entitiy.Cart;
 import com.console.mall.entitiy.Member;
 import com.console.mall.service.MemberService;
@@ -61,87 +62,23 @@ public class MemberApiController {
 
         return null;
     }
+    @PostMapping("/address")
+    public String addUpdate(@RequestParam("street") String street,
+                            @RequestParam("zipcode") String zipcode,
+                            @RequestParam("address") String city,
+                            HttpSession session) {
+        Member member = memberService.findId((String)session.getAttribute("id"));
+        Address newAddress = new Address(city,street,zipcode);
+        System.out.println(newAddress.toString());
+        System.out.println(newAddress.toString());
+        System.out.println(newAddress.toString());
+        System.out.println(newAddress.toString());
+        System.out.println(newAddress.toString());
+        System.out.println(newAddress.toString());
+        member.setAddress(newAddress);
+        memberService.save(member);
 
-
-    @PostMapping("/v1/members")
-    // requset -> json -> 객체  return 객체 -> json
-    public CreateMemberResponse saveMemberV1(@RequestBody Member member) {
-        Long id = memberService.join(member);
-        return new CreateMemberResponse(id);
+        return null;
     }
-
-    @Data
-    @AllArgsConstructor
-    static class CreateMemberResponse {
-        private Long id;
-    }
-
-    @PostMapping("/v2/members")
-    // requset -> json -> 객체  return 객체 -> json
-    public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request, Model model) {
-        Member member = new Member();
-        member.setName(request.getName());
-        member.setEmail(request.getEmail());
-        member.setLogin_id(request.getLogin_id());
-        member.setPw(request.getPw());
-        member.setPhone(request.getPhone());
-        Long id = memberService.join(member);
-        return new CreateMemberResponse(id);
-    }
-
-    @Data
-    static class CreateMemberRequest {
-        @NotBlank(message = "이름입력 필수")
-        private String name;
-        @NotBlank(message = "이메일입력 필수")
-        private String email;
-        @NotBlank(message = "아이디입력 필수")
-        private String login_id;
-        @NotBlank(message = "비밀번호입력 필수")
-        private String pw;
-        @NotBlank(message = "핸드폰번호입력 필수")
-        private String phone;
-
-        @ConstructorProperties({"name", "email", "login_id", "pw", "phone"})
-        public CreateMemberRequest(String name, String email, String login_id, String pw, String phone) {
-            this.name = name;
-            this.email = email;
-            this.login_id = login_id;
-            this.pw = pw;
-            this.phone = phone;
-        }
-    }
-
-
-    @Data
-    static class UpdateMemberRequest {
-        @NotBlank(message = "이름입력 필수")
-        private String name;
-        private String email;
-        private String login_id;
-        private String pw;
-        private String phone;
-
-        @ConstructorProperties({"name", "email", "login_id", "pw", "phone"})
-        public UpdateMemberRequest(String name, String email, String login_id, String pw, String phone) {
-            this.name = name;
-            this.email = email;
-            this.login_id = login_id;
-            this.pw = pw;
-            this.phone = phone;
-        }
-    }
-
-    @Data
-    @AllArgsConstructor
-    static class UpdateMemberResponse {
-        private Long id;
-        private String name;
-        private String email;
-        private String login_id;
-        private String pw;
-        private String phone;
-    }
-
 
 }
