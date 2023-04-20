@@ -39,4 +39,3 @@ server:
       spring:
         thymeleaf:
           prefix: classpath:/templates/
-

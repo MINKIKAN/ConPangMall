@@ -192,14 +192,6 @@
                     <ul style="list-style: none;">
                       <li th:each="platform : ${game.platforms}" th:text="${platform.name}"></li>
                     </ul>
-                    <h6>게임모드:</h6>
-                    <ul th:if="${game.gameModes != null}">
-                      <li th:each="gameMode : ${game.gameModes}" th:text="${gameMode.name}"></li>
-                    </ul>
-                    <h6>제작사:</h6>
-                    <ul th:if="${game.involvedCompanies != null}">
-                      <li th:each="involvedCompany : ${game.involvedCompanies}" th:text="${involvedCompany.company.name}"></li>
-                    </ul>
                     <h6>게임 요약:</h6>
                     <p th:text="${game.summary}"></p>
                     <h6>Screenshots:</h6>
