@@ -15,8 +15,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriUtils;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URLDecoder;
@@ -37,20 +39,21 @@ public class ItemController {
     private final ReviewService reviewService;
 
     @GetMapping("/item")
-    public String itemShow(@RequestParam(value = "id") Long id,
-                           @RequestParam(value = "page", defaultValue = "0") int page,
-                           @RequestParam(value = "total", defaultValue = "0") Long totalPages,
-                           Model model) {
-        if (totalPages == 0) {
-            totalPages = (itemService.allCount(id));
-        }
+    public String itemShow(@RequestParam(value = "id") Long id, Model model, HttpSession session) {
 
-        PaginationDTO paginationDTO = new PaginationDTO(page, totalPages);
-        List<Item> itemList = itemService.findAllItem(id, paginationDTO);
+        List<Item> itemList = itemService.findAllItem(id);
 
-        model.addAttribute("itemList", itemList);
+        session.setAttribute("itemList", itemList);
+        PaginationDTO paginationDTO = new PaginationDTO(1, itemList.size());
         model.addAttribute("pagination", paginationDTO);
-        model.addAttribute("id", id);
+
+        return "item_show";
+    }
+
+    @GetMapping("/item/pagination")
+    public String pagination(@RequestParam("page") int page, @RequestParam("totalPages") int totalPages, Model model) {
+        PaginationDTO paginationDTO = new PaginationDTO(page, totalPages);
+        model.addAttribute("pagination", paginationDTO);
         return "item_show";
     }
 
@@ -133,30 +136,4 @@ public class ItemController {
         return null;
     }
 
-
-    @GetMapping("/item/prev")
-    public String itemPrev(@RequestParam(value = "id") Long id,
-                           @RequestParam(value = "page", defaultValue = "0") int page,
-                           @RequestParam(value = "total", defaultValue = "0") Long totalPages,
-                           Model model) {
-
-        PaginationDTO paginationDTO = new PaginationDTO(page, totalPages);
-        List<Item> itemList = itemService.findAllItem(id, paginationDTO);
-        int pageSize = paginationDTO.getPageSize();
-        int startPage = 0;
-        if (page / pageSize == 0 || page == pageSize) {
-            page--;
-        }
-        startPage = page / pageSize * pageSize + 1;
-
-        int endPage = startPage + pageSize - 1;
-        paginationDTO.setPage(page);
-        paginationDTO.setStartPage(startPage);
-        paginationDTO.setEndPage(endPage);
-
-        model.addAttribute("itemList", itemList);
-        model.addAttribute("pagination", paginationDTO);
-        model.addAttribute("id", id);
-        return "item_show";
-    }
 }

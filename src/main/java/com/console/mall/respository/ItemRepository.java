@@ -23,11 +23,9 @@ public class ItemRepository {
         return em.find(Item.class,id);
     }
 
-    public List<Item> getList(Long id, int start, int recordSize) {
+    public List<Item> getList(Long id) {
         List<Item> itemList = em.createQuery("select i from Item i Join i.category c where c.id = :id", Item.class)
                 .setParameter("id", id)
-                .setFirstResult(start)
-                .setMaxResults(recordSize)
                 .getResultList();
         return itemList;
     }

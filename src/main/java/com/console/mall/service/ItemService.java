@@ -27,10 +27,8 @@ public class ItemService {
         return item;
     }
 
-    public List<Item> findAllItem(Long id, PaginationDTO paginationDTO) {
-        int start = paginationDTO.getOffset();
-        int recordSize = paginationDTO.getRecordSize();
-        return itemRepository.getList(id, start , recordSize);
+    public List<Item> findAllItem(Long id) {
+        return itemRepository.getList(id);
     }
 
     public Long allCount(Long id) {

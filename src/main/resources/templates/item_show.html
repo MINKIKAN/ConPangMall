@@ -12,132 +12,103 @@
 
 <!-- Page Wrapper -->
 <div id="wrapper">
-
-    <!-- 왼쪽 사이드 바 시작 -->
-    <!-- th:replace로 templates안에 fragments 폴더안에 side_bar.html 받아오게 함 -->
-    <!-- 수정할 내용은 side_bar.html 에서 해주시면 다 적용됩니다 -->
-    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-        <div th:replace="fragments/side_bar :: side_bar"/>
-
-    </ul>
-    <!-- 왼쪽 사이드 바 끝 -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
-        <!-- Main Content -->
-        <div id="content">
-
-            <!-- 상단의 nav 바 시작 -->
-            <!-- 이것도 수정하실거 있으시면 fragments 폭더에 nav_bar 수정해주시면 됩니다 -->
-            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <div th:replace="fragments/nav_bar :: nav_bar"/>
-            </nav>
-            <!-- 상단의 nav 바 끝 -->
-
-            <!-- 바디 부분 시작 -->
+    <th:block th:with="itemList = ${#session.getAttribute('itemList')}">
 
 
-            <div class="container-fluid">
-                <div class="right_contents hover_box" id="goods_list">
+        <!-- 왼쪽 사이드 바 시작 -->
+        <!-- th:replace로 templates안에 fragments 폴더안에 side_bar.html 받아오게 함 -->
+        <!-- 수정할 내용은 side_bar.html 에서 해주시면 다 적용됩니다 -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-                    <div class="boxed-list-wrapper">
+            <div th:replace="fragments/side_bar :: side_bar"/>
 
-                        <!-- 현재 페이지 번호 -->
-                        <ul class="items_list">
-                            <li class="items_box"
-                                th:each="item : ${itemList}">
-                                <div class="img_box" id="dataTable">
-                                    <a class="img-block"
-                                       th:href="@{/item/info/{id}(id=${item.id})}">
-                                        <img class="lazyload lazy" th:src="${item.image}"
-                                             style="display: block;">
-                                    </a>
-                                </div>
-                                <div class="item_name">
-                                    <p class="item_txt01"><a
-                                            th:href="@{/item/info/{id}(id=${item.id})}"
-                                            th:text="${item.name}"></a></p>
-<!--                                    <p class="item_txt02">부가설명</p>-->
-                                </div>
-                                <div class="item_price">
-                                    <p class="price" th:text="${item.price}"></p>
-                                    원
-                                </div>
-                            </li>
-                        </ul>
+        </ul>
+        <!-- 왼쪽 사이드 바 끝 -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- 상단의 nav 바 시작 -->
+                <!-- 이것도 수정하실거 있으시면 fragments 폭더에 nav_bar 수정해주시면 됩니다 -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <div th:replace="fragments/nav_bar :: nav_bar"/>
+                </nav>
+                <!-- 상단의 nav 바 끝 -->
+
+                <!-- 바디 부분 시작 -->
+
+
+                <div class="container-fluid">
+                    <div class="right_contents hover_box" id="goods_list">
+
+                        <div class="boxed-list-wrapper">
+
+                            <!-- 현재 페이지 번호 -->
+                            <ul class="items_list">
+                                <li class="items_box" th:each="item, iterStat : ${itemList}"
+                                    th:if="${iterStat.index >= pagination.getStartIdx() and iterStat.index <= pagination.getEndIdx()}">
+                                    <div class="img_box" id="dataTable">
+                                        <a class="img-block"
+                                           th:href="@{/item/info/{id}(id=${item.getId()})}">
+                                            <img class="lazyload lazy" th:src="${item.getImage()}"
+                                                 style="display: block;">
+                                        </a>
+                                    </div>
+                                    <div class="item_name">
+                                        <p class="item_txt01"><a
+                                                th:href="@{/item/info/{id}(id=${item.getId()})}"
+                                                th:text="${item.getName()}"></a></p>
+                                        <!--                                    <p class="item_txt02">부가설명</p>-->
+                                    </div>
+                                    <div class="item_price">
+                                        <p class="price" th:text="${item.getPrice()}"></p>
+                                        원
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- 페이지 번호 링크 -->
+
+
                     </div>
+                </div>
+                <div class="pagination pagination-lg">
 
-                    <!-- 페이지 번호 링크 -->
-
-
+                    <ul class="pagination-box">
+                        <!-- 이전 페이지 링크 -->
+                        <li class="page-link" th:if="${pagination.getPage() > pagination.getPageSize()}">
+                            <a th:href="@{/item/pagination(page=${pagination.getStartPage()} - 1, totalPages=${pagination.getTotalPages()})}"><</a>
+                        </li>
+                        <li class="page-link" th:if="${pagination.getPage() > 1}">
+                            <a th:href="@{/item/pagination(page=${pagination.getPage()} - 1, totalPages=${pagination.getTotalPages()})}">이전</a>
+                        </li>
+                        <!-- 페이지 번호 링크 -->
+                        <li class="page-item" aria-current="page"
+                            th:each="pageNumber : ${#numbers.sequence(pagination.getStartPage(), pagination.getEndPage())}"
+                            th:class="${pageNumber == pagination.getPage()} ? 'active' : ''">
+                            <a th:href="@{/item/pagination(page=${pageNumber}, totalPages=${pagination.getTotalPages()})}"
+                               th:text="${pageNumber}"></a>
+                        </li>
+                        <!-- 다음 페이지 링크 -->
+                        <li class="page-link" th:if="${pagination.getPage() < pagination.getTotalRecord()}">
+                            <a th:href="@{/item/pagination(page=${pagination.getPage()} + 1, totalPages=${pagination.getTotalPages()})}">다음</a>
+                        </li>
+                        <li class="page-link"
+                            th:if="${pagination.getPage() < pagination.getTotalRecord() and pagination.getTotalRecord() > pagination.getPageSize()}">
+                            <a th:href="@{/item/pagination(page=${pagination.getEndPage()} + 1, totalPages=${pagination.getTotalPages()})}">></a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-            <div class="pagination pagination-lg">
-
-                <ul class="pagination-box">
-                    <!-- 이전 페이지 링크 -->
-                    <li class="page-link" th:if="${pagination.page > pagination.pageSize}">
-                        <a th:href="@{/item/prev(page=${pagination.startPage - 1}, totalPages=${pagination.totalPages}, id=${id})}"><</a>
-                    </li>
-                    <li class="page-link" th:if="${pagination.page > 1}">
-                        <a th:href="@{/item/prev(page=${pagination.page - 1}, totalPages=${pagination.totalPages}, id=${id})}">이전</a>
-                    </li>
-                    <!-- 페이지 번호 링크 -->
-                    <li class="page-item" aria-current="page" th:each="pageNumber : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"
-                        th:class="${pageNumber == pagination.page} ? 'active' : ''">
-                        <a th:href="@{/item(page=${pageNumber}, totalPages=${pagination.totalPages}, id=${id})}"
-                           th:text="${pageNumber}"></a>
-                    </li>
-                    <!-- 다음 페이지 링크 -->
-                    <li class="page-link" th:if="${pagination.page < pagination.totalRecord}">
-                        <a th:href="@{/item(page=${pagination.page + 1}, totalPages=${pagination.totalPages}, id=${id})}">다음</a>
-                    </li>
-                    <li class="page-link" th:if="${pagination.page < pagination.totalRecord}">
-                        <a th:href="@{/item(page=${pagination.endPage + 1}, totalPages=${pagination.totalPages}, id=${id})}">></a>
-                    </li>
-                </ul>
-            </div>
         </div>
-    </div>
-
+    </th:block>
 </div>
-<script>
-    function pagination(pageNumber) {
-        $.ajax ({
-            url : "/item/pagination",
-            data : {
-                "page" : pageNumber
-            }
-        })
-    }
-</script>
-<div class="pagination pagination-lg">
 
-    <ul class="pagination-box">
-        <!-- 이전 페이지 링크 -->
-        <li class="page-link" th:if="${pagination.page > pagination.pageSize}">
-            <a th:href="@{/item/prev(page=${pagination.startPage - 1}, totalPages=${pagination.totalPages}, id=${id})}"><</a>
-        </li>
-        <li class="page-link" th:if="${pagination.page > 1}">
-            <a th:href="@{/item/prev(page=${pagination.page - 1}, totalPages=${pagination.totalPages}, id=${id})}">이전</a>
-        </li>
-        <!-- 페이지 번호 링크 -->
-        <li class="page-item" aria-current="page" th:each="pageNumber : ${#numbers.sequence(pagination.startPage, pagination.endPage)}"
-            th:class="${pageNumber == pagination.page} ? 'active' : ''">
-            <a onclick="pagination(this.value)" th:value="${pageNumber}"
-               th:text="${pageNumber}"></a>
-        </li>
-        <!-- 다음 페이지 링크 -->
-        <li class="page-link" th:if="${pagination.page < pagination.totalRecord}">
-            <a th:href="@{/item(page=${pagination.page + 1}, totalPages=${pagination.totalPages}, id=${id})}">다음</a>
-        </li>
-        <li class="page-link" th:if="${pagination.page < pagination.totalRecord}">
-            <a th:href="@{/item(page=${pagination.endPage + 1}, totalPages=${pagination.totalPages}, id=${id})}">></a>
-        </li>
-    </ul>
-</div>
+
 <!--<div class="pagination pagination-lg">-->
 
 <!--    <ul class="pagination-box">-->
