@@ -2,9 +2,9 @@
 <html lang="en">
 
 <head>
-    <div th:replace="fragments/header :: header" />
+    <div th:replace="fragments/header :: header"/>
     <link rel="stylesheet" href="/css/cartList.css">
-    <script src="https://js.bootpay.co.kr/bootpay-4.3.1.min.js" type="application/javascript"></script>
+
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script type="text/javascript" src="/js/address.js" defer></script>
 </head>
@@ -19,7 +19,7 @@
     <!-- 수정할 내용은 side_bar.html 에서 해주시면 다 적용됩니다 -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <div th:replace="fragments/side_bar :: side_bar" />
+        <div th:replace="fragments/side_bar :: side_bar"/>
     </ul>
     <!-- 왼쪽 사이드 바 끝 -->
 
@@ -32,13 +32,13 @@
             <!-- 상단의 nav 바 시작 -->
             <!-- 이것도 수정하실거 있으시면 fragments 폭더에 nav_bar 수정해주시면 됩니다 -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-                <div th:replace="fragments/nav_bar :: nav_bar" />
+                <div th:replace="fragments/nav_bar :: nav_bar"/>
             </nav>
             <!-- 상단의 nav 바 끝 -->
 
             <script>
-                $(function() {
-                    $("#btnLoadGames").click(function() {
+                $(function () {
+                    $("#btnLoadGames").click(function () {
                         $.ajax({
                             url: "https://api.igdb.com/v4/artworks",
                             type: "POST",
@@ -50,7 +50,7 @@
                             data: {
                                 "fields": "alpha_channel,animated,checksum,game,height,image_id,url,width;"
                             },
-                            success: function(response) {
+                            success: function (response) {
                                 var games = response.data;
                                 for (var i = 0; i < games.length; i++) {
                                     var game = games[i];
@@ -63,7 +63,7 @@
                                     }
                                 }
                             },
-                            error: function(error) {
+                            error: function (error) {
                                 console.log(error);
                             }
                         });
@@ -75,15 +75,16 @@
 
                 <div class="cart_area">
                     <p class="cart_title">장바구니</p>
-                    <script>
+                    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+                    <script th:inline="javascript">
 
                         function deleteCart(id) {
                             $(".cart_del").attr("disabled", true);
-                            $.ajax ({
-                                url : "/carts/delete",
-                                data : {"id": id },
-                                type : "POST",
-                                success : function() {
+                            $.ajax({
+                                url: "/carts/delete",
+                                data: {"id": id},
+                                type: "POST",
+                                success: function () {
                                     $(".cart_del").attr("disabled", false);
                                     location.reload();
                                 }
@@ -91,88 +92,9 @@
 
 
                         }
-                        function addOrder(memberId) {
-                            $(".buy_btn").attr("disabled", true);
-                            $.ajax ({
-                                url : "/orders/add",
-                                type : "POST",
-                                data : {"memberId" : memberId},
-                                success : function() {
-                                    $(".buy_btn").attr("disabled", false);
-                                    location.reload();
-                                },
-                                error : function() {alert('ajax error')}
-                            })
-                        }
-                        // async function addOrder(memberId) {
-                        //     // AJAX 요청으로 서버에서 필요한 정보를 가져옴
-                        //     $.ajax({
-                        //         url: "/orders/add",
-                        //         type: "POST",
-                        //         data: { "memberId": memberId },
-                        //         success: async function (data) {
-                        //             // 서버에서 받아온 정보를 사용하여 결제 요청 구성
-                        //             const response = await Bootpay.requestPayment({
-                        //                 application_id: "643ed04b755e27001ce57cdc",
-                        //                 price: data.totalPrice,
-                        //                 order_name: data.orderName,
-                        //                 order_id: data.newOrderId,
-                        //                 user: {
-                        //                     id: memberId,
-                        //                     username: data.member.name,
-                        //                     phone: data.member.phone,
-                        //                     email: data.member.email,
-                        //                 },
-                        //                 items: data.cartItems.map(item => ({
-                        //                     id: item.item.id,
-                        //                     name: item.item.name,
-                        //                     qty: 1, // 임의로 1로 설정, 필요하면 서버에서 제공하는 값을 사용하세요.
-                        //                     price: item.item.price,
-                        //                 })),
-                        //                 extra: {
-                        //                     open_type: "iframe",
-                        //                     card_quota: "0,2,3",
-                        //                     escrow: false,
-                        //                 },
-                        //             });
-                        //         },
-                        //         success: function (data) {
-                        //             // 결제 완료 시 처리
-                        //             console.log('결제 성공');
-                        //             console.log(data);
-                        //             verifyPayment(data.receipt_id);
-                        //         },
-                        //         fail: function (data) {
-                        //             // 결제 실패 시 처리
-                        //             console.log('결제 실패');
-                        //             console.log(data);
-                        //         },
-                        //         cancel: function (data) {
-                        //             // 결제 취소 시 처리
-                        //             console.log('결제 취소');
-                        //             console.log(data);
-                        //         },
-                        //     });
-                        // }
-                        // function verifyPayment(receiptId) {
-                        //     $.ajax({
-                        //         url: '/payment/verify',
-                        //         type: 'POST',
-                        //         data: { receipt_id: receiptId },
-                        //         success: function (response) {
-                        //             if (response === 'success') {
-                        //                 // 결제 검증 성공 처리
-                        //                 console.log('결제 검증 성공');
-                        //             } else {
-                        //                 // 결제 검증 실패 처리
-                        //                 console.log('결제 검증 실패');
-                        //             }
-                        //         },
-                        //         error: function () {
-                        //             console.log('서버 에러');
-                        //         },
-                        //     });
-                        // }
+
+
+
                     </script>
 
                     <ul class="cart_list">
@@ -183,17 +105,20 @@
                             <div class="cart_del">삭제</div>
                         </li>
                         <li class="cart_items" th:each="cartItem: ${cart.getList()}">
-                            <form onsubmit="return false;" style="display: flex; justify-content:space-between; align-items:center; width:100%;">
+                            <form onsubmit="return false;"
+                                  style="display: flex; justify-content:space-between; align-items:center; width:100%;">
                                 <div class="cart_img"><img th:src="${cartItem.getItem().getImage()}"></img></div>
                                 <div class="cart_title" th:text="${cartItem.getItem().getName()}"></div>
                                 <div class="cart_price" th:text="${cartItem.getItem().getPrice()}"></div>
-                                <div class="cart_del"><button th:onclick="|deleteCart(${cartItem.getId()})|">삭제</button></div>
+                                <div class="cart_del">
+                                    <button th:onclick="|deleteCart(${cartItem.getId()})|">삭제</button>
+                                </div>
                             </form>
                         </li>
                     </ul>
                     <div class="total_area">
                         <p class="total_price">총 금액 : <span th:text="${cart.getTotalPrice()}"></span> 원</p>
-<!--                        <button class="buy_btn" th:onclick="|addOrder(${cart.getMember().getId()})|">구매하기</button>-->
+                        <!--                        <button class="buy_btn" th:onclick="|addOrder(${cart.getMember().getId()})|">구매하기</button>-->
                         <button class="buy_btn" th:onclick="|addOrder(${cart.getMember().getId()})|">구매하기</button>
                     </div>
 
@@ -201,60 +126,115 @@
                     <div class="address_cheek">
                         <p class="address_title">배송지 확인</p>
                         <div class="address_area" th:with="member = ${cart.getMember()}">
-                            <div class="address_txt01">주소 : <span th:text="${member.getAddress().getCity() + member.getAddress().getStreet()}"></span> </div>
-                            <div class="address_txt02">상세주소 : <span th:text="${member.getAddress().getZipcode()}"></span> </div>
+                            <script th:inline="javascript">
+                                function addOrder(memberId) {
+                                    let itemName = $('.cart_title').text();
+                                    let itemPrice = $('.total_price').text();
+                                    let name = [[${member.getName()}]];
+                                    let email = [[${member.getEmail()}]];
+                                    let tel = [[${member.getPhone()}]];
+                                    let addr = [[${member.getAddress().getCity}]] + [[${member.getAddress().getStreet}]];
+                                    let postcode = [[${member.getAddress().getZipcode}]];
+                                    IMP.init('imp05754678'); //iamport 대신 자신의 "가맹점 식별코드"를 사용
+                                    IMP.request_pay({
+                                        pg: "kcp.A52CY",
+                                        pay_method: "card",
+                                        merchant_uid: 'merchant_' + new Date().getTime(),
+                                        name: itemName,
+                                        amount: itemPrice,
+                                        buyer_email: email,
+                                        buyer_name: name,
+                                        buyer_tel: tel,
+                                        buyer_addr: addr,
+                                        buyer_postcode: postcode
+                                    }, function (rsp) {
+                                        console.log(rsp);
+                                        if (rsp.success) {
+                                            $(".buy_btn").attr("disabled", true);
+                                            $.ajax({
+                                                url: "/orders/add",
+                                                type: "POST",
+                                                data: {"memberId": memberId},
+                                                success: function () {
+                                                    alert('결제가 완료되었습니다.');
+                                                    $(".buy_btn").attr("disabled", false);
+                                                    location.reload();
+                                                },
+                                                error: function () {
+                                                    alert('ajax error')
+                                                }
+                                            })
+                                        } else {
+                                            var msg = '결제에 실패하였습니다.';
+                                            msg += '에러내용 : ' + rsp.error_msg;
+                                            alert(msg);
+                                        }
+                                    })
+
+                                }
+
+                            </script>
+                            <div class="address_txt01">주소 : <span
+                                    th:text="${member.getAddress().getCity() + member.getAddress().getStreet()}"></span>
+                            </div>
+                            <div class="address_txt02">상세주소 : <span
+                                    th:text="${member.getAddress().getZipcode()}"></span></div>
                             <button class="change_btn">배송지 변경</button>
                         </div>
                     </div>
                     <script>
                         function addUpdate(form) {
                             $.ajax({
-                                url : '/member/address',
-                                type : 'POST',
-                                data : {
-                                    'address' : form.address.value,
-                                    'zipcode' : form.zipcode.value,
-                                    'street' : form.street.value
+                                url: '/member/address',
+                                type: 'POST',
+                                data: {
+                                    'address': form.address.value,
+                                    'zipcode': form.zipcode.value,
+                                    'street': form.street.value
                                 },
-                                success : function(){
+                                success: function () {
                                     $('.modal-wrapper').css({
                                         'display': 'none'
                                     });
                                     location.reload();
-                                    console.log('ok')},
-                                error : function() {alert('error')}
+                                    console.log('ok')
+                                },
+                                error: function () {
+                                    alert('error')
+                                }
                             })
                         }
                     </script>
                     <div class="modal-wrapper" style="display: none;">
-                    <form class="address_popup" onsubmit="return false;">
+                        <form class="address_popup" onsubmit="return false;">
 
-                        <div class="add_pop_txt03">
-                            <button id="city-btn" name="city-btn" readonly onclick="findAddr()">주소찾기</button>
-                            <input id="address" name="address" type="text" class="form-control" placeholder="주소를 입력하세요">
-                        </div>
-                        <div class="add_pop_txt04">
-                            <label for="zipcode">우편번호</label>
-                            <input type="text" name="zipcode" id="zipcode" readonly>
-                        </div>
-                        <div class="add_pop_txt05">
-                            <label for="street">상세주소</label>
-                            <input type="text" name="street" id="street">
-                        </div>
-                        <div class="pop_btn_area">
-                            <button class="edit_btn" onclick="addUpdate(form)">수정</button>
-                            <button class="cancel_btn">취소</button>
-                        </div>
-                    </form>
+                            <div class="add_pop_txt03">
+                                <button id="city-btn" name="city-btn" readonly onclick="findAddr()">주소찾기</button>
+                                <input id="address" name="address" type="text" class="form-control"
+                                       placeholder="주소를 입력하세요">
+                            </div>
+                            <div class="add_pop_txt04">
+                                <label for="zipcode">우편번호</label>
+                                <input type="text" name="zipcode" id="zipcode" readonly>
+                            </div>
+                            <div class="add_pop_txt05">
+                                <label for="street">상세주소</label>
+                                <input type="text" name="street" id="street">
+                            </div>
+                            <div class="pop_btn_area">
+                                <button class="edit_btn" onclick="addUpdate(form)">수정</button>
+                                <button class="cancel_btn">취소</button>
+                            </div>
+                        </form>
 
-                </div>
+                    </div>
                 </div>
             </div>
             <!-- 바디 부분 시작 -->
 
             <script>
-                $(function() {
-                    $('.change_btn').click(function() {
+                $(function () {
+                    $('.change_btn').click(function () {
                         // 모달창 띄우기
                         $('.modal-wrapper').css({
                             'display': 'block',
@@ -262,14 +242,14 @@
                         });
                     });
 
-                    $('.cancel_btn').click(function() {
+                    $('.cancel_btn').click(function () {
                         // 모달창 닫기
                         $('.modal-wrapper').css({
                             'display': 'none'
                         });
                     });
 
-                    $('body').on('click', '.edit_btn', function() {
+                    $('body').on('click', '.edit_btn', function () {
                         // 수정 버튼 클릭 시 동작할 코드 작성
                         console.log('수정 버튼 클릭됨');
                     });
